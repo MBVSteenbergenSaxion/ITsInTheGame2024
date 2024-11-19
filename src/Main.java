@@ -1,24 +1,18 @@
 import buttons.*;
 import nl.saxion.app.SaxionApp;
-import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
-public class Main implements GameLoop{
+public class Main extends Canvas{
 
-    public Main() {
-    }
-
-    public static void main(String[] args) {
-        SaxionApp.startGameLoop(new Main(), Settings.width, Settings.height, Settings.ms);
-
+    public Main(){
+        super();
     }
 
     /***
      * Initialize buttons and add their attributes (see MyButton class for the drawing methods)
      *
      */
-
 
     buttons.MyButton gameButton = new MyButton();
     buttons.MyButton leaderBoardButton = new MyButton();
@@ -47,13 +41,7 @@ public class Main implements GameLoop{
 
     @Override
     public void loop() {
-
-        SaxionApp.clear();
-
-        MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Start Game");
-        MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
-        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
-
+        draw();
 
     }
 
@@ -83,6 +71,7 @@ public class Main implements GameLoop{
             if (MyButton.checkBounds(x, y,
                     gameButton.x, gameButton.y, gameButton.width, gameButton.height)) {
 
+                switchToScreen(new Game());
 
             }
 
@@ -96,11 +85,20 @@ public class Main implements GameLoop{
             if (MyButton.checkBounds(x, y,
                     leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height)) {
 
+                 switchToScreen(new Leaderboard());
             }
 
         }
 
     }
+
+    private void draw(){
+
+        MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Start Game");
+        MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
+        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
+
+        }
 
 }
 
