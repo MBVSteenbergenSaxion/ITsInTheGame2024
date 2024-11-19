@@ -1,6 +1,4 @@
-import buttons.*;
-import nl.saxion.app.SaxionApp;
-import nl.saxion.app.interaction.GameLoop;
+import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
@@ -15,9 +13,9 @@ public class Leaderboard extends Canvas{
      *
      */
 
-    buttons.MyButton gameButton = new MyButton();
-    buttons.MyButton leaderBoardButton = new MyButton();
-    buttons.MyButton quitButton = new MyButton();
+    utils.MyButton gameButton = new MyButton();
+    utils.MyButton leaderBoardButton = new MyButton();
+    utils.MyButton quitButton = new MyButton();
 
     @Override
     public void init() {
@@ -93,7 +91,7 @@ public class Leaderboard extends Canvas{
 
     private void draw(){
 
-        MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Game Started");
+        MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Leaderboard");
         MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
 

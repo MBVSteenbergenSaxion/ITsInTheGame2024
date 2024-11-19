@@ -1,4 +1,4 @@
-package buttons;
+package utils;
 
 import nl.saxion.app.SaxionApp;
 

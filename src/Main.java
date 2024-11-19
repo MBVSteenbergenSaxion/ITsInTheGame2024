@@ -1,5 +1,4 @@
-import buttons.*;
-import nl.saxion.app.SaxionApp;
+import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
@@ -14,9 +13,9 @@ public class Main extends Canvas{
      *
      */
 
-    buttons.MyButton gameButton = new MyButton();
-    buttons.MyButton leaderBoardButton = new MyButton();
-    buttons.MyButton quitButton = new MyButton();
+    utils.MyButton gameButton = new MyButton();
+    utils.MyButton leaderBoardButton = new MyButton();
+    utils.MyButton quitButton = new MyButton();
 
 
     @Override
