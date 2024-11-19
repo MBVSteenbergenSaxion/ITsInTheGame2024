@@ -15,7 +15,7 @@ public class Leaderboard extends Canvas{
 
     private int highscore = 1000;
     private String username = "name";
-    
+
     utils.MyButton gameButton = new MyButton();
     utils.MyButton leaderBoardButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
