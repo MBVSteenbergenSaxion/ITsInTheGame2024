@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class Game extends Canvas{
 
+    private Block block;
 
     public Game() {
         super();
@@ -63,8 +64,10 @@ public class Game extends Canvas{
         }
     }
 
+    public void spawnBlock() {
+        block = new Block(new int[][] { {1,0}, {1,0}, {1,1} });
+    }
 
-    
     private void draw(){
 
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
@@ -73,8 +76,8 @@ public class Game extends Canvas{
         GridDraw gridDraw = new GridDraw();
         gridDraw.drawGrid();
 
-        Grid.Block block = new Block();
-        block.drawBlock(Color.RED,  GridSettings.startPanelX, GridSettings.startPanelY);
+        spawnBlock();
+        block.drawBlock(Color.RED);
     }
 
 }
