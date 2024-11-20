@@ -9,7 +9,7 @@ public class BlockRow {
     public static ArrayList<Block> getBlockRow(){
 
         for (int i = 0; i < GridSettings.width; i++) {
-            blocks.add(new Block());
+            //locks.add(new Block());
         }
 
         return blocks;
