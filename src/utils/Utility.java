@@ -45,7 +45,7 @@ public class Utility {
     }
 
     public static boolean checkBounds(int x, int y, int objectX, int objectY, int width, int height){
-        return (x >= objectX && x <= objectX + width) && (y >= objectY && y <= objectY + height);
+        return (x - 4 >= objectX && x - 8  <= objectX + width) && (y + 4 >= objectY && y + 2 <= objectY + height);
     }
 
 }
