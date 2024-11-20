@@ -48,7 +48,7 @@ public class Game extends Canvas{
             x = mouseEvent.getX();
             y = mouseEvent.getY();
 
-            if (MyButton.checkBounds(x, y,
+            if (utils.Utility.checkBounds(x, y,
                     quitButton.x, quitButton.y, quitButton.width, quitButton.height)) {
 
                 switchToScreen(new Main());

@@ -70,20 +70,20 @@ public class Leaderboard extends Canvas{
             x = mouseEvent.getX();
             y = mouseEvent.getY();
 
-            if (MyButton.checkBounds(x, y,
+            if (utils.Utility.checkBounds(x, y,
                     gameButton.x, gameButton.y, gameButton.width, gameButton.height)) {
 
 
             }
 
-            if (MyButton.checkBounds(x, y,
+            if (utils.Utility.checkBounds(x, y,
                     quitButton.x, quitButton.y, quitButton.width, quitButton.height)) {
 
                 System.exit(0);
 
             }
 
-            if (MyButton.checkBounds(x, y,
+            if (utils.Utility.checkBounds(x, y,
                     leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height)) {
 
             }
