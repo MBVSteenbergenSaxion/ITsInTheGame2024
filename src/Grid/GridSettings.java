@@ -11,8 +11,8 @@ public class GridSettings {
     public static int width = 10;
     public static int height = 15;
 
-    public static int startPanelX = SaxionApp.getWidth() / 3;
-    public static int endPanelX = SaxionApp.getWidth() / 3 * 2;
+    public static int startPanelX = screenWidth / 3;
+    public static int endPanelX = screenWidth / 3 * 2;
     public static int widthPanel = endPanelX - startPanelX;
     public static int startPanelY = (int)((double) screenHeight/ 3 - screenHeight * 0.20);
 

@@ -13,13 +13,11 @@ public class Utility {
 
         PointerInfo pointerInfo = MouseInfo.getPointerInfo();
 
-        x = (int) (pointerInfo.getLocation().getX() + locationOfFrame.getX());
-        y = (int) (pointerInfo.getLocation().getY() + locationOfFrame.getY());
-
+        x = (int) (pointerInfo.getLocation().getX() - locationOfFrame.getX());
+        y = (int) (pointerInfo.getLocation().getY() - locationOfFrame.getY());
 
         pointerData[0] = x;
         pointerData[1] = y;
-
 
         return pointerData;
     }
