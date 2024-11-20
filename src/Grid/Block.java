@@ -10,26 +10,54 @@ public class Block {
     private int[][] block = { {1,0}, {1,0}, {1,1} };
 
     private int[][] shape;
-
+    private int x,y;
 
     public Block(int[][] shape) {
         this.shape = shape;
     }
 
-
-
-    public void drawBlock(Color color) {
-        int h = shape.length;
-        int w = shape[0].length;
-
-        for (int r = 0; r < h; r++) {
-            for (int b = 0; b < w; b++) {
-                if(shape[r][b] == 1) {
-                    SaxionApp.setFill(color);
-                    SaxionApp.drawRectangle(GridSettings.blockSize * b + GridSettings.startPanelX, r * GridSettings.blockSize + GridSettings.startPanelY, GridSettings.blockSize, GridSettings.blockSize);
-                }
-            }
-        }
+    public void spawn() {
+        y = -getHeight();
+        x = (GridSettings.width - getWidth()) / 2;
     }
+
+    public int [][] getShape (){
+        return shape;
+    }
+
+    public int getHeight(){
+        return shape.length;
+    }
+
+    public int getWidth(){
+        return shape[0].length;
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void moveDown() {
+        y++;
+    }
+
+    public void moveLeft() {
+        x--;
+    }
+
+    public void moveRight() {
+        x++;
+    }
+
+    public int getBottomEdge() {
+        return y + getHeight();
+    }
+
+
+
 
 }
