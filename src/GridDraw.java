@@ -35,8 +35,6 @@ public class GridDraw {
 
     private void drawBounds(){
 
-
-
     }
 
 
@@ -44,7 +42,6 @@ public class GridDraw {
     private void drawGridSquare(Color color, int x, int y) {
         SaxionApp.setFill(color);
         SaxionApp.drawRectangle(x, y, GridSettings.blockSize, GridSettings.blockSize);
-
     }
 
 

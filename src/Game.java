@@ -1,8 +1,14 @@
+import Grid.Block;
+import Grid.GridSettings;
+import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
+import java.awt.*;
+
 public class Game extends Canvas{
+
 
     public Game() {
         super();
@@ -57,6 +63,8 @@ public class Game extends Canvas{
         }
     }
 
+
+    
     private void draw(){
 
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
@@ -65,6 +73,8 @@ public class Game extends Canvas{
         GridDraw gridDraw = new GridDraw();
         gridDraw.drawGrid();
 
+        Grid.Block block = new Block();
+        block.drawBlock(Color.RED,  GridSettings.startPanelX, GridSettings.startPanelY);
     }
 
 }
