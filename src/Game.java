@@ -12,7 +12,8 @@ import java.util.logging.Logger;
 public class Game extends Canvas{
 
 
-    GridDraw gridDraw = new GridDraw();
+    private GridDraw gd;
+    private GameThread gt;
     /**
      * Default constructor for the Game class.
      *
@@ -20,6 +21,8 @@ public class Game extends Canvas{
      */
     public Game() {
         super();
+        gd = new GridDraw(GridSettings.width);
+
     }
 
     /**
@@ -41,8 +44,6 @@ public class Game extends Canvas{
 
     @Override
     public void init() {
-
-        gridDraw.spawnBlock();
         startGame();
 
         restartButton.x = Settings.width - Settings.width / 4;
@@ -75,7 +76,8 @@ public class Game extends Canvas{
     }
 
     public void startGame() {
-        new GameThread(gridDraw).start();
+        gt = new GameThread(gd);
+        gt.start();
     }
 
     @Override
@@ -121,9 +123,9 @@ public class Game extends Canvas{
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
 
-        gridDraw.drawGrid();
-        GridDraw.repaint();
-
+        gd.drawGrid();
+        gd.drawBackground();
+        gd.repaint();
     }
 
 }
