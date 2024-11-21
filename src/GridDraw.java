@@ -40,6 +40,28 @@ public class GridDraw {
         return true;
     }
 
+    public void moveBlockLeft() {
+        block.moveLeft();
+        repaint();
+    }
+
+    public void moveBlockRight() {
+        block.moveRight();
+        repaint();
+    }
+
+    public void dropBlock() {
+        while (checkBottom() == true) {
+            block.moveDown();
+        }
+        repaint();
+    }
+
+    public void rotateBlock() {
+        block.rotate();
+        repaint();
+    }
+
     private boolean checkBottom() {
         if ( block.getBottomEdge() == gridRows ) {
             return false;
@@ -58,9 +80,9 @@ public class GridDraw {
         Color color = block.getColor();
 
         for (int r = 0; r < h; r++) {
-            for (int b = 0; b < w; b++) {
-                if(shape[r][b] == 1) {
-                    int x = (xPos + b);
+            for (int c = 0; c < w; c++) {
+                if(shape[r][c] == 1) {
+                    int x = (xPos + c);
                     int y = (yPos + r);
                     background[y][x] = color;
                 }
@@ -82,9 +104,9 @@ public class GridDraw {
         int[][] shape = block.getShape();
 
         for (int r = 0; r < h; r++) {
-            for (int b = 0; b < w; b++) {
-                if(shape[r][b] == 1) {
-                    int x = (block.getX() + b) * gridCellSize + GridSettings.startPanelX;
+            for (int c = 0; c < w; c++) {
+                if(shape[r][c] == 1) {
+                    int x = (block.getX() + c) * gridCellSize + GridSettings.startPanelX;
                     int y = (block.getY() + r) * gridCellSize  + GridSettings.startPanelY;
                     drawGridSquare(color, x, y);
                 }
@@ -97,11 +119,11 @@ public class GridDraw {
         Color color;
 
         for (int r = 0; r < GridSettings.height; r++) {
-            for (int b = 0; b < GridSettings.width; b++) {
-                color = background[r][b];
+            for (int c = 0; c < GridSettings.width; c++) {
+                color = background[r][c];
 
                 if (color != null) {
-                    int x = b * GridSettings.blockSize + GridSettings.startPanelX;
+                    int x = c * GridSettings.blockSize + GridSettings.startPanelX;
                     int y = r * GridSettings.blockSize + GridSettings.startPanelY;
                     drawGridSquare(color, x, y);
                 }
@@ -120,9 +142,9 @@ public class GridDraw {
 
         for (int r = 0; r < GridSettings.height; r++) {
 
-            for (int b = 0; b < GridSettings.width; b++) {
+            for (int c = 0; c < GridSettings.width; c++) {
 
-                int x = b * gridCellSize + GridSettings.startPanelX;
+                int x = c * gridCellSize + GridSettings.startPanelX;
                 int y = r * gridCellSize + GridSettings.startPanelY;
 
                 drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
