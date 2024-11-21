@@ -28,7 +28,7 @@ public class Game extends Canvas{
      */
     utils.MyButton restartButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
-    GameThread gameThread  = new GameThread();
+
 
     /**
      * Initializes the restart and quit buttons with their positions and dimensions.
@@ -42,6 +42,7 @@ public class Game extends Canvas{
     @Override
     public void init() {
 
+        GameThread gameThread  = new GameThread();
         gameThread.run();
 
         restartButton.x = Settings.width - Settings.width / 4;
@@ -111,7 +112,7 @@ public class Game extends Canvas{
      * This method creates a new Block object with the specified shape and
      * calls the spawn method to set its initial coordinates.
      */
-    public void spawnBlock() {
+    public static void spawnBlock() {
         int[][] shape = new int[][] { {1,0}, {1,0}, {1,1} };
         block = new Block(shape);
         block.spawn();
@@ -128,16 +129,13 @@ public class Game extends Canvas{
      * as the existing API does not support Graphics directly.
      */
     public void moveBlockDown() {
-        /*
-        Voor wanneer het in de GameThread werkt
 
         if (checkBottom() == false) {
             return;
         }
 
         block.moveDown();
-        repaint(); --> Andere functie hiervoor? Dit is helaas geen Graphics maar Saxion
-        */
+
     }
 
     /**
