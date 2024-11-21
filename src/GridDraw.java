@@ -11,25 +11,25 @@ public class GridDraw {
     public ArrayList<ArrayList<Block>> drawnGrid = Grid.getGrid();
 
 
-    private Block block;
+    private static Block block;
 
     public void spawnBlock() {
         block = new Block(new int[][]{{1,0},{1,0},{1,1}}, Color.RED);
     }
 
-    public void moveBlockDown() {
+    public static void moveBlockDown() {
         block.moveDown();
         repaint();
     }
 
-    public void repaint() {
+    public static void repaint() {
         drawBlock();
     }
 
     /**
      * Draws a block on the screen with the specified color.
      */
-    public void drawBlock() {
+    public static void drawBlock() {
         int h = block.getHeight();
         int w = block.getWidth();
         Color color = block.getColor();
@@ -88,7 +88,7 @@ public class GridDraw {
      * @param color the color to fill the grid square
      * @param x the x-coordinate of the top-left corner of the grid square
      * @param y the y-coordinate of the top-left corner of the*/
-    private void drawGridSquare(Color color, int x, int y) {
+    private static void drawGridSquare(Color color, int x, int y) {
         SaxionApp.setFill(color);
         SaxionApp.drawRectangle(x, y, GridSettings.blockSize, GridSettings.blockSize);
     }

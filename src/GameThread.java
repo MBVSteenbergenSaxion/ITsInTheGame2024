@@ -1,20 +1,23 @@
-// Thread Initialization Example
 import nl.saxion.app.SaxionApp;
-public class GameThread implements Runnable {
+public class GameThread extends Thread {
+
+    public static void main(String[] args) {
+
+    }
+
+    // TODO Straks bepalen hoe we de blokjes resetten en koppelen aan de backend via GridDraw
+    // Bounds zijn er ook niet!
 
     @Override
     public void run() {
-
-//        Game.spawnBlock();
-//        Game.block.moveDown();
-//        SaxionApp.sleep(1);
+        while(true){
+            GridDraw.moveBlockDown();
+            SaxionApp.sleep(1);
+        }
 
     }
 
-    public static void main(String[] args) {
-        Thread myThread = new Thread(new GameThread());
-        myThread.start();
-    }
+
 }
 
 
