@@ -72,6 +72,29 @@ public class GridDraw {
         if ( block.getBottomEdge() == gridRows ) {
             return false;
         }
+
+        int[][] shape = block.getShape();
+        int w = block.getWidth();
+        int h = block.getHeight();
+
+        //Checks first the first column and for that column every row
+        //Then checks second column and for that column every row
+        for (int c = 0; c < w; c++) {
+            //h -1 because of checking from bottom to up
+            for (int r = h - 1; r < h; r--) {
+                if (shape[r][c] != 0) {
+                    int x = (block.getX() + c);
+                    int y = (block.getY() + r + 1);
+                    if (y < 0) {
+                        break;
+                    }
+                    if (background[y][x] != null) {
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
         return true;
     }
 
