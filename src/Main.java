@@ -4,22 +4,28 @@ import nl.saxion.app.interaction.MouseEvent;
 
 public class Main extends Canvas{
 
-    public Main(){
-        super();
-    }
-
     /***
      * Initialize buttons and add their attributes (see MyButton class for the drawing methods)
      *
      */
 
+    public Main(){
+        super();
+    }
+
     utils.MyButton gameButton = new MyButton();
     utils.MyButton leaderBoardButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
 
-
+    /**
+     * Initialize method to initialize:
+     * - Game, leaderboard and quit button with dynamic positioning and dimensions
+     * - It calculates the height and width
+     * - It calculates the x and y coordinates relative to the Settings class
+     * */
     @Override
     public void init() {
+
         gameButton.x = Settings.width / 3;
         gameButton.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
         gameButton.width = Settings.buttonWidth;
@@ -37,7 +43,9 @@ public class Main extends Canvas{
 
 
     }
-
+    /**
+     * Calls the Draw method every frame
+     * */
     @Override
     public void loop() {
         draw();
@@ -84,20 +92,23 @@ public class Main extends Canvas{
             if (utils.Utility.checkBounds(x, y,
                     leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height)) {
 
-                 switchToScreen(new Leaderboard());
+                switchToScreen(new Leaderboard());
             }
 
         }
 
     }
 
+    /**
+     * Draws the game, leaderboard and quit button with dynamic width and height based on the Settings class and MyButton class
+     * */
     private void draw(){
 
         MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Start Game");
         MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
 
-        }
+    }
 
 
 }

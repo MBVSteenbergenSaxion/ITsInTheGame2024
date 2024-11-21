@@ -13,14 +13,31 @@ public class Game extends Canvas{
 
     private Block block;
 
+    /**
+     * Default constructor for the Game class.
+     *
+     * This constructor calls the superclass's constructor to initialize the game canvas.
+     */
     public Game() {
         super();
     }
 
-
+    /**
+     * Creates the two MyButton objects with the names restart and quit
+     * These buttons are used in the Initialize method called init()
+     */
     utils.MyButton restartButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
 
+    /**
+     * Initializes the restart and quit buttons with their positions and dimensions.
+     *
+     * This method sets the coordinates and sizes of the restart and quit buttons by
+     * calculating their positions relative to the canvas dimensions defined in the Settings class.
+     * The restart button is positioned at one-third of the canvas height, while the quit button is
+     * positioned at half the canvas height. Both buttons are placed at a quarter of the canvas width
+     * horizontally.
+     */
     @Override
     public void init() {
         restartButton.x = Settings.width - Settings.width / 4;
@@ -36,6 +53,18 @@ public class Game extends Canvas{
 
     }
 
+    /**
+     * Executes the game loop by invoking the `draw` method.
+     *
+     * This method is a placeholder for the game's main loop which should ideally
+     * handle periodic updates, such as moving game elements and rendering the
+     * game screen. Currently, it only calls the `draw` method to render the game
+     * screen components.
+     *
+     * Note: The commented-out code suggests that the movement logic for the game
+     * elements should reside in a separate game thread. For more information,
+     * refer to the `gamethread` documentation.
+     */
     public void loop() {
         draw();
         /*
@@ -54,6 +83,13 @@ public class Game extends Canvas{
 
     }
 
+    /**
+     * Handles mouse events, primarily focusing on the left mouse button.
+     * If the left mouse button is clicked within the bounds of the 'quitButton',
+     * it triggers a screen switch to the main menu.
+     *
+     * @param mouseEvent the MouseEvent object that contains information about the mouse event
+     */
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
 
@@ -73,11 +109,28 @@ public class Game extends Canvas{
         }
     }
 
+
+    /**
+     * Spawns a new block with a defined shape and initializes its position.
+     * This method creates a new Block object with the specified shape and
+     * calls the spawn method to set its initial coordinates.
+     */
     public void spawnBlock() {
-        block = new Block(new int[][] { {1,0}, {1,0}, {1,1} });
+        int[][] shape = new int[][] { {1,0}, {1,0}, {1,1} };
+        block = new Block(shape);
         block.spawn();
     }
 
+    /**
+     * Moves the current block one step down if possible and triggers a screen repaint.
+     *
+     * This method first checks if moving the block down is allowed by calling the checkBottom() method.
+     * If the block can be moved down (checkBottom() returns true), it invokes the moveDown() method of the block.
+     * After moving the block, it repaints the screen to reflect the new position of the block.
+     *
+     * The repaint functionality is not handled within this method and needs a separate implementation
+     * as the existing API does not support Graphics directly.
+     */
     public void moveBlockDown() {
         /*
         Voor wanneer het in de GameThread werkt
@@ -91,6 +144,9 @@ public class Game extends Canvas{
         */
     }
 
+    /**
+     * Checks bottom, if the bottom is reached boolean is set to false
+     * */
     private boolean checkBottom() {
         if (block.getBottomEdge() == GridSettings.height) {
             return false;
@@ -98,6 +154,11 @@ public class Game extends Canvas{
         return true;
     }
 
+    /**
+     * Draws a block on the screen with the specified color.
+     *
+     * @param color the color to fill the block with
+     */
     public void drawBlock(Color color) {
         int h = block.getHeight();
         int w = block.getWidth();
@@ -116,6 +177,14 @@ public class Game extends Canvas{
         }
     }
 
+
+    /**
+     * Draws the game screen components. This method performs the following actions:
+     *  - Draws the restart and quit buttons with their specified properties.
+     *  - Initializes a grid drawing object and draws the game grid.
+     *  - Calls the spawnBlock method to introduce a new block into the game.
+     *  - Draws the newly spawned block on the screen with the specified color.
+     */
     private void draw(){
 
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
