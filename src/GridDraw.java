@@ -15,11 +15,23 @@ public class GridDraw {
 
     public void spawnBlock() {
         block = new Block(new int[][]{{1,0},{1,0},{1,1}}, Color.RED);
+        block.spawn();
     }
 
-    public static void moveBlockDown() {
+    public void moveBlockDown() {
+        if (checkBottom() ==false) {
+            return;
+        }
+
         block.moveDown();
         repaint();
+    }
+
+    private boolean checkBottom() {
+        if ( block.getBottomEdge() == GridSettings.height ) {
+            return false;
+        }
+        return true;
     }
 
     public static void repaint() {

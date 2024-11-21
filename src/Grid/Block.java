@@ -22,6 +22,11 @@ public class Block {
         this.color = color;
     }
 
+    public void spawn() {
+        y = -getHeight();
+        x = (GridSettings.width - getWidth()) / 2;
+    }
+
     public int[][] getShape() {
         return shape;
     }
@@ -58,5 +63,8 @@ public class Block {
         x++;
     }
 
+    public int getBottomEdge() {
+        return y + getHeight();
+    }
 
 }

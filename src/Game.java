@@ -28,7 +28,6 @@ public class Game extends Canvas{
      */
     utils.MyButton restartButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
-    GameThread gameThread  = new GameThread();
 
     /**
      * Initializes the restart and quit buttons with their positions and dimensions.
@@ -44,8 +43,7 @@ public class Game extends Canvas{
     public void init() {
 
         gridDraw.spawnBlock();
-
-        gameThread.start();
+        startGame();
 
         restartButton.x = Settings.width - Settings.width / 4;
         restartButton.y = Settings.height / 3;
@@ -74,7 +72,10 @@ public class Game extends Canvas{
      */
     public void loop() {
         draw();
-        
+    }
+
+    public void startGame() {
+        new GameThread(gridDraw).start();
     }
 
     @Override
