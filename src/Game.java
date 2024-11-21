@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class Game extends Canvas{
 
-    public static Block block;
+    public static Block block = new Block(new int[][]{{}});
 
     /**
      * Default constructor for the Game class.
@@ -28,7 +28,7 @@ public class Game extends Canvas{
      */
     utils.MyButton restartButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
-
+    GameThread gameThread  = new GameThread();
 
     /**
      * Initializes the restart and quit buttons with their positions and dimensions.
@@ -42,8 +42,7 @@ public class Game extends Canvas{
     @Override
     public void init() {
 
-        GameThread gameThread  = new GameThread();
-        gameThread.run();
+        gameThread.start();
 
         restartButton.x = Settings.width - Settings.width / 4;
         restartButton.y = Settings.height / 3;
@@ -128,9 +127,9 @@ public class Game extends Canvas{
      * The repaint functionality is not handled within this method and needs a separate implementation
      * as the existing API does not support Graphics directly.
      */
-    public void moveBlockDown() {
+    public static void moveBlockDown() {
 
-        if (checkBottom() == false) {
+        if (!checkBottom()) {
             return;
         }
 
@@ -141,7 +140,7 @@ public class Game extends Canvas{
     /**
      * Checks bottom, if the bottom is reached boolean is set to false
      * */
-    private boolean checkBottom() {
+    private static boolean checkBottom() {
         if (block.getBottomEdge() == GridSettings.height) {
             return false;
         }

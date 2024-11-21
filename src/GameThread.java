@@ -1,19 +1,34 @@
 // Thread Initialization Example
 import nl.saxion.app.SaxionApp;
-public class GameThread implements Runnable {
+public class GameThread extends Thread {
 
-    @Override
-    public void run() {
-
-        Game.spawnBlock();
-        Game.block.moveDown();
-        SaxionApp.sleep(1);
-
+    public GameThread(){
+        super();
     }
 
     public static void main(String[] args) {
-        Thread myThread = new Thread(new GameThread());
-        myThread.start();
+
+    }
+
+    @Override
+    public void run() {
+        int i = 0;
+
+        while(true){
+
+            SaxionApp.drawCircle(10, 10 + i * 10, 10);
+
+            try {
+                Thread.sleep(1000);
+
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            i++;
+
+            System.out.println("Thread ran");
+        }
     }
 }
 
