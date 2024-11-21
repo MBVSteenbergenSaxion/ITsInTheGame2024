@@ -5,9 +5,9 @@ public class GameThread implements Runnable {
     @Override
     public void run() {
 
-        Game.spawnBlock();
-        Game.block.moveDown();
-        SaxionApp.sleep(1);
+//        Game.spawnBlock();
+//        Game.block.moveDown();
+//        SaxionApp.sleep(1);
 
     }
 

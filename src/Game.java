@@ -11,8 +11,8 @@ import java.util.logging.Logger;
 
 public class Game extends Canvas{
 
-    public static Block block;
 
+    GridDraw gridDraw = new GridDraw();
     /**
      * Default constructor for the Game class.
      *
@@ -39,8 +39,11 @@ public class Game extends Canvas{
      * positioned at half the canvas height. Both buttons are placed at a quarter of the canvas width
      * horizontally.
      */
+
     @Override
     public void init() {
+
+        gridDraw.spawnBlock();
 
         GameThread gameThread  = new GameThread();
         gameThread.run();
@@ -106,72 +109,6 @@ public class Game extends Canvas{
         }
     }
 
-
-    /**
-     * Spawns a new block with a defined shape and initializes its position.
-     * This method creates a new Block object with the specified shape and
-     * calls the spawn method to set its initial coordinates.
-     */
-    public static void spawnBlock() {
-        int[][] shape = new int[][] { {1,0}, {1,0}, {1,1} };
-        block = new Block(shape);
-        block.spawn();
-    }
-
-    /**
-     * Moves the current block one step down if possible and triggers a screen repaint.
-     *
-     * This method first checks if moving the block down is allowed by calling the checkBottom() method.
-     * If the block can be moved down (checkBottom() returns true), it invokes the moveDown() method of the block.
-     * After moving the block, it repaints the screen to reflect the new position of the block.
-     *
-     * The repaint functionality is not handled within this method and needs a separate implementation
-     * as the existing API does not support Graphics directly.
-     */
-    public void moveBlockDown() {
-
-        if (checkBottom() == false) {
-            return;
-        }
-
-        block.moveDown();
-
-    }
-
-    /**
-     * Checks bottom, if the bottom is reached boolean is set to false
-     * */
-    private boolean checkBottom() {
-        if (block.getBottomEdge() == GridSettings.height) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Draws a block on the screen with the specified color.
-     *
-     * @param color the color to fill the block with
-     */
-    public void drawBlock(Color color) {
-        int h = block.getHeight();
-        int w = block.getWidth();
-        int[][] shape = block.getShape();
-
-        for (int r = 0; r < h; r++) {
-            for (int b = 0; b < w; b++) {
-                if(shape[r][b] == 1) {
-                    int x = (block.getX() + b) * GridSettings.blockSize + GridSettings.startPanelX;
-                    int y = (block.getY() + r) * GridSettings.blockSize  + GridSettings.startPanelY;
-
-                    SaxionApp.setFill(color);
-                    SaxionApp.drawRectangle(x, y, GridSettings.blockSize, GridSettings.blockSize);
-                }
-            }
-        }
-    }
-
-
     /**
      * Draws the game screen components. This method performs the following actions:
      *  - Draws the restart and quit buttons with their specified properties.
@@ -184,11 +121,8 @@ public class Game extends Canvas{
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
 
-        GridDraw gridDraw = new GridDraw();
         gridDraw.drawGrid();
-
-        spawnBlock();
-        drawBlock(Color.RED);
+        gridDraw.repaint();
 
     }
 

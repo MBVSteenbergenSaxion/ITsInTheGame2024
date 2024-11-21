@@ -10,6 +10,43 @@ public class GridDraw {
 
     public ArrayList<ArrayList<Block>> drawnGrid = Grid.getGrid();
 
+
+    private Block block;
+
+    public void spawnBlock() {
+        block = new Block(new int[][]{{1,0},{1,0},{1,1}}, Color.RED);
+    }
+
+    public void moveBlockDown() {
+        block.moveDown();
+        repaint();
+    }
+
+    public void repaint() {
+        drawBlock();
+    }
+
+    /**
+     * Draws a block on the screen with the specified color.
+     */
+    public void drawBlock() {
+        int h = block.getHeight();
+        int w = block.getWidth();
+        Color color = block.getColor();
+        int[][] shape = block.getShape();
+
+        for (int r = 0; r < h; r++) {
+            for (int b = 0; b < w; b++) {
+                if(shape[r][b] == 1) {
+                    int x = (block.getX() + b) * GridSettings.blockSize + GridSettings.startPanelX;
+                    int y = (block.getY() + r) * GridSettings.blockSize  + GridSettings.startPanelY;
+                    drawGridSquare(color, x, y);
+                }
+            }
+        }
+    }
+
+
     /**
      * Draws a rectangular grid based on the dimensions and settings defined in GridSettings.
      *
