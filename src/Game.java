@@ -82,7 +82,15 @@ public class Game extends Canvas{
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
-
+        if (keyboardEvent.getKeyCode() == 39) { //RIGHT
+            gd.moveBlockRight();
+        } else if (keyboardEvent.getKeyCode() == 37) { //LEFT
+            gd.moveBlockLeft();
+        } else if (keyboardEvent.getKeyCode() == 40) { //DOWN
+            gd.dropBlock();
+        } else if (keyboardEvent.getKeyCode() == 38) { //UP
+            gd.rotateBlock();
+        }
     }
 
     /**
@@ -125,6 +133,7 @@ public class Game extends Canvas{
 
         gd.drawGrid();
         gd.drawBackground();
+
         gd.repaint();
     }
 
