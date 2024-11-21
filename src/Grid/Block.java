@@ -105,4 +105,12 @@ public class Block {
         return y + getHeight();
     }
 
+    public int getRightEdge() {
+        return x + getWidth();
+    }
+
+    public int getLeftEdge() {
+        return x;
+    }
+
 }

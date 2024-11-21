@@ -30,7 +30,7 @@ public class GridDraw {
     }
 
     public boolean moveBlockDown() {
-        if (checkBottom() ==false) {
+        if (!checkBottom()) {
             moveBlockToBackground();
             return false;
         }
@@ -41,11 +41,17 @@ public class GridDraw {
     }
 
     public void moveBlockLeft() {
+        if (!checkLeft()) {
+            return;
+        }
         block.moveLeft();
         repaint();
     }
 
     public void moveBlockRight() {
+        if (!checkRight()) {
+            return;
+        }
         block.moveRight();
         repaint();
     }
@@ -64,6 +70,20 @@ public class GridDraw {
 
     private boolean checkBottom() {
         if ( block.getBottomEdge() == gridRows ) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkLeft(){
+        if ( block.getLeftEdge() == 0 ) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkRight(){
+        if ( block.getRightEdge() == gridWidth ) {
             return false;
         }
         return true;
