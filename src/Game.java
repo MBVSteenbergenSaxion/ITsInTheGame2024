@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class Game extends Canvas{
 
-    private Block block;
+    public static Block block;
 
     /**
      * Default constructor for the Game class.
@@ -28,6 +28,7 @@ public class Game extends Canvas{
      */
     utils.MyButton restartButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
+    GameThread gameThread  = new GameThread();
 
     /**
      * Initializes the restart and quit buttons with their positions and dimensions.
@@ -40,6 +41,9 @@ public class Game extends Canvas{
      */
     @Override
     public void init() {
+
+        gameThread.run();
+
         restartButton.x = Settings.width - Settings.width / 4;
         restartButton.y = Settings.height / 3;
         restartButton.width = Settings.buttonWidth / 2;
@@ -67,15 +71,7 @@ public class Game extends Canvas{
      */
     public void loop() {
         draw();
-        /*
-        Not good see gamethread for more info
-        Dit moet in gamethread.
-        while (true) {
-        block.moveDown();
-        SaxionApp.sleep(1);
-        }
-
-        */
+        
     }
 
     @Override

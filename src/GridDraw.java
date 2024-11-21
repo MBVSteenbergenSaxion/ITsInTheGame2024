@@ -27,7 +27,6 @@ public class GridDraw {
                 int y = r * GridSettings.blockSize + GridSettings.startPanelY;
 
                 drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
-
             }
         }
     }
