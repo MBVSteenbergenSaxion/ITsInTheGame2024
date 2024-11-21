@@ -80,11 +80,10 @@ public class GridDraw {
         //Checks first the first column and for that column every row
         //Then checks second column and for that column every row
         for (int c = 0; c < w; c++) {
-            //h -1 because of checking from bottom to up
-            for (int r = h - 1; r < h; r--) {
+            for (int r = h - 1; r <= h; r--) {
                 if (shape[r][c] != 0) {
                     int x = (block.getX() + c);
-                    int y = (block.getY() + r + 1);
+                    int y = (block.getY() + r + 1); //+1 for the block next under the shape
                     if (y < 0) {
                         break;
                     }
@@ -102,12 +101,54 @@ public class GridDraw {
         if ( block.getLeftEdge() == 0 ) {
             return false;
         }
+
+        int[][] shape = block.getShape();
+        int w = block.getWidth();
+        int h = block.getHeight();
+
+        //Checks first the first row and for that row every column from up to down
+        for (int r = 0; r < h; r++) {
+            for (int c = 0; c < w; c++) {
+                if (shape[r][c] != 0) {
+                    int x = (block.getX() + c - 1); //-1 for the block next left to the shape
+                    int y = (block.getY() + r);
+                    if (y < 0) {
+                        break;
+                    }
+                    if (background[y][x] != null) {
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
         return true;
     }
 
     private boolean checkRight(){
         if ( block.getRightEdge() == gridWidth ) {
             return false;
+        }
+
+        int[][] shape = block.getShape();
+        int w = block.getWidth();
+        int h = block.getHeight();
+
+        //Checks first the first row and for that row every column from up to down
+        for (int r = 0; r < h; r++) {
+            for (int c = w - 1; c >= 0; c--) {
+                if (shape[r][c] != 0) {
+                    int x = (block.getX() + c + 1); //+1 for the block next right to the shape
+                    int y = (block.getY() + r);
+                    if (y < 0) {
+                        break;
+                    }
+                    if (background[y][x] != null) {
+                        return false;
+                    }
+                    break;
+                }
+            }
         }
         return true;
     }
