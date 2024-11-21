@@ -1,8 +1,13 @@
 import utils.*;
+import Leaderboard.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
-public class Leaderboard extends Canvas{
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Leaderboard extends Canvas {
 
     public Leaderboard() {
         super();
@@ -22,6 +27,23 @@ public class Leaderboard extends Canvas{
 
     @Override
     public void init() {
+        ArrayList<Score> scores = new ArrayList<>();
+        File CsvFile = new File("../Leaderboard/scores.csv");
+        
+        if (CsvFile.exists() && !CsvFile.isDirectory()) {
+            scores = LeaderboardBackend.getScores(CsvFile);
+
+        } else {
+
+            try {
+                CsvFile.createNewFile();
+                scores = LeaderboardBackend.getScores(CsvFile);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
 
         gameButton.x = Settings.width / 3;
         gameButton.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
@@ -92,7 +114,7 @@ public class Leaderboard extends Canvas{
 
     }
 
-    private void draw(){
+    private void draw() {
 
         MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Leaderboard");
         MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");

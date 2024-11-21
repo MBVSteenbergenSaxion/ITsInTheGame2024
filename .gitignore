@@ -144,4 +144,4 @@ replay_pid*
 /.idea
 *.iml
 out/production/Tetris/.idea/Tetris.iml
-*.csv
+
