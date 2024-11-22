@@ -236,20 +236,6 @@ public class GridDraw {
         }
     }
 
-    private ArrayList<Integer> getBounds(){
-
-        ArrayList<Integer> bounds = new ArrayList<>();
-
-
-        return bounds;
-    }
-
-    private void drawBounds(){
-
-    }
-
-
-
     /**
      * Draws a single square of the grid at the specified coordinates with the given color.
      *

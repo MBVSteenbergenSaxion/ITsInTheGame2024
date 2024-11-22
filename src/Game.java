@@ -22,7 +22,7 @@ public class Game extends Canvas{
     public Game() {
         super();
         gd = new GridDraw(GridSettings.width);
-
+        gt = new GameThread(gd);
     }
 
     /**
@@ -76,7 +76,6 @@ public class Game extends Canvas{
     }
 
     public void startGame() {
-        gt = new GameThread(gd);
         gt.start();
     }
 
@@ -115,9 +114,18 @@ public class Game extends Canvas{
 
             if (utils.Utility.checkBounds(x, y,
                     quitButton.x, quitButton.y, quitButton.width, quitButton.height)) {
-
+                gt.interrupt();
                 switchToScreen(new Main());
+            }
 
+            if (utils.Utility.checkBounds(x, y,
+                    restartButton.x, restartButton.y, restartButton.width, restartButton.height)) {
+
+                gt.interrupt();
+                SaxionApp.clear();
+
+                gt = new GameThread(gd);
+                gt.start();
             }
         }
     }
