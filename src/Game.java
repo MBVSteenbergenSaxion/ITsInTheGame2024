@@ -1,13 +1,9 @@
-import Grid.Block;
 import Grid.GridSettings;
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
-import java.awt.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Game extends Canvas{
 
@@ -16,7 +12,6 @@ public class Game extends Canvas{
     private GameThread gt;
     /**
      * Default constructor for the Game class.
-     *
      * This constructor calls the superclass's constructor to initialize the game canvas.
      */
     public Game() {
@@ -34,7 +29,6 @@ public class Game extends Canvas{
 
     /**
      * Initializes the restart and quit buttons with their positions and dimensions.
-     *
      * This method sets the coordinates and sizes of the restart and quit buttons by
      * calculating their positions relative to the canvas dimensions defined in the Settings class.
      * The restart button is positioned at one-third of the canvas height, while the quit button is
@@ -61,12 +55,10 @@ public class Game extends Canvas{
 
     /**
      * Executes the game loop by invoking the `draw` method.
-     *
      * This method is a placeholder for the game's main loop which should ideally
      * handle periodic updates, such as moving game elements and rendering the
      * game screen. Currently, it only calls the `draw` method to render the game
      * screen components.
-     *
      * Note: The commented-out code suggests that the movement logic for the game
      * elements should reside in a separate game thread. For more information,
      * refer to the `gamethread` documentation.
@@ -123,7 +115,7 @@ public class Game extends Canvas{
 
                 gt.interrupt();
                 SaxionApp.clear();
-
+                gd = new GridDraw(GridSettings.width);
                 gt = new GameThread(gd);
                 gt.start();
             }
