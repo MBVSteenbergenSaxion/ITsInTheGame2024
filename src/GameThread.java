@@ -38,6 +38,14 @@ public class GameThread extends Thread {
                         return;
                     }
                 }
+
+                if(gridDraw.isBlockOutOfBounds()) {
+                    System.out.println("Game Over");
+                    break;
+                }
+
+                gridDraw.moveBlockToBackground();
+                gridDraw.clearLines();
             }
         }
     }

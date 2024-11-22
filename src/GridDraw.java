@@ -29,10 +29,17 @@ public class GridDraw {
         block.spawn();
     }
 
+    public boolean isBlockOutOfBounds() {
+        if (block.getY() < 0) {
+            //So if gameover you can't move the last block
+            block = null;
+            return true;
+        }
+        return false;
+    }
+
     public boolean moveBlockDown() {
         if (!checkBottom()) {
-            moveBlockToBackground();
-            clearLines();
             return false;
         }
 
@@ -42,6 +49,11 @@ public class GridDraw {
     }
 
     public void moveBlockLeft() {
+        //If block == null (see blockoutofbounds method above), you can't move the block anymore!
+        if (block == null) {
+            return;
+        }
+
         if (!checkLeft()) {
             return;
         }
@@ -50,6 +62,11 @@ public class GridDraw {
     }
 
     public void moveBlockRight() {
+        //If block == null (see blockoutofbounds method above), you can't move the block anymore!
+        if (block == null) {
+            return;
+        }
+
         if (!checkRight()) {
             return;
         }
@@ -58,6 +75,11 @@ public class GridDraw {
     }
 
     public void dropBlock() {
+        //If block == null (see blockoutofbounds method above), you can't move the block anymore!
+        if (block == null) {
+            return;
+        }
+
         while (checkBottom() == true) {
             block.moveDown();
         }
@@ -65,6 +87,11 @@ public class GridDraw {
     }
 
     public void rotateBlock() {
+        //If block == null (see blockoutofbounds method above), you can't move the block anymore!
+        if (block == null) {
+            return;
+        }
+
         block.rotate();
         repaint();
     }
@@ -198,7 +225,7 @@ public class GridDraw {
         }
     }
 
-    private void moveBlockToBackground() {
+    public void moveBlockToBackground() {
         int[][] shape = block.getShape();
         int h = block.getHeight();
         int w = block.getWidth();
