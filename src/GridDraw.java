@@ -32,6 +32,7 @@ public class GridDraw {
     public boolean moveBlockDown() {
         if (!checkBottom()) {
             moveBlockToBackground();
+            clearLines();
             return false;
         }
 
@@ -153,6 +154,50 @@ public class GridDraw {
         return true;
     }
 
+    //Rows counting from bottom to top and left to right
+    public void clearLines() {
+        boolean lineFilled;
+        for (int r = gridRows - 1; r >= 0; r--) {
+            lineFilled = true;
+            //If no block == to null, it means the line is full and the line must be removed
+            for (int c = 0; c < gridWidth; c++) {
+
+                //If this term is met, the loop is terminated, and it means there was a null block in the row
+                if (background[r][c] == null) {
+                    lineFilled = false;
+                    break;
+                }
+            }
+
+            //If in the innerloop the boolean is not set to false, then the line gets cleared and repainted
+            if (lineFilled) {
+                clearLine(r);
+                shiftdown(r);
+                //remove the upper line if a line is cleared (Otherwise array out of bounds)
+                clearLine(0);
+                //To overcome that a row is not counted because the r is already updated
+                r++;
+
+                repaint();
+            }
+        }
+    }
+
+    private void clearLine(int r) {
+        for (int i = 0; i < gridWidth; i++) {
+            background[r][i] = null;
+        }
+    }
+
+    private void shiftdown(int r) {
+        //outer loop starts from the point r in thats given in clearlines method and then looks above to move everything once at a time
+        for (int row = r; row > 0; row--) {
+            for (int col = 0; col < gridWidth; col++) {
+                background[row][col] = background[row - 1][col];
+            }
+        }
+    }
+
     private void moveBlockToBackground() {
         int[][] shape = block.getShape();
         int h = block.getHeight();
@@ -202,13 +247,13 @@ public class GridDraw {
     public void drawBackground() {
         Color color;
 
-        for (int r = 0; r < GridSettings.height; r++) {
-            for (int c = 0; c < GridSettings.width; c++) {
+        for (int r = 0; r < gridRows; r++) {
+            for (int c = 0; c < gridWidth; c++) {
                 color = background[r][c];
 
                 if (color != null) {
-                    int x = c * GridSettings.blockSize + GridSettings.startPanelX;
-                    int y = r * GridSettings.blockSize + GridSettings.startPanelY;
+                    int x = c * gridCellSize + GridSettings.startPanelX;
+                    int y = r * gridCellSize + GridSettings.startPanelY;
                     drawGridSquare(color, x, y);
                 }
             }
@@ -224,9 +269,9 @@ public class GridDraw {
      */
     public void drawGrid() {
 
-        for (int r = 0; r < GridSettings.height; r++) {
+        for (int r = 0; r < gridRows; r++) {
 
-            for (int c = 0; c < GridSettings.width; c++) {
+            for (int c = 0; c < gridWidth; c++) {
 
                 int x = c * gridCellSize + GridSettings.startPanelX;
                 int y = r * gridCellSize + GridSettings.startPanelY;
