@@ -3,6 +3,7 @@ import Grid.Grid;
 import Grid.GridSettings;
 import Shapes.*;
 import nl.saxion.app.SaxionApp;
+import utils.Utility;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -285,7 +286,10 @@ public class GridDraw {
                 if(shape[r][c] == 1) {
                     int x = (block.getX() + c) * gridCellSize + GridSettings.startPanelX;
                     int y = (block.getY() + r) * gridCellSize  + GridSettings.startPanelY;
-                    drawGridSquare(color, x, y);
+
+                    if(utils.Utility.checkBounds(x, y, GridSettings.startPanelX, GridSettings.startPanelY, GridSettings.widthPanel, GridSettings.heightPanel)) {
+                        drawGridSquare(color, x, y);
+                    }
                 }
             }
         }
@@ -302,7 +306,9 @@ public class GridDraw {
                 if (color != null) {
                     int x = c * gridCellSize + GridSettings.startPanelX;
                     int y = r * gridCellSize + GridSettings.startPanelY;
+
                     drawGridSquare(color, x, y);
+
                 }
             }
         }

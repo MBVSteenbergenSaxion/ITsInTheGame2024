@@ -15,8 +15,8 @@ public class GridSettings {
     public static int endPanelX = startPanelX * 2;
     public static int widthPanel = endPanelX - startPanelX;
     public static int startPanelY = (int)((double) screenHeight / 3 - screenHeight * 0.20);
-
     //square
     public static int blockSize = widthPanel / GridSettings.width;
+    public static int heightPanel = startPanelY  * height;
 
 }
