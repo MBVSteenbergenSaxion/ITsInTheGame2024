@@ -1,9 +1,12 @@
+import nl.saxion.app.SaxionApp;
 import utils.*;
 import Leaderboard.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
+import javax.security.sasl.SaslClient;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,6 +23,7 @@ public class Leaderboard extends Canvas {
 
     private int highscore = 1000;
     private String username = "name";
+    ArrayList<Score> scores = new ArrayList<>();
 
     utils.MyButton gameButton = new MyButton();
     utils.MyButton leaderBoardButton = new MyButton();
@@ -27,21 +31,23 @@ public class Leaderboard extends Canvas {
 
     @Override
     public void init() {
-        ArrayList<Score> scores = new ArrayList<>();
-        File CsvFile = new File("../Leaderboard/scores.csv");
-        
+        String filename = "resources/Leaderboard/scores.csv";
+        File CsvFile = new File(filename);
+
         if (CsvFile.exists() && !CsvFile.isDirectory()) {
-            scores = LeaderboardBackend.getScores(CsvFile);
-
-        } else {
-
             try {
-                CsvFile.createNewFile();
-                scores = LeaderboardBackend.getScores(CsvFile);
 
-            } catch (IOException e) {
+                scores = LeaderboardBackend.getScores(filename);
+                for (int i = 0; i < scores.size() -1; i++) {
+                    //Score currentScore = scores.get(i);
+                    //System.out.println(currentScore.name);
+                    //System.out.println(currentScore.highScore);
+                }
+            } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
+
+
         }
 
 
@@ -115,10 +121,11 @@ public class Leaderboard extends Canvas {
     }
 
     private void draw() {
+        for (int i = 0; i < scores.size() -1; i++) {
+           Score currentScore = scores.get(i);
+            SaxionApp.drawText(currentScore.name, 100, 100, 10);
+        }
 
-        MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Leaderboard");
-        MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
-        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
 
     }
 
