@@ -199,7 +199,7 @@ public class GridDraw {
             //If in the innerloop the boolean is not set to false, then the line gets cleared and repainted
             if (lineFilled) {
                 clearLine(r);
-                shiftdown(r);
+                shiftDown(r);
                 //remove the upper line if a line is cleared (Otherwise array out of bounds)
                 clearLine(0);
                 //To overcome that a row is not counted because the r is already updated
@@ -216,7 +216,7 @@ public class GridDraw {
         }
     }
 
-    private void shiftdown(int r) {
+    private void shiftDown(int r) {
         //outer loop starts from the point r in thats given in clearlines method and then looks above to move everything once at a time
         for (int row = r; row > 0; row--) {
             for (int col = 0; col < gridWidth; col++) {
