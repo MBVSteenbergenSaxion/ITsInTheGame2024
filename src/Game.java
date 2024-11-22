@@ -144,8 +144,9 @@ public class Game extends Canvas{
 
         gd.drawGrid();
         gd.drawBackground();
-
         gd.repaint();
+
+
     }
 
 }
