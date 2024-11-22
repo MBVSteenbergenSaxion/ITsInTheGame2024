@@ -74,8 +74,17 @@ public class Block {
         return x;
     }
 
+    public void setX(int newX){
+        x = newX;
+    }
+
     public int getY() {
         return y;
+    }
+
+
+    public void setY(int newY){
+        y = newY;
     }
 
     public void moveDown() {

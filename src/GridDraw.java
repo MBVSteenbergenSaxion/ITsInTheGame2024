@@ -1,6 +1,7 @@
 import Grid.Block;
 import Grid.Grid;
 import Grid.GridSettings;
+import Shapes.*;
 import nl.saxion.app.SaxionApp;
 
 import java.awt.*;
@@ -17,15 +18,23 @@ public class GridDraw {
 
     private static Block block;
 
+    //Makes an array with every shape of shapes, out of here a random block will get picked out of the array to get spawned on the grid
+    private Block[] blocks;
+
     public GridDraw(int width) {
         gridWidth = width;
         gridCellSize = GridSettings.blockSize;
         gridRows = GridSettings.height;
+
         background = new Color[gridRows][gridWidth];
+
+        //Because a shape extends Block, all the shapes are Blocks, so Block[] can hold every shape object
+        blocks = new Block[]{new LShape()};
     }
 
     public void spawnBlock() {
-        block = new Block(new int[][]{{1,0},{1,0},{1,1}}, Color.RED);
+        int randomShapeValue = SaxionApp.getRandomValueBetween(0, blocks.length);
+        block = blocks[randomShapeValue];
         block.spawn();
     }
 
@@ -91,8 +100,20 @@ public class GridDraw {
         if (block == null) {
             return;
         }
-
         block.rotate();
+
+        if(block.getLeftEdge() < 0) {
+            block.setX(0);
+        }
+
+        if (block.getRightEdge() >= gridWidth) {
+            block.setX(gridWidth - block.getWidth());
+        }
+
+        if(block.getBottomEdge() >= gridRows) {
+            block.setY(gridRows - block.getHeight());
+        }
+
         repaint();
     }
 
