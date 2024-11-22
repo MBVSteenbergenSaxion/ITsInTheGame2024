@@ -51,7 +51,7 @@ public class Block {
         shape = shapes[currentRotation];
 
         y = -getHeight();
-        x = (GridSettings.width - getWidth()) / 2;
+        x = SaxionApp.getRandomValueBetween(0, GridSettings.width - getWidth());
     }
 
     public int[][] getShape() {
