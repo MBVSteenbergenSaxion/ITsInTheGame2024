@@ -124,16 +124,16 @@ public class GridDraw {
         }
 
         int[][] shape = block.getShape();
-        int w = block.getWidth();
-        int h = block.getHeight();
+        int width = block.getWidth();
+        int height = block.getHeight();
 
         //Checks first the first column and for that column every row
         //Then checks second column and for that column every row
-        for (int c = 0; c < w; c++) {
-            for (int r = h - 1; r <= h; r--) {
-                if (shape[r][c] != 0) {
-                    int x = (block.getX() + c);
-                    int y = (block.getY() + r + 1); //+1 for the block next under the shape
+        for (int col = 0; col < width; col++) {
+            for (int row = height - 1; row <= height; row--) {
+                if (shape[row][col] != 0) {
+                    int x = (block.getX() + col);
+                    int y = (block.getY() + row + 1); //+1 for the block next under the shape
                     if (y < 0) {
                         break;
                     }
@@ -153,15 +153,15 @@ public class GridDraw {
         }
 
         int[][] shape = block.getShape();
-        int w = block.getWidth();
-        int h = block.getHeight();
+        int width = block.getWidth();
+        int height = block.getHeight();
 
         //Checks first the first row and for that row every column from up to down
-        for (int r = 0; r < h; r++) {
-            for (int c = 0; c < w; c++) {
-                if (shape[r][c] != 0) {
-                    int x = (block.getX() + c - 1); //-1 for the block next left to the shape
-                    int y = (block.getY() + r);
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                if (shape[row][col] != 0) {
+                    int x = (block.getX() + col - 1); //-1 for the block next left to the shape
+                    int y = (block.getY() + row);
                     if (y < 0) {
                         break;
                     }
@@ -181,15 +181,15 @@ public class GridDraw {
         }
 
         int[][] shape = block.getShape();
-        int w = block.getWidth();
-        int h = block.getHeight();
+        int width = block.getWidth();
+        int height = block.getHeight();
 
         //Checks first the first row and for that row every column from up to down
-        for (int r = 0; r < h; r++) {
-            for (int c = w - 1; c >= 0; c--) {
-                if (shape[r][c] != 0) {
-                    int x = (block.getX() + c + 1); //+1 for the block next right to the shape
-                    int y = (block.getY() + r);
+        for (int row = 0; row < height; row++) {
+            for (int col = width - 1; col >= 0; col--) {
+                if (shape[row][col] != 0) {
+                    int x = (block.getX() + col + 1); //+1 for the block next right to the shape
+                    int y = (block.getY() + row);
                     if (y < 0) {
                         break;
                     }
@@ -206,13 +206,13 @@ public class GridDraw {
     //Rows counting from bottom to top and left to right
     public void clearLines() {
         boolean lineFilled;
-        for (int r = gridRows - 1; r >= 0; r--) {
+        for (int row = gridRows - 1; row >= 0; row--) {
             lineFilled = true;
             //If no block == to null, it means the line is full and the line must be removed
-            for (int c = 0; c < gridWidth; c++) {
+            for (int col = 0; col < gridWidth; col++) {
 
                 //If this term is met, the loop is terminated, and it means there was a null block in the row
-                if (background[r][c] == null) {
+                if (background[row][col] == null) {
                     lineFilled = false;
                     break;
                 }
@@ -220,21 +220,21 @@ public class GridDraw {
 
             //If in the innerloop the boolean is not set to false, then the line gets cleared and repainted
             if (lineFilled) {
-                clearLine(r);
-                shiftDown(r);
+                clearLine(row);
+                shiftDown(row);
                 //remove the upper line if a line is cleared (Otherwise array out of bounds)
                 clearLine(0);
                 //To overcome that a row is not counted because the r is already updated
-                r++;
+                row++;
 
                 repaint();
             }
         }
     }
 
-    private void clearLine(int r) {
+    private void clearLine(int row) {
         for (int i = 0; i < gridWidth; i++) {
-            background[r][i] = null;
+            background[row][i] = null;
         }
     }
 
@@ -249,19 +249,19 @@ public class GridDraw {
 
     public void moveBlockToBackground() {
         int[][] shape = block.getShape();
-        int h = block.getHeight();
-        int w = block.getWidth();
+        int height = block.getHeight();
+        int width = block.getWidth();
 
         int xPos = block.getX();
         int yPos = block.getY();
 
         Color color = block.getColor();
 
-        for (int r = 0; r < h; r++) {
-            for (int c = 0; c < w; c++) {
-                if(shape[r][c] == 1) {
-                    int x = (xPos + c);
-                    int y = (yPos + r);
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                if(shape[row][col] == 1) {
+                    int x = (xPos + col);
+                    int y = (yPos + row);
                     background[y][x] = color;
                 }
             }
@@ -276,16 +276,16 @@ public class GridDraw {
      * Draws a block on the screen with the specified color.
      */
     public static void drawBlock() {
-        int h = block.getHeight();
-        int w = block.getWidth();
+        int height = block.getHeight();
+        int width = block.getWidth();
         Color color = block.getColor();
         int[][] shape = block.getShape();
 
-        for (int r = 0; r < h; r++) {
-            for (int c = 0; c < w; c++) {
-                if(shape[r][c] == 1) {
-                    int x = (block.getX() + c) * gridCellSize + GridSettings.startPanelX;
-                    int y = (block.getY() + r) * gridCellSize  + GridSettings.startPanelY;
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                if(shape[row][col] == 1) {
+                    int x = (block.getX() + col) * gridCellSize + GridSettings.startPanelX;
+                    int y = (block.getY() + row) * gridCellSize  + GridSettings.startPanelY;
 
                     if(utils.Utility.checkBounds(x, y, GridSettings.startPanelX, GridSettings.startPanelY, GridSettings.widthPanel, GridSettings.heightPanel)) {
                         drawGridSquare(color, x, y);
@@ -299,13 +299,13 @@ public class GridDraw {
     public void drawBackground() {
         Color color;
 
-        for (int r = 0; r < gridRows; r++) {
-            for (int c = 0; c < gridWidth; c++) {
-                color = background[r][c];
+        for (int row = 0; row < gridRows; row++) {
+            for (int col = 0; col < gridWidth; col++) {
+                color = background[row][col];
 
                 if (color != null) {
-                    int x = c * gridCellSize + GridSettings.startPanelX;
-                    int y = r * gridCellSize + GridSettings.startPanelY;
+                    int x = col * gridCellSize + GridSettings.startPanelX;
+                    int y = row * gridCellSize + GridSettings.startPanelY;
 
                     drawGridSquare(color, x, y);
 
@@ -323,12 +323,12 @@ public class GridDraw {
      */
     public void drawGrid() {
 
-        for (int r = 0; r < gridRows; r++) {
+        for (int row = 0; row < gridRows; row++) {
 
-            for (int c = 0; c < gridWidth; c++) {
+            for (int col = 0; col < gridWidth; col++) {
 
-                int x = c * gridCellSize + GridSettings.startPanelX;
-                int y = r * gridCellSize + GridSettings.startPanelY;
+                int x = col * gridCellSize + GridSettings.startPanelX;
+                int y = row * gridCellSize + GridSettings.startPanelY;
 
                 drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
             }
