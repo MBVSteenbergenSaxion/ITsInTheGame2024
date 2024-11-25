@@ -17,9 +17,6 @@ public class GameThread extends Thread {
 
     }
 
-    // TODO Straks bepalen hoe we de blokjes resetten en koppelen aan de backend via GridDraw
-    // Bounds zijn er ook niet!
-
     @Override
     public void run() {
 
@@ -27,7 +24,7 @@ public class GameThread extends Thread {
 
             if(draw){
                 gridDraw.spawnBlock();
-                
+
                 while (gridDraw.moveBlockDown()) {
                     SaxionApp.clear();
                     try {
