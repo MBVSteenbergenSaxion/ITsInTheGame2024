@@ -1,16 +1,9 @@
 import Grid.Block;
-import Grid.Grid;
 import Grid.GridSettings;
 import Shapes.*;
 import nl.saxion.app.SaxionApp;
-import utils.Utility;
-
 import java.awt.*;
-import java.util.ArrayList;
-
 public class GridDraw {
-
-    public ArrayList<ArrayList<Block>> drawnGrid = Grid.getGrid();
 
     private int gridRows;
     private int gridWidth;
@@ -18,8 +11,6 @@ public class GridDraw {
     private Color[][] background;
 
     private static Block block;
-
-    //Makes an array with every shape of shapes, out of here a random block will get picked out of the array to get spawned on the grid
     private Block[] blocks;
 
     public GridDraw(int width) {
@@ -29,7 +20,6 @@ public class GridDraw {
 
         background = new Color[gridRows][gridWidth];
 
-        //Because a shape extends Block, all the shapes are Blocks, so Block[] can hold every shape object
         blocks = new Block[]{new LShape()};
     }
 
@@ -67,6 +57,7 @@ public class GridDraw {
         if (!checkLeft()) {
             return;
         }
+
         block.moveLeft();
         repaint();
     }
@@ -80,6 +71,7 @@ public class GridDraw {
         if (!checkRight()) {
             return;
         }
+
         block.moveRight();
         repaint();
     }
@@ -90,9 +82,10 @@ public class GridDraw {
             return;
         }
 
-        while (checkBottom() == true) {
+        while (checkBottom()) {
             block.moveDown();
         }
+
         repaint();
     }
 
@@ -101,6 +94,7 @@ public class GridDraw {
         if (block == null) {
             return;
         }
+
         block.rotate();
 
         if(block.getLeftEdge() < 0) {
@@ -130,18 +124,25 @@ public class GridDraw {
         //Checks first the first column and for that column every row
         //Then checks second column and for that column every row
         for (int col = 0; col < width; col++) {
-            for (int row = height - 1; row <= height; row--) {
+
+            int row = height - 1;
+            while (row <= height) {
                 if (shape[row][col] != 0) {
+
                     int x = (block.getX() + col);
                     int y = (block.getY() + row + 1); //+1 for the block next under the shape
+
                     if (y < 0) {
                         break;
                     }
+
                     if (background[y][x] != null) {
                         return false;
                     }
+
                     break;
                 }
+                row--;
             }
         }
         return true;
@@ -162,12 +163,15 @@ public class GridDraw {
                 if (shape[row][col] != 0) {
                     int x = (block.getX() + col - 1); //-1 for the block next left to the shape
                     int y = (block.getY() + row);
+
                     if (y < 0) {
                         break;
                     }
+
                     if (background[y][x] != null) {
                         return false;
                     }
+
                     break;
                 }
             }
@@ -190,12 +194,15 @@ public class GridDraw {
                 if (shape[row][col] != 0) {
                     int x = (block.getX() + col + 1); //+1 for the block next right to the shape
                     int y = (block.getY() + row);
+
                     if (y < 0) {
                         break;
                     }
+
                     if (background[y][x] != null) {
                         return false;
                     }
+
                     break;
                 }
             }
@@ -268,7 +275,7 @@ public class GridDraw {
         }
     }
 
-    public static void repaint() {
+    public void repaint() {
         drawBlock();
     }
 
@@ -321,11 +328,8 @@ public class GridDraw {
      * at the computed coordinates with the default background color.
      */
     public void drawGrid() {
-
         for (int row = 0; row < gridRows; row++) {
-
             for (int col = 0; col < gridWidth; col++) {
-
                 int x = col * gridCellSize + GridSettings.startPanelX;
                 int y = row * gridCellSize + GridSettings.startPanelY;
 

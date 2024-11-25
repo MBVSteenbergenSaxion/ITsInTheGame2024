@@ -4,18 +4,18 @@ import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
-
 public class Game extends Canvas{
-
 
     private GridDraw gd;
     private GameThread gt;
+
     /**
      * Default constructor for the Game class.
      * This constructor calls the superclass's constructor to initialize the game canvas.
      */
     public Game() {
         super();
+
         gd = new GridDraw(GridSettings.width);
         gt = new GameThread(gd);
     }
@@ -35,7 +35,6 @@ public class Game extends Canvas{
      * positioned at half the canvas height. Both buttons are placed at a quarter of the canvas width
      * horizontally.
      */
-
     @Override
     public void init() {
         startGame();
@@ -49,8 +48,6 @@ public class Game extends Canvas{
         quitButton.y = Settings.height / 2;
         quitButton.width = Settings.buttonWidth / 2;
         quitButton.height = Settings.buttonHeight / 2;
-
-
     }
 
     /**
@@ -73,7 +70,6 @@ public class Game extends Canvas{
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
-
         if(keyboardEvent.isKeyPressed()){
             if (keyboardEvent.getKeyCode() == 39) { //RIGHT
                 gd.moveBlockRight();
@@ -96,7 +92,6 @@ public class Game extends Canvas{
      */
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
-
         int x, y;
 
         if (mouseEvent.isLeftMouseButton()) {
@@ -106,6 +101,7 @@ public class Game extends Canvas{
 
             if (utils.Utility.checkBounds(x, y,
                     quitButton.x, quitButton.y, quitButton.width, quitButton.height)) {
+
                 gt.interrupt();
                 switchToScreen(new Main());
             }
@@ -130,15 +126,12 @@ public class Game extends Canvas{
      *  - Draws the newly spawned block on the screen with the specified color.
      */
     private void draw(){
-
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
 
         gd.drawGrid();
         gd.drawBackground();
         gd.repaint();
-
-
     }
 
 }

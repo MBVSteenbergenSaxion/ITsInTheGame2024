@@ -1,8 +1,6 @@
 package Grid;
 import nl.saxion.app.SaxionApp;
 
-import java.awt.*;
-
 public class GridSettings {
 
     private static int screenHeight = SaxionApp.getHeight();

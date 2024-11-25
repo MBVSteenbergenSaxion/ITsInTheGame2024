@@ -25,11 +25,9 @@ public class GameThread extends Thread {
 
         while(true){
 
-
-
             if(draw){
                 gridDraw.spawnBlock();
-
+                
                 while (gridDraw.moveBlockDown()) {
                     SaxionApp.clear();
                     try {

@@ -32,13 +32,13 @@ public class Block {
 
         //Here it becomes rotated (explained in rotation method)
         for (int i = 0; i < 4; i++) {
-            int r = shape[0].length;
-            int c = shape.length;
-            shapes[i] = new int[r][c];
+            int row = shape[0].length;
+            int col = shape.length;
+            shapes[i] = new int[row][col];
 
-            for (int y = 0; y < r; y++) {
-                for (int x = 0; x < c; x++) {
-                    shapes[i][y][x] = shape[c - x - 1][y];
+            for (int y = 0; y < row; y++) {
+                for (int x = 0; x < col; x++) {
+                    shapes[i][y][x] = shape[col - x - 1][y];
                 }
             }
 
@@ -48,10 +48,10 @@ public class Block {
 
     public void spawn() {
         currentRotation = SaxionApp.getRandomValueBetween(0, shapes.length);
-        shape = shapes[currentRotation];
-
         y = -getHeight();
         x = SaxionApp.getRandomValueBetween(0, GridSettings.width - getWidth());
+
+        shape = shapes[currentRotation];
     }
 
     public int[][] getShape() {
