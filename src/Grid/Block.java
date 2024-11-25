@@ -82,7 +82,6 @@ public class Block {
         return y;
     }
 
-
     public void setY(int newY){
         y = newY;
     }

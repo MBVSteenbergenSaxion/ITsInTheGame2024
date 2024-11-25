@@ -50,7 +50,3 @@ public class GameThread extends Thread {
         }
     }
 }
-
-
-
-//Moet een while loop hebben die elke keer de frame verversd (geen idee hoe)

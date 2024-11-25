@@ -295,7 +295,6 @@ public class GridDraw {
         }
     }
 
-
     public void drawBackground() {
         Color color;
 
