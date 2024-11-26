@@ -20,7 +20,7 @@ public class GridDraw {
 
         background = new Color[gridRows][gridWidth];
 
-        blocks = new Block[]{new LShape()};
+        blocks = new Block[]{new LShape(), new IShape(), new JShape(), new MShape(), new OShape(), new SShape(), new ZShape()};
     }
 
     public void spawnBlock() {
