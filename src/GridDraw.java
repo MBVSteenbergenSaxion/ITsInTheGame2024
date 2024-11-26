@@ -2,7 +2,10 @@ import Grid.Block;
 import Grid.GridSettings;
 import Shapes.*;
 import nl.saxion.app.SaxionApp;
+
 import java.awt.*;
+import java.util.ArrayList;
+
 public class GridDraw {
 
     private int gridRows;
@@ -12,6 +15,7 @@ public class GridDraw {
 
     private static Block block;
     private Block[] blocks;
+    private Color[] colors;
 
     public GridDraw(int width) {
         gridWidth = width;
@@ -21,12 +25,23 @@ public class GridDraw {
         background = new Color[gridRows][gridWidth];
 
         blocks = new Block[]{new LShape(), new IShape(), new JShape(), new MShape(), new OShape(), new SShape(), new ZShape()};
+        colors = new Color[]{SaxionApp.createColor(4, 83, 255), //Blue
+                SaxionApp.createColor(253, 103, 1), //Orange
+                SaxionApp.createColor(254, 255, 6), //Yellow
+                SaxionApp.createColor(0, 255, 6), //Green
+                SaxionApp.createColor(254, 4, 253), //Pink
+                SaxionApp.createColor(255, 17, 4), //Red
+                SaxionApp.createColor(5, 239, 253)}; //Cyan
+
+
     }
 
     public void spawnBlock() {
         int randomShapeValue = SaxionApp.getRandomValueBetween(0, blocks.length);
+        int randomColorValue = SaxionApp.getRandomValueBetween(0, colors.length);
         block = blocks[randomShapeValue];
         block.spawn();
+        block.color = colors[randomColorValue];
     }
 
     public boolean isBlockOutOfBounds() {
@@ -97,7 +112,7 @@ public class GridDraw {
 
         block.rotate();
 
-        if(block.getLeftEdge() < 0) {
+        if (block.getLeftEdge() < 0) {
             block.setX(0);
         }
 
@@ -105,7 +120,7 @@ public class GridDraw {
             block.setX(gridWidth - block.getWidth());
         }
 
-        if(block.getBottomEdge() >= gridRows) {
+        if (block.getBottomEdge() >= gridRows) {
             block.setY(gridRows - block.getHeight());
         }
 
@@ -113,7 +128,7 @@ public class GridDraw {
     }
 
     private boolean checkBottom() {
-        if ( block.getBottomEdge() == gridRows ) {
+        if (block.getBottomEdge() == gridRows) {
             return false;
         }
 
@@ -148,8 +163,8 @@ public class GridDraw {
         return true;
     }
 
-    private boolean checkLeft(){
-        if ( block.getLeftEdge() == 0 ) {
+    private boolean checkLeft() {
+        if (block.getLeftEdge() == 0) {
             return false;
         }
 
@@ -179,8 +194,8 @@ public class GridDraw {
         return true;
     }
 
-    private boolean checkRight(){
-        if ( block.getRightEdge() == gridWidth ) {
+    private boolean checkRight() {
+        if (block.getRightEdge() == gridWidth) {
             return false;
         }
 
@@ -266,7 +281,7 @@ public class GridDraw {
 
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                if(shape[row][col] == 1) {
+                if (shape[row][col] == 1) {
                     int x = (xPos + col);
                     int y = (yPos + row);
                     background[y][x] = color;
@@ -290,11 +305,11 @@ public class GridDraw {
 
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                if(shape[row][col] == 1) {
+                if (shape[row][col] == 1) {
                     int x = (block.getX() + col) * gridCellSize + GridSettings.startPanelX;
-                    int y = (block.getY() + row) * gridCellSize  + GridSettings.startPanelY;
+                    int y = (block.getY() + row) * gridCellSize + GridSettings.startPanelY;
 
-                    if(utils.Utility.checkBounds(x, y, GridSettings.startPanelX, GridSettings.startPanelY, GridSettings.widthPanel, GridSettings.heightPanel)) {
+                    if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX, GridSettings.startPanelY, GridSettings.widthPanel, GridSettings.heightPanel)) {
                         drawGridSquare(color, x, y);
                     }
                 }
@@ -322,7 +337,7 @@ public class GridDraw {
 
     /**
      * Draws a rectangular grid based on the dimensions and settings defined in GridSettings.
-     *
+     * <p>
      * This method iterates over the height and width specified in GridSettings to calculate the
      * position of each grid square. It then calls the drawGridSquare method to draw each square
      * at the computed coordinates with the default background color.
@@ -342,8 +357,9 @@ public class GridDraw {
      * Draws a single square of the grid at the specified coordinates with the given color.
      *
      * @param color the color to fill the grid square
-     * @param x the x-coordinate of the top-left corner of the grid square
-     * @param y the y-coordinate of the top-left corner of the*/
+     * @param x     the x-coordinate of the top-left corner of the grid square
+     * @param y     the y-coordinate of the top-left corner of the
+     */
     private static void drawGridSquare(Color color, int x, int y) {
         SaxionApp.setFill(color);
         SaxionApp.drawRectangle(x, y, gridCellSize, gridCellSize);
