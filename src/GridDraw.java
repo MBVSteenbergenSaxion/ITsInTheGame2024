@@ -29,7 +29,8 @@ public class GridDraw {
                 new JShape(),
                 new OShape(),
                 new SShape(),
-                new ZShape()};
+                new ZShape(),
+                new TShape()};
         colors = new Color[]{SaxionApp.createColor(4, 83, 255), //Blue
                 SaxionApp.createColor(253, 103, 1), //Orange
                 SaxionApp.createColor(254, 255, 6), //Yellow
