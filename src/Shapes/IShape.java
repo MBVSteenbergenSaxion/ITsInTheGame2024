@@ -13,6 +13,6 @@ public class IShape extends Block {
                 {1},
                 {1},
                 {1}
-        }, Color.RED);
+        });
     }
 }

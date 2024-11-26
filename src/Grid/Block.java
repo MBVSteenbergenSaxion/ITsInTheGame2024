@@ -14,12 +14,12 @@ public class Block {
      * and 0 indicates an empty cell.
      */
     private int[][] shape;
-    private Color color;
+    public Color color;
     private int x,y;
     private int[][][] shapes;
     private int currentRotation;
 
-    public Block(int[][] shape, Color color) {
+    public Block(int[][] shape) {
         this.shape = shape;
         this.color = color;
 

@@ -12,6 +12,6 @@ public class LShape extends Block {
         super(new int[][] { {1,0},
                                   {1,0},
                                   {1,1}
-                                }, Color.RED);
+                                });
     }
 }

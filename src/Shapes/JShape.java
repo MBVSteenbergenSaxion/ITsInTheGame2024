@@ -12,6 +12,6 @@ public class JShape extends Block {
         super(new int[][]{{0, 1},
                 {0, 1},
                 {1, 1}
-        }, Color.RED);
+        });
     }
 }
