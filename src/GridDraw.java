@@ -24,7 +24,7 @@ public class GridDraw {
 
         background = new Color[gridRows][gridWidth];
 
-        blocks = new Block[]{new LShape(), new IShape(), new JShape(), new MShape(), new OShape(), new SShape(), new ZShape()};
+        blocks = new Block[]{new LShape(), new IShape(), new JShape(), new OShape(), new SShape(), new ZShape()};
         colors = new Color[]{SaxionApp.createColor(4, 83, 255), //Blue
                 SaxionApp.createColor(253, 103, 1), //Orange
                 SaxionApp.createColor(254, 255, 6), //Yellow
