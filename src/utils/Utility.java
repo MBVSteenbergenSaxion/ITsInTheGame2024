@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Utility {
 
-    public static int[] getPointerOnFrame(){
+    public static int[] getPointerOnFrame() {
 
         int[] pointerData = new int[2];
         int x, y;
@@ -46,16 +46,17 @@ public class Utility {
 
     }
 
-    public static boolean checkBounds(int x, int y, int objectX, int objectY, int width, int height, boolean isClicked){
+    public static boolean checkBounds(int x, int y, int objectX, int objectY, int width, int height, boolean isClicked ) {
 
-        if(isClicked){
+        if ((x >= objectX && x <= objectX + width) && (y >= objectY && y <= objectY + height) && isClicked) {
             SaxionApp.playSound("resources/gameSounds/buttons.wav");
+            return true;
         }
 
         return (x >= objectX && x <= objectX + width) && (y >= objectY && y <= objectY + height);
     }
 
-    public static boolean isArrayInBounds(Object arrayObj, int...indexes) {
+    public static boolean isArrayInBounds(Object arrayObj, int... indexes) {
         for (int i = 0; i < indexes.length; i++) {
             if (arrayObj == null || !arrayObj.getClass().isArray()) {
                 return false;
