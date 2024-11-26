@@ -157,8 +157,10 @@ public class GridDraw {
                         break;
                     }
 
-                    if (background[y][x] != null) {
-                        return false;
+                    if(utils.Utility.isArrayInBounds(background, y, x)){
+                        if (background[y][x] != null) {
+                            return false;
+                        }
                     }
 
                     break;

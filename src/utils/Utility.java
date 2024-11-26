@@ -55,4 +55,18 @@ public class Utility {
         return (x >= objectX && x <= objectX + width) && (y >= objectY && y <= objectY + height);
     }
 
+    public static boolean isArrayInBounds(Object arrayObj, int...indexes) {
+        for (int i = 0; i < indexes.length; i++) {
+            if (arrayObj == null || !arrayObj.getClass().isArray()) {
+                return false;
+            }
+            Object[] array = (Object[]) arrayObj;
+            if (indexes[i] < 0 || indexes[i] >= array.length) {
+                return false;
+            }
+            arrayObj = array[indexes[i]];
+        }
+        return true;
+    }
+
 }
