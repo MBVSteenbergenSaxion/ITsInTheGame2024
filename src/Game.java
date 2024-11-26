@@ -73,12 +73,15 @@ public class Game extends Canvas{
         if(keyboardEvent.isKeyPressed()){
             if (keyboardEvent.getKeyCode() == 39) { //RIGHT
                 gd.moveBlockRight();
+                SaxionApp.playSound("resources/gameSounds/movement.wav");
             } else if (keyboardEvent.getKeyCode() == 37) { //LEFT
                 gd.moveBlockLeft();
+                SaxionApp.playSound("resources/gameSounds/movement.wav");
             } else if (keyboardEvent.getKeyCode() == 40) { //DOWN
                 gd.dropBlock();
             } else if (keyboardEvent.getKeyCode() == 38) { //UP
                 gd.rotateBlock();
+                SaxionApp.playSound("resources/gameSounds/rotation.wav");
             }
         }
     }
@@ -100,14 +103,15 @@ public class Game extends Canvas{
             y = mouseEvent.getY();
 
             if (utils.Utility.checkBounds(x, y,
-                    quitButton.x, quitButton.y, quitButton.width, quitButton.height)) {
+                    quitButton.x, quitButton.y, quitButton.width, quitButton.height, true)) {
 
                 gt.interrupt();
                 switchToScreen(new Main());
             }
 
             if (utils.Utility.checkBounds(x, y,
-                    restartButton.x, restartButton.y, restartButton.width, restartButton.height)) {
+                    restartButton.x, restartButton.y, restartButton.width,
+                    restartButton.height, true)) {
 
                 gt.interrupt();
                 SaxionApp.clear();

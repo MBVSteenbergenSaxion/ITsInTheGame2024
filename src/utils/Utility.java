@@ -1,5 +1,7 @@
 package utils;
 
+import nl.saxion.app.SaxionApp;
+
 import java.awt.*;
 
 public class Utility {
@@ -44,7 +46,12 @@ public class Utility {
 
     }
 
-    public static boolean checkBounds(int x, int y, int objectX, int objectY, int width, int height){
+    public static boolean checkBounds(int x, int y, int objectX, int objectY, int width, int height, boolean isClicked){
+
+        if(isClicked){
+            SaxionApp.playSound("resources/gameSounds/buttons.wav");
+        }
+
         return (x >= objectX && x <= objectX + width) && (y >= objectY && y <= objectY + height);
     }
 
