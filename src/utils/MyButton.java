@@ -13,7 +13,7 @@ public class MyButton {
 
         int[] mouseLocation = Utility.getPointerOnFrame();
 
-        if(checkBounds(mouseLocation[0], mouseLocation[1], x, y, width, height)){
+        if(checkBounds(mouseLocation[0], mouseLocation[1], x, y, width, height, false)){
             SaxionApp.setFill(Color.DARK_GRAY);
         }else{
             SaxionApp.setFill(SaxionApp.DEFAULT_BACKGROUND_COLOR);

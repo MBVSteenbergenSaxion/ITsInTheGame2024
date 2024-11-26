@@ -1,17 +1,8 @@
-import nl.saxion.app.SaxionApp;
 import utils.*;
-import Leaderboard.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
-import javax.security.sasl.SaslClient;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Set;
-
-public class Leaderboard extends Canvas {
+public class Leaderboard extends Canvas{
 
     public Leaderboard() {
         super();
@@ -24,38 +15,28 @@ public class Leaderboard extends Canvas {
 
     private int highscore = 1000;
     private String username = "name";
-    ArrayList<Score> scores = new ArrayList<>();
 
-    utils.MyButton menuButton = new MyButton();
-
+    utils.MyButton gameButton = new MyButton();
+    utils.MyButton leaderBoardButton = new MyButton();
+    utils.MyButton quitButton = new MyButton();
 
     @Override
     public void init() {
-        String filename = "resources/Leaderboard/scores.csv";
-        File CsvFile = new File(filename);
 
-        if (CsvFile.exists() && !CsvFile.isDirectory()) {
-            try {
+        gameButton.x = Settings.width / 3;
+        gameButton.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
+        gameButton.width = Settings.buttonWidth;
+        gameButton.height = Settings.buttonHeight;
 
-                scores = LeaderboardBackend.getScores(filename);
-                for (int i = 0; i < scores.size() -1; i++) {
-                    //Score currentScore = scores.get(i);
-                    //System.out.println(currentScore.name);
-                    //System.out.println(currentScore.highScore);
-                }
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+        leaderBoardButton.x = Settings.width / 3;
+        leaderBoardButton.y = (int) (Settings.height * 0.6 - Settings.height * 0.15);
+        leaderBoardButton.width = Settings.buttonWidth;
+        leaderBoardButton.height = Settings.buttonHeight;
 
-
-        }
-
-
-        menuButton.x = Settings.width / 3;
-        menuButton.y = (int) (Settings.height * 0.8 - Settings.height * 0.15);
-        menuButton.width = Settings.buttonWidth;
-        menuButton.height = Settings.buttonHeight;
-
+        quitButton.x = Settings.width / 3;
+        quitButton.y = (int) (Settings.height * 0.9 - Settings.height * 0.15);
+        quitButton.width = Settings.buttonWidth;
+        quitButton.height = Settings.buttonHeight;
 
 
     }
@@ -90,27 +71,34 @@ public class Leaderboard extends Canvas {
             y = mouseEvent.getY();
 
             if (utils.Utility.checkBounds(x, y,
-                    menuButton.x, menuButton.y, menuButton.width, menuButton.height)) {
+                    gameButton.x, gameButton.y, gameButton.width, gameButton.height, true)) {
 
-                switchToScreen(new Main());
+
             }
 
+            if (utils.Utility.checkBounds(x, y,
+                    quitButton.x, quitButton.y, quitButton.width, quitButton.height, true)) {
 
+                System.exit(0);
+
+            }
+
+            if (utils.Utility.checkBounds(x, y,
+                    leaderBoardButton.x, leaderBoardButton.y,
+                    leaderBoardButton.width, leaderBoardButton.height, true)) {
+
+            }
 
         }
 
     }
 
-    private void draw() {
-        SaxionApp.drawText("Leaderboard", Settings.width/3, Settings.height/7 - Settings.height/10, 50);
-        for (int i = 0; i < scores.size(); i++) {
-            Score currentScore = scores.get(i);
+    private void draw(){
 
-            SaxionApp.drawText(currentScore.name, Settings.width/6, Settings.height/5+i*50, 50);
-            SaxionApp.drawText(String.valueOf(currentScore.highScore),(Settings.width/6)*5 - 50,Settings.height/5+i*50,50);
-        }
+        MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Leaderboard");
+        MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
+        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
 
-            MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu");
     }
 
 }

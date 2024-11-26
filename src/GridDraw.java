@@ -256,6 +256,7 @@ public class GridDraw {
                 row++;
 
                 repaint();
+                SaxionApp.playSound("resources/gameSounds/lineCompletion.wav");
             }
         }
     }
@@ -315,7 +316,9 @@ public class GridDraw {
                     int x = (block.getX() + col) * gridCellSize + GridSettings.startPanelX;
                     int y = (block.getY() + row) * gridCellSize + GridSettings.startPanelY;
 
-                    if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX, GridSettings.startPanelY, GridSettings.widthPanel, GridSettings.heightPanel)) {
+                    if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX,
+                            GridSettings.startPanelY, GridSettings.widthPanel,
+                            GridSettings.heightPanel, false)) {
                         drawGridSquare(color, x, y);
                     }
                 }
