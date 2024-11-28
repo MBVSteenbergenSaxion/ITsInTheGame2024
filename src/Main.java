@@ -76,21 +76,23 @@ public class Main extends Canvas{
             y = mouseEvent.getY();
 
             if (utils.Utility.checkBounds(x, y,
-                    gameButton.x, gameButton.y, gameButton.width, gameButton.height)) {
+                    gameButton.x, gameButton.y, gameButton.width, gameButton.height,
+                    true)) {
 
                 switchToScreen(new Game());
 
             }
 
             if (utils.Utility.checkBounds(x, y,
-                    quitButton.x, quitButton.y, quitButton.width, quitButton.height)) {
+                    quitButton.x, quitButton.y, quitButton.width, quitButton.height, true)) {
 
                 System.exit(0);
 
             }
 
             if (utils.Utility.checkBounds(x, y,
-                    leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height)) {
+                    leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width,
+                    leaderBoardButton.height, true)) {
 
                 switchToScreen(new Leaderboard());
             }

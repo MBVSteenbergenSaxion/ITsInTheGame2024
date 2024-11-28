@@ -29,7 +29,8 @@ public class GridDraw {
                 new JShape(),
                 new OShape(),
                 new SShape(),
-                new ZShape()};
+                new ZShape(),
+                new TShape()};
         colors = new Color[]{SaxionApp.createColor(4, 83, 255), //Blue
                 SaxionApp.createColor(253, 103, 1), //Orange
                 SaxionApp.createColor(254, 255, 6), //Yellow
@@ -156,8 +157,10 @@ public class GridDraw {
                         break;
                     }
 
-                    if (background[y][x] != null) {
-                        return false;
+                    if(utils.Utility.isArrayInBounds(background, y, x)){
+                        if (background[y][x] != null) {
+                            return false;
+                        }
                     }
 
                     break;
@@ -255,6 +258,7 @@ public class GridDraw {
                 row++;
 
                 repaint();
+                SaxionApp.playSound("resources/gameSounds/lineCompletion.wav");
             }
         }
     }
@@ -314,7 +318,9 @@ public class GridDraw {
                     int x = (block.getX() + col) * gridCellSize + GridSettings.startPanelX;
                     int y = (block.getY() + row) * gridCellSize + GridSettings.startPanelY;
 
-                    if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX, GridSettings.startPanelY, GridSettings.widthPanel, GridSettings.heightPanel)) {
+                    if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX,
+                            GridSettings.startPanelY, GridSettings.widthPanel,
+                            GridSettings.heightPanel, false)) {
                         drawGridSquare(color, x, y);
                     }
                 }
