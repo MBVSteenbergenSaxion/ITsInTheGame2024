@@ -9,6 +9,9 @@ public class Game extends Canvas{
     private GridDraw gd;
     private GameThread gt;
     private boolean upKeyPressed;
+    private boolean rightKeyPressed;
+    private boolean leftKeyPressed;
+
 
     /**
      * Default constructor for the Game class.
@@ -74,11 +77,17 @@ public class Game extends Canvas{
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
         if(keyboardEvent.isKeyPressed()){
             if (keyboardEvent.getKeyCode() == 39) {//RIGHT
-                gd.moveBlockRight();
-                SaxionApp.playSound("resources/gameSounds/movement.wav");
+                if (!rightKeyPressed) {
+                    gd.moveBlockRight();
+                    SaxionApp.playSound("resources/gameSounds/movement.wav");
+                    rightKeyPressed = true;
+                }
             } else if (keyboardEvent.getKeyCode() == 37) { //LEFT
-                gd.moveBlockLeft();
-                SaxionApp.playSound("resources/gameSounds/movement.wav");
+                if (!leftKeyPressed) {
+                    gd.moveBlockLeft();
+                    SaxionApp.playSound("resources/gameSounds/movement.wav");
+                    leftKeyPressed = true;
+                }
             } else if (keyboardEvent.getKeyCode() == 40) { //DOWN
                 gd.dropBlock();
             } else if (keyboardEvent.getKeyCode() == 38) { //UP
@@ -90,6 +99,8 @@ public class Game extends Canvas{
             }
         }else {
             if (keyboardEvent.getKeyCode() == 38) upKeyPressed = false;
+            if (keyboardEvent.getKeyCode() == 39) rightKeyPressed = false;
+            if (keyboardEvent.getKeyCode() == 37) leftKeyPressed = false;
         }
     }
 
