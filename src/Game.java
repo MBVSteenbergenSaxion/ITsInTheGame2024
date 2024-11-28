@@ -8,6 +8,7 @@ public class Game extends Canvas{
 
     private GridDraw gd;
     private GameThread gt;
+    private boolean upKeyPressed;
 
     /**
      * Default constructor for the Game class.
@@ -18,8 +19,9 @@ public class Game extends Canvas{
 
         gd = new GridDraw(GridSettings.width);
         gt = new GameThread(gd);
-    }
+        upKeyPressed = false;
 
+    }
     /**
      * Creates the two MyButton objects with the names restart and quit
      * These buttons are used in the Initialize method called init()
@@ -74,15 +76,20 @@ public class Game extends Canvas{
             if (keyboardEvent.getKeyCode() == 39) {//RIGHT
                 gd.moveBlockRight();
                 SaxionApp.playSound("resources/gameSounds/movement.wav");
-            } if (keyboardEvent.getKeyCode() == 37) { //LEFT
+            } else if (keyboardEvent.getKeyCode() == 37) { //LEFT
                 gd.moveBlockLeft();
                 SaxionApp.playSound("resources/gameSounds/movement.wav");
-            } if (keyboardEvent.getKeyCode() == 40) { //DOWN
+            } else if (keyboardEvent.getKeyCode() == 40) { //DOWN
                 gd.dropBlock();
-            } if (keyboardEvent.getKeyCode() == 38) { //UP
-                gd.rotateBlock();
-                SaxionApp.playSound("resources/gameSounds/rotation.wav");
+            } else if (keyboardEvent.getKeyCode() == 38) { //UP
+                if (!upKeyPressed) {
+                    gd.rotateBlock();
+                    SaxionApp.playSound("resources/gameSounds/rotation.wav");
+                    upKeyPressed = true;
+                }
             }
+        }else {
+            if (keyboardEvent.getKeyCode() == 38) upKeyPressed = false;
         }
     }
 
@@ -121,7 +128,6 @@ public class Game extends Canvas{
             }
         }
     }
-
     /**
      * Draws the game screen components. This method performs the following actions:
      *  - Draws the restart and quit buttons with their specified properties.
