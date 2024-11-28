@@ -139,6 +139,8 @@ public class Game extends Canvas{
             }
         }
     }
+
+
     /**
      * Draws the game screen components. This method performs the following actions:
      *  - Draws the restart and quit buttons with their specified properties.
