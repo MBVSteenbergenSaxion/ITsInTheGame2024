@@ -13,6 +13,10 @@ public class GridDraw {
     private static int gridCellSize;
     private Color[][] background;
 
+    private int nextGridRows;
+    private int nextGridWidth;
+    private static int nextGridCellSize;
+
     //private static Block block;
     private Block[] blocks;
     private Color[] colors;
@@ -27,6 +31,10 @@ public class GridDraw {
         gridWidth = width;
         gridCellSize = GridSettings.blockSize;
         gridRows = GridSettings.height;
+
+        nextGridWidth = GridSettings.nextPieceWidth;
+        nextGridCellSize = GridSettings.blockNextSize;
+        nextGridRows = GridSettings.nextPieceHeight;
 
         background = new Color[gridRows][gridWidth];
 
@@ -320,6 +328,7 @@ public class GridDraw {
 
     public void repaint() {
         drawBlock();
+        drawNextBlock();
     }
 
     /**
@@ -389,18 +398,39 @@ public class GridDraw {
         }
     }
 
-    /*
+
     public void drawNextPieceGrid() {
-        for (int row = 0; row < gridRows; row++) {
-            for (int col = 0; col < gridWidth; col++) {
-                int x = col * gridCellSize + GridSettings.startPanelX;
-                int y = row * gridCellSize + GridSettings.startPanelY;
+        for (int row = 0; row < nextGridRows; row++) {
+            for (int col = 0; col < nextGridWidth; col++) {
+                int x = col * nextGridCellSize + GridSettings.startNextPanelX;
+                int y = row * nextGridCellSize + GridSettings.startNextPanelY;
                 SaxionApp.setBorderColor(Color.LIGHT_GRAY);
                 drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
              }
         }
     }
-    */
+
+    public void drawNextBlock() {
+        int height = nextblock.getHeight();
+        int width = nextblock.getWidth();
+        Color color = nextblock.getColor();
+        int[][] shape = nextblock.getShape();
+
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                if (shape[row][col] == 1) {
+                    int x = (nextblock.getX() + col) * nextGridCellSize + GridSettings.startNextPanelX;
+                    int y = (nextblock.getY() + row) * nextGridCellSize + GridSettings.startNextPanelY;
+
+                    if (utils.Utility.checkBounds(x, y, GridSettings.startNextPanelX,
+                            GridSettings.startNextPanelY, GridSettings.widthNextPanel,
+                            GridSettings.heightNextPanel, false)) {
+                        drawGridSquare(color, x, y);
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Draws a single square of the grid at the specified coordinates with the given color.

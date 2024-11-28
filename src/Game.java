@@ -153,6 +153,7 @@ public class Game extends Canvas{
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
 
         gd.drawGrid();
+        gd.drawNextPieceGrid();
         gd.drawBackground();
         gd.repaint();
     }
