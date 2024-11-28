@@ -59,6 +59,7 @@ public class GridDraw {
     public void spawnBlock() {
         setCurrentBlock();
         currentblock.spawn();
+        nextblock.nextSpawn();
     }
 
     public void setCurrentBlock() {
@@ -68,10 +69,17 @@ public class GridDraw {
         System.out.println("Currentpiece = " + currentblock + " with id " + currentBlockId);
 
         setNextPiece();
+        if (randomBlock == currentBlockId) {
+            setNextPiece();
+        }
     }
 
     public void setNextPiece() {
+
         randomBlock = SaxionApp.getRandomValueBetween(0, blocks.length);
+        if (randomBlock == currentBlockId) {
+            randomBlock = SaxionApp.getRandomValueBetween(0, blocks.length);
+        }
         int randomColorValue = SaxionApp.getRandomValueBetween(0, colors.length);
         nextblock = blocks[randomBlock];
         nextblock.color = colors[randomColorValue];
