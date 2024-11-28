@@ -16,12 +16,13 @@ public class GameOver extends Canvas{
      * Initialize buttons and add their attributes (see MyButton class for the drawing methods)
      *
      */
+    private static ArrayList<Character> keyboardInput = new ArrayList<>();
+    TextBox usernameInput = new TextBox();
 
     public GameOver(){
         super();
     }
-    ArrayList<Character> keyboardInput = new ArrayList<>();
-    TextBox usernameInput = new TextBox();
+
 
     /**
      * Initialize method to initialize:
@@ -31,6 +32,7 @@ public class GameOver extends Canvas{
      * */
     @Override
     public void init() {
+
         usernameInput.x = Settings.width / 3;
         usernameInput.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
         usernameInput.fontSize = 25;
