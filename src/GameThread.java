@@ -36,8 +36,8 @@ public class GameThread extends Thread {
                 }
 
                 if(gridDraw.isBlockOutOfBounds()) {
-                    Game.gt = new GameThread(new GridDraw(GridSettings.width));
                     Game.gd = new GridDraw(GridSettings.width);
+                    Game.gt = new GameThread(Game.gd);
                     Canvas.switchToScreen(new GameOver());
                 }
 
