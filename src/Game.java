@@ -71,15 +71,15 @@ public class Game extends Canvas{
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
         if(keyboardEvent.isKeyPressed()){
-            if (keyboardEvent.getKeyCode() == 39) { //RIGHT
+            if (keyboardEvent.getKeyCode() == 39) {//RIGHT
                 gd.moveBlockRight();
                 SaxionApp.playSound("resources/gameSounds/movement.wav");
-            } else if (keyboardEvent.getKeyCode() == 37) { //LEFT
+            } if (keyboardEvent.getKeyCode() == 37) { //LEFT
                 gd.moveBlockLeft();
                 SaxionApp.playSound("resources/gameSounds/movement.wav");
-            } else if (keyboardEvent.getKeyCode() == 40) { //DOWN
+            } if (keyboardEvent.getKeyCode() == 40) { //DOWN
                 gd.dropBlock();
-            } else if (keyboardEvent.getKeyCode() == 38) { //UP
+            } if (keyboardEvent.getKeyCode() == 38) { //UP
                 gd.rotateBlock();
                 SaxionApp.playSound("resources/gameSounds/rotation.wav");
             }
