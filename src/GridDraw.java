@@ -358,6 +358,7 @@ public class GridDraw {
             for (int col = 0; col < gridWidth; col++) {
                 int x = col * gridCellSize + GridSettings.startPanelX;
                 int y = row * gridCellSize + GridSettings.startPanelY;
+                SaxionApp.setBorderColor(Color.LIGHT_GRAY);
                 drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
                 /*
                 if (row == 0 || row == gridRows - 1 || col == 0 || col == gridWidth - 1) {
