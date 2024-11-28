@@ -297,7 +297,9 @@ public class GridDraw {
     }
 
     public void repaint() {
-        drawBlock();
+        if(block != null){
+            drawBlock();
+        }
     }
 
     /**

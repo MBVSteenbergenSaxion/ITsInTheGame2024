@@ -1,3 +1,4 @@
+import Grid.GridSettings;
 import nl.saxion.app.SaxionApp;
 
 import java.util.logging.Level;
@@ -35,8 +36,9 @@ public class GameThread extends Thread {
                 }
 
                 if(gridDraw.isBlockOutOfBounds()) {
-                    System.out.println("Game Over");
-                    break;
+                    Game.gt = new GameThread(new GridDraw(GridSettings.width));
+                    Game.gd = new GridDraw(GridSettings.width);
+                    Canvas.switchToScreen(new GameOver());
                 }
 
                 gridDraw.moveBlockToBackground();
