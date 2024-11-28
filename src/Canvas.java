@@ -32,6 +32,7 @@ public class Canvas implements GameLoop {
         if (activeCanvas != null) {
             activeCanvas.init();
         }
+        SaxionApp.playSound("resources/GameMusic/TetrisTheme.wav", true);
     }
 
     @Override
