@@ -133,9 +133,10 @@ public class Game extends Canvas{
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
 
-        gd.drawGrid();
-        gd.drawBackground();
-        gd.repaint();
+        if(gd != null){
+            gd.drawGrid();
+            gd.drawBackground();
+            gd.repaint();
+        }
     }
-
 }
