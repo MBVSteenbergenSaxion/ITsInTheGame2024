@@ -20,11 +20,13 @@ public class GridSettings {
     public static int blockSize = widthPanel / GridSettings.width;
     public static int heightPanel = startPanelY  * height;
 
-    public static int startNextPanelX = screenWidth / 6 - 10;
-    public static int endNextPanelX = startPanelX * 2 - 10;
-    public static int widthNextPanel = endPanelX - startPanelX;
-    public static int startNextPanelY = (int)((double) screenHeight / 3 - screenHeight * 0.20);
-    public static int blockNextSize = widthPanel / GridSettings.width;
+    private static int loweringGrid = 3;
+
+    public static int startNextPanelX = screenWidth / 10;
+    public static int endNextPanelX = startNextPanelX * 2;
+    public static int widthNextPanel = endNextPanelX - startNextPanelX;
+    public static int blockNextSize = widthNextPanel / nextPieceWidth;
+    public static int startNextPanelY = (int)((double) screenHeight / 3 - screenHeight * 0.20 + (blockSize * loweringGrid));
     public static int heightNextPanel = startPanelY  * nextPieceHeight;
 
 }
