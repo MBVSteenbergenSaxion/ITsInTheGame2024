@@ -6,8 +6,8 @@ import nl.saxion.app.interaction.MouseEvent;
 
 public class Game extends Canvas{
 
-    private GridDraw gd;
-    private GameThread gt;
+    public static GridDraw gd;
+    public static GameThread gt;
     private boolean upKeyPressed;
 
     /**
