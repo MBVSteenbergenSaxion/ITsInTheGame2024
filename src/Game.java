@@ -76,21 +76,21 @@ public class Game extends Canvas{
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
         if(keyboardEvent.isKeyPressed()){
-            if (keyboardEvent.getKeyCode() == 39) {//RIGHT
+            if (keyboardEvent.getKeyCode() == 39 || keyboardEvent.getKeyCode() == 68) {//RIGHT
                 if (!rightKeyPressed) {
                     gd.moveBlockRight();
                     SaxionApp.playSound("resources/gameSounds/movement.wav");
                     rightKeyPressed = true;
                 }
-            } else if (keyboardEvent.getKeyCode() == 37) { //LEFT
+            } else if (keyboardEvent.getKeyCode() == 37 || keyboardEvent.getKeyCode() == 65) { //LEFT
                 if (!leftKeyPressed) {
                     gd.moveBlockLeft();
                     SaxionApp.playSound("resources/gameSounds/movement.wav");
                     leftKeyPressed = true;
                 }
-            } else if (keyboardEvent.getKeyCode() == 40) { //DOWN
+            } else if (keyboardEvent.getKeyCode() == 40 || keyboardEvent.getKeyCode() == 83) { //DOWN
                 gd.dropBlock();
-            } else if (keyboardEvent.getKeyCode() == 38) { //UP
+            } else if (keyboardEvent.getKeyCode() == 38 || keyboardEvent.getKeyCode() == 87) { //UP
                 if (!upKeyPressed) {
                     gd.rotateBlock();
                     SaxionApp.playSound("resources/gameSounds/rotation.wav");
@@ -98,9 +98,9 @@ public class Game extends Canvas{
                 }
             }
         }else {
-            if (keyboardEvent.getKeyCode() == 38) upKeyPressed = false;
-            if (keyboardEvent.getKeyCode() == 39) rightKeyPressed = false;
-            if (keyboardEvent.getKeyCode() == 37) leftKeyPressed = false;
+            if (keyboardEvent.getKeyCode() == 38 || keyboardEvent.getKeyCode() == 87) upKeyPressed = false;
+            if (keyboardEvent.getKeyCode() == 39 || keyboardEvent.getKeyCode() == 68) rightKeyPressed = false;
+            if (keyboardEvent.getKeyCode() == 37 || keyboardEvent.getKeyCode() == 65) leftKeyPressed = false;
         }
     }
 
