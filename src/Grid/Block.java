@@ -54,6 +54,13 @@ public class Block {
         shape = shapes[currentRotation];
     }
 
+    public void nextSpawn() {
+        y = 0;
+        x = 0;
+
+        shape = shapes[3];
+    }
+
     public int[][] getShape() {
         return shape;
     }

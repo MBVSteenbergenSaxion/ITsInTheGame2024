@@ -1,4 +1,3 @@
-import Grid.GridSettings;
 import nl.saxion.app.SaxionApp;
 
 import java.util.logging.Level;
@@ -8,6 +7,8 @@ public class GameThread extends Thread {
 
     private GridDraw gridDraw;
     static boolean draw;
+
+    public int nextBlockId;
 
     public GameThread(GridDraw gridDraw) {
         this.gridDraw = gridDraw;
@@ -21,10 +22,16 @@ public class GameThread extends Thread {
     @Override
     public void run() {
 
+        gridDraw.setNextPiece();
+
         while(true){
 
             if(draw){
+
                 gridDraw.spawnBlock();
+                nextBlockId = GridDraw.randomBlock;
+                System.out.println(nextBlockId);
+
 
                 while (gridDraw.moveBlockDown()) {
                     SaxionApp.clear();
