@@ -267,8 +267,10 @@ public class GridDraw {
     }
 
     //Rows counting from bottom to top and left to right
-    public void clearLines() {
+    public int clearLines() {
         boolean lineFilled;
+        int linesCleared = 0;
+
         for (int row = gridRows - 1; row >= 0; row--) {
             lineFilled = true;
             //If no block == to null, it means the line is full and the line must be removed
@@ -285,6 +287,7 @@ public class GridDraw {
             if (lineFilled) {
                 clearLine(row);
                 shiftDown(row);
+                linesCleared++;
                 //remove the upper line if a line is cleared (Otherwise array out of bounds)
                 clearLine(0);
                 //To overcome that a row is not counted because the r is already updated
@@ -295,6 +298,7 @@ public class GridDraw {
                 SaxionApp.playSound("resources/gameSounds/lineCompletion.wav");
             }
         }
+        return linesCleared;
     }
 
     private void clearLine(int row) {

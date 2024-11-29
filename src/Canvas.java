@@ -4,11 +4,55 @@ import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+
 public class Canvas implements GameLoop {
     private static Canvas activeCanvas;
-    public static String mainMusic = "resources/GameMusic/TetrisTheme.wav";
+    private static Clip backgroundMusic;
 
     public Canvas() {
+    }
+
+    public static void playBackgroundMusic(String filePath) {
+
+
+        try {
+            File audioFile = new File(filePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            AudioFormat format = audioStream.getFormat();
+
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+
+            if (!AudioSystem.isLineSupported(info)) {
+                System.out.println("Audio Line not supported");
+                return;
+            }
+
+
+            backgroundMusic = (Clip) AudioSystem.getLine(info);
+            backgroundMusic.open(audioStream);
+
+            // Loop the background music
+            backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+
+            // Start playing
+            backgroundMusic.start();
+
+        } catch (UnsupportedAudioFileException | IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void stopBackgroundMusic() {
+        if (backgroundMusic != null && backgroundMusic.isRunning()) {
+            backgroundMusic.stop();
+            backgroundMusic.close();
+        }
     }
 
     public static void main(String[] args){
@@ -34,7 +78,6 @@ public class Canvas implements GameLoop {
         if (activeCanvas != null) {
             activeCanvas.init();
         }
-        SaxionApp.playSound(mainMusic, true);
     }
 
     @Override

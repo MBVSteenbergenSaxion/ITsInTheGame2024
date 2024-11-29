@@ -5,6 +5,8 @@ import nl.saxion.app.interaction.MouseEvent;
 
 import java.awt.*;
 
+import javax.sound.sampled.Clip;
+
 public class Main extends Canvas{
 
     /***
@@ -20,6 +22,8 @@ public class Main extends Canvas{
     utils.MyButton leaderBoardButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
 
+    private String filePath = "resources/GameMusic/TetrisTheme.wav";
+
     /**
      * Initialize method to initialize:
      * - Game, leaderboard and quit button with dynamic positioning and dimensions
@@ -34,8 +38,11 @@ public class Main extends Canvas{
         SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
         gameButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         gameButton.y = (int) (Settings.height * 0.50 - Settings.height * 0.15);
+        gameButton.x = Settings.width / 3;
+        gameButton.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
         gameButton.width = Settings.buttonWidth;
         gameButton.height = Settings.buttonHeight;
+        Canvas.playBackgroundMusic(filePath);
 
         leaderBoardButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         leaderBoardButton.y = (int) (Settings.height * 0.70 - Settings.height * 0.15);
@@ -84,7 +91,7 @@ public class Main extends Canvas{
             if (utils.Utility.checkBounds(x, y,
                     gameButton.x, gameButton.y, gameButton.width, gameButton.height,
                     true)) {
-
+                Canvas.stopBackgroundMusic();
                 switchToScreen(new Game());
 
             }
