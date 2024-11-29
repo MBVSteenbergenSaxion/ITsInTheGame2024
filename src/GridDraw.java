@@ -351,6 +351,7 @@ public class GridDraw {
             Color color = currentblock.getColor();
             int[][] shape = currentblock.getShape();
 
+            SaxionApp.setBorderColor(Color.LIGHT_GRAY);
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
                     if (shape[row][col] == 1) {
@@ -371,6 +372,7 @@ public class GridDraw {
     public void drawBackground() {
         Color color;
 
+        SaxionApp.setBorderColor(SaxionApp.DEFAULT_BACKGROUND_COLOR);
         for (int row = 0; row < gridRows; row++) {
             for (int col = 0; col < gridWidth; col++) {
                 color = background[row][col];
@@ -428,6 +430,7 @@ public class GridDraw {
         Color color = nextblock.getColor();
         int[][] shape = nextblock.getShape();
 
+        SaxionApp.setBorderColor(Color.LIGHT_GRAY);
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 if (shape[row][col] == 1) {
