@@ -102,7 +102,7 @@ public class Leaderboard extends Canvas {
     }
 
     private void draw() {
-        SaxionApp.drawText("Leaderboard", Settings.width/3, Settings.height/7 - Settings.height/10, 50);
+        SaxionApp.drawText("Leaderboard", Settings.width/3 + Settings.width/35, Settings.height/7 - Settings.height/10, 50);
         for (int i = 0; i < scores.size(); i++) {
             Score currentScore = scores.get(i);
 
