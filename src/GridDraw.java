@@ -66,8 +66,6 @@ public class GridDraw {
         currentblock = nextblock;
         currentBlockId = randomBlock;
 
-        System.out.println("Currentpiece = " + currentblock + " with id " + currentBlockId);
-
         setNextPiece();
         if (randomBlock == currentBlockId) {
             setNextPiece();
@@ -314,21 +312,24 @@ public class GridDraw {
     }
 
     public void moveBlockToBackground() {
-        int[][] shape = currentblock.getShape();
-        int height = currentblock.getHeight();
-        int width = currentblock.getWidth();
 
-        int xPos = currentblock.getX();
-        int yPos = currentblock.getY();
+        if(this.currentblock != null){
+            int[][] shape = currentblock.getShape();
+            int height = currentblock.getHeight();
+            int width = currentblock.getWidth();
 
-        Color color = currentblock.getColor();
+            int xPos = currentblock.getX();
+            int yPos = currentblock.getY();
 
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                if (shape[row][col] == 1) {
-                    int x = (xPos + col);
-                    int y = (yPos + row);
-                    background[y][x] = color;
+            Color color = currentblock.getColor();
+
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    if (shape[row][col] == 1) {
+                        int x = (xPos + col);
+                        int y = (yPos + row);
+                        background[y][x] = color;
+                    }
                 }
             }
         }
@@ -343,21 +344,24 @@ public class GridDraw {
      * Draws a block on the screen with the specified color.
      */
     public void drawBlock() {
-        int height = currentblock.getHeight();
-        int width = currentblock.getWidth();
-        Color color = currentblock.getColor();
-        int[][] shape = currentblock.getShape();
 
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                if (shape[row][col] == 1) {
-                    int x = (currentblock.getX() + col) * gridCellSize + GridSettings.startPanelX;
-                    int y = (currentblock.getY() + row) * gridCellSize + GridSettings.startPanelY;
+        if(this.currentblock != null){
+            int height = currentblock.getHeight();
+            int width = currentblock.getWidth();
+            Color color = currentblock.getColor();
+            int[][] shape = currentblock.getShape();
 
-                    if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX,
-                            GridSettings.startPanelY, GridSettings.widthPanel,
-                            GridSettings.heightPanel, false)) {
-                        drawGridSquare(color, x, y);
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    if (shape[row][col] == 1) {
+                        int x = (currentblock.getX() + col) * gridCellSize + GridSettings.startPanelX;
+                        int y = (currentblock.getY() + row) * gridCellSize + GridSettings.startPanelY;
+
+                        if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX,
+                                GridSettings.startPanelY, GridSettings.widthPanel,
+                                GridSettings.heightPanel, false)) {
+                            drawGridSquare(color, x, y);
+                        }
                     }
                 }
             }
