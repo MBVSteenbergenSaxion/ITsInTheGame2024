@@ -21,7 +21,7 @@ public class MyButton {
 
         SaxionApp.setBorderColor(Color.LIGHT_GRAY);
         SaxionApp.drawRectangle(x, y, width, height);
-        SaxionApp.drawText(buttonText, x + (int)(width * 0.3), y + (int)(height * 0.4), fontSize);
+        SaxionApp.drawText(buttonText, x + (int)(width * 0.25), y + (int)(height * 0.4), fontSize);
 
     }
 }

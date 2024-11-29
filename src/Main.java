@@ -1,6 +1,9 @@
+import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
+
+import java.awt.*;
 
 public class Main extends Canvas{
 
@@ -25,18 +28,21 @@ public class Main extends Canvas{
      * */
     @Override
     public void init() {
-
-        gameButton.x = Settings.width / 3;
-        gameButton.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
+        SaxionApp.drawImage("resources/Images/eagle_left.jpg", 0, 0, Settings.width / 3, Settings.height);
+        SaxionApp.drawImage("resources/Images/eagle_right.jpg", Settings.width - Settings.width / 3, 0, Settings.width / 3, Settings.height);
+        SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
+        SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
+        gameButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
+        gameButton.y = (int) (Settings.height * 0.50 - Settings.height * 0.15);
         gameButton.width = Settings.buttonWidth;
         gameButton.height = Settings.buttonHeight;
 
-        leaderBoardButton.x = Settings.width / 3;
-        leaderBoardButton.y = (int) (Settings.height * 0.6 - Settings.height * 0.15);
+        leaderBoardButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
+        leaderBoardButton.y = (int) (Settings.height * 0.70 - Settings.height * 0.15);
         leaderBoardButton.width = Settings.buttonWidth;
         leaderBoardButton.height = Settings.buttonHeight;
 
-        quitButton.x = Settings.width / 3;
+        quitButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         quitButton.y = (int) (Settings.height * 0.9 - Settings.height * 0.15);
         quitButton.width = Settings.buttonWidth;
         quitButton.height = Settings.buttonHeight;
