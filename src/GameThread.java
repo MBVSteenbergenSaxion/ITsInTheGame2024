@@ -8,6 +8,15 @@ public class GameThread extends Thread {
     private GridDraw gridDraw;
     static boolean draw;
 
+    //Create integer variables for the score, level and the number of score is needed to levelup
+    private int scoreCounterThread;
+    private int level = 1;
+    private int scorePerLevel = 2;
+
+    //Creates integer variables with the standard speed and the speed amount that will be deleted every time you level up
+    private int gameSpeed = 1000;
+    private int speedUpPerLevel = 150;
+
     public int nextBlockId;
 
     public GameThread(GridDraw gridDraw) {
@@ -16,12 +25,10 @@ public class GameThread extends Thread {
     }
 
     public static void main(String[] args) {
-
     }
 
     @Override
     public void run() {
-
         gridDraw.setNextPiece();
 
         while(true){
@@ -35,7 +42,7 @@ public class GameThread extends Thread {
                 while (gridDraw.moveBlockDown()) {
                     SaxionApp.clear();
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(gameSpeed);
                     } catch (InterruptedException e) {
                         return;
                     }
@@ -49,8 +56,20 @@ public class GameThread extends Thread {
                 }
 
                 gridDraw.moveBlockToBackground();
-                gridDraw.clearLines();
+                scoreCounterThread += gridDraw.clearLines();
+
+                Game.updateScore(scoreCounterThread);
+                int lvl = scoreCounterThread / scorePerLevel + 1;
+
+                if (level < 6) {
+                    if (lvl > level) {
+
+                        level = lvl;
+                        Game.updateLevel(level);
+                        gameSpeed -= speedUpPerLevel;
+                    }
+                }
+            }
             }
         }
     }
-}

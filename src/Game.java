@@ -12,6 +12,8 @@ public class Game extends Canvas{
     private boolean rightKeyPressed;
     private boolean leftKeyPressed;
     public static int scoreCount;
+    public static int levelCount;
+    private static String filePath1 = "resources/GameMusic/TetrisTheme.wav";
 
 
     /**
@@ -43,7 +45,10 @@ public class Game extends Canvas{
      */
     @Override
     public void init() {
+        Canvas.playBackgroundMusic(filePath1);
+
         startGame();
+
         scoreCount = 0;
         restartButton.x = Settings.width - Settings.width / 4;
         restartButton.y = Settings.height / 3;
@@ -72,6 +77,7 @@ public class Game extends Canvas{
 
     public void startGame() {
         gt.start();
+
     }
 
     @Override
@@ -125,6 +131,7 @@ public class Game extends Canvas{
                     quitButton.x, quitButton.y, quitButton.width, quitButton.height, true)) {
 
                 gt.interrupt();
+                Canvas.stopBackgroundMusic();
                 switchToScreen(new Main());
             }
 
@@ -134,12 +141,23 @@ public class Game extends Canvas{
                 scoreCount = 0;
                 gt.interrupt();
                 SaxionApp.clear();
+                Canvas.stopBackgroundMusic();
                 gd = new GridDraw(GridSettings.width);
                 gt = new GameThread(gd);
                 gt.start();
+                Canvas.playBackgroundMusic(filePath1);
             }
         }
     }
+
+    public static void updateScore(int score) {
+        scoreCount = score;
+    }
+
+    public static void updateLevel(int level) {
+        levelCount = level;
+    }
+
     /**
      * Draws the game screen components. This method performs the following actions:
      *  - Draws the restart and quit buttons with their specified properties.
@@ -152,6 +170,7 @@ public class Game extends Canvas{
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
 
         SaxionApp.drawText("Highscore: " + scoreCount, (Settings.width / 4 - Settings.width / 12), Settings.height / 2, 20);
+        SaxionApp.drawText("Level: " + levelCount, (Settings.width / 4 - Settings.width / 12), Settings.height - Settings.height / 4, 20);
 
         gd.drawGrid();
         gd.drawNextPieceGrid();
