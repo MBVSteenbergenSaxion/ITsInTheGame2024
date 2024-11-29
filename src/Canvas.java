@@ -18,7 +18,7 @@ public class Canvas implements GameLoop {
     }
 
 
-    public void switchToScreen(Canvas newScreen) {
+    public static void switchToScreen(Canvas newScreen) {
         SaxionApp.clear();
 
         activeCanvas = newScreen;

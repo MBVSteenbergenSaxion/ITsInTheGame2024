@@ -279,28 +279,33 @@ public class GridDraw {
     }
 
     public void moveBlockToBackground() {
-        int[][] shape = block.getShape();
-        int height = block.getHeight();
-        int width = block.getWidth();
 
-        int xPos = block.getX();
-        int yPos = block.getY();
+        if(block != null){
+            int[][] shape = block.getShape();
+            int height = block.getHeight();
+            int width = block.getWidth();
 
-        Color color = block.getColor();
+            int xPos = block.getX();
+            int yPos = block.getY();
 
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                if (shape[row][col] == 1) {
-                    int x = (xPos + col);
-                    int y = (yPos + row);
-                    background[y][x] = color;
+            Color color = block.getColor();
+
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    if (shape[row][col] == 1) {
+                        int x = (xPos + col);
+                        int y = (yPos + row);
+                        background[y][x] = color;
+                    }
                 }
             }
         }
     }
 
     public void repaint() {
-        drawBlock();
+        if(block != null){
+            drawBlock();
+        }
     }
 
     /**
