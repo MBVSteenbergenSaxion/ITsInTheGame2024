@@ -30,7 +30,6 @@ public class GameThread extends Thread {
 
                 gridDraw.spawnBlock();
                 nextBlockId = GridDraw.randomBlock;
-                System.out.println(nextBlockId);
 
 
                 while (gridDraw.moveBlockDown()) {

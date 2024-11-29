@@ -66,8 +66,6 @@ public class GridDraw {
         currentblock = nextblock;
         currentBlockId = randomBlock;
 
-        System.out.println("Currentpiece = " + currentblock + " with id " + currentBlockId);
-
         setNextPiece();
         if (randomBlock == currentBlockId) {
             setNextPiece();
