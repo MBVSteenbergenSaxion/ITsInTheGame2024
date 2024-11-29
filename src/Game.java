@@ -11,6 +11,7 @@ public class Game extends Canvas{
     private boolean upKeyPressed;
     private boolean rightKeyPressed;
     private boolean leftKeyPressed;
+    public static int scoreCount;
 
 
     /**
@@ -43,7 +44,7 @@ public class Game extends Canvas{
     @Override
     public void init() {
         startGame();
-
+        scoreCount = 0;
         restartButton.x = Settings.width - Settings.width / 4;
         restartButton.y = Settings.height / 3;
         restartButton.width = Settings.buttonWidth / 2;
@@ -130,7 +131,7 @@ public class Game extends Canvas{
             if (utils.Utility.checkBounds(x, y,
                     restartButton.x, restartButton.y, restartButton.width,
                     restartButton.height, true)) {
-
+                scoreCount = 0;
                 gt.interrupt();
                 SaxionApp.clear();
                 gd = new GridDraw(GridSettings.width);
@@ -149,6 +150,8 @@ public class Game extends Canvas{
     private void draw(){
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
+
+        SaxionApp.drawText("Highscore: " + scoreCount, (Settings.width / 4 - Settings.width / 12), Settings.height / 2, 20);
 
         gd.drawGrid();
         gd.drawNextPieceGrid();

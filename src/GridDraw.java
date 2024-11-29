@@ -291,6 +291,7 @@ public class GridDraw {
                 row++;
 
                 repaint();
+                Game.scoreCount++;
                 SaxionApp.playSound("resources/gameSounds/lineCompletion.wav");
             }
         }
