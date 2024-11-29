@@ -3,8 +3,8 @@ import nl.saxion.app.SaxionApp;
 
 public class GridSettings {
 
-    private static int screenHeight = SaxionApp.getHeight();
-    private static int screenWidth = SaxionApp.getWidth();
+    private static final int screenHeight = SaxionApp.getHeight();
+    private static final int screenWidth = SaxionApp.getWidth();
 
     public static int width = 10;
     public static int height = 15;
@@ -20,7 +20,7 @@ public class GridSettings {
     public static int blockSize = widthPanel / GridSettings.width;
     public static int heightPanel = startPanelY  * height;
 
-    private static int loweringGrid = 3;
+    private static final int loweringGrid = 3;
 
     public static int startNextPanelX = screenWidth / 10;
     public static int endNextPanelX = startNextPanelX * 2;
