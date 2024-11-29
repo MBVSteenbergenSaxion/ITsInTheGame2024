@@ -12,8 +12,13 @@ public class Game extends Canvas{
     private boolean rightKeyPressed;
     private boolean leftKeyPressed;
     public static int scoreCount;
-    public static int levelCount;
-    private static String filePath1 = "resources/GameMusic/TetrisTheme.wav";
+    public static int levelCount = 1;
+    private static String filePath1 = "resources/GameMusic/Theme2.wav";
+    private static String filePath2 = "resources/GameMusic/Theme3.wav";
+    private static String filePath3 = "resources/GameMusic/Theme4.wav";
+    private static String filePath4 = "resources/GameMusic/Theme5.wav";
+    private static String filePath5 = "resources/GameMusic/Theme6.wav";
+
 
 
     /**
@@ -45,8 +50,8 @@ public class Game extends Canvas{
      */
     @Override
     public void init() {
-        Canvas.playBackgroundMusic(filePath1);
 
+        Canvas.playBackgroundMusic(filePath1);
         startGame();
         scoreCount = 0;
         restartButton.x = Settings.width - Settings.width / 4;
@@ -58,6 +63,32 @@ public class Game extends Canvas{
         quitButton.y = Settings.height / 2;
         quitButton.width = Settings.buttonWidth / 2;
         quitButton.height = Settings.buttonHeight / 2;
+    }
+
+    public static void levelChangingMusic() {
+        switch (levelCount) {
+            case 1:
+                Canvas.stopBackgroundMusic();
+                Canvas.playBackgroundMusic(filePath1);
+                break;
+            case 2:
+                Canvas.stopBackgroundMusic();
+                Canvas.playBackgroundMusic(filePath2);
+                break;
+            case 3:
+                Canvas.stopBackgroundMusic();
+                Canvas.playBackgroundMusic(filePath3);
+                break;
+            case 4:
+                Canvas.stopBackgroundMusic();
+                Canvas.playBackgroundMusic(filePath4);
+                break;
+            case 5:
+                Canvas.stopBackgroundMusic();
+                Canvas.playBackgroundMusic(filePath5);
+                break;
+        }
+
     }
 
     /**
@@ -154,6 +185,7 @@ public class Game extends Canvas{
 
     public static void updateLevel(int level) {
         levelCount = level;
+        levelChangingMusic();
     }
 
     /**
