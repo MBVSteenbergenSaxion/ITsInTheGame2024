@@ -5,6 +5,7 @@ import nl.saxion.app.interaction.MouseEvent;
 
 public class Canvas implements GameLoop {
     private static Canvas activeCanvas;
+    public static String mainMusic = "resources/GameMusic/TetrisTheme.wav";
 
     public Canvas() {
     }
@@ -32,7 +33,7 @@ public class Canvas implements GameLoop {
         if (activeCanvas != null) {
             activeCanvas.init();
         }
-        SaxionApp.playSound("resources/GameMusic/TetrisTheme.wav", true);
+        SaxionApp.playSound(mainMusic, true);
     }
 
     @Override
