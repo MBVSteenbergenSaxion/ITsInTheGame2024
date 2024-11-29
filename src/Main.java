@@ -36,10 +36,9 @@ public class Main extends Canvas{
         SaxionApp.drawImage("resources/Images/eagle_right.jpg", Settings.width - Settings.width / 3, 0, Settings.width / 3, Settings.height);
         SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
         SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
+
         gameButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         gameButton.y = (int) (Settings.height * 0.50 - Settings.height * 0.15);
-        gameButton.x = Settings.width / 3;
-        gameButton.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
         gameButton.width = Settings.buttonWidth;
         gameButton.height = Settings.buttonHeight;
         Canvas.playBackgroundMusic(filePath);

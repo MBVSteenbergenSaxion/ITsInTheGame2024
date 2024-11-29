@@ -91,7 +91,7 @@ public class Leaderboard extends Canvas {
 
             if (utils.Utility.checkBounds(x, y,
                     menuButton.x, menuButton.y, menuButton.width, menuButton.height, true)) {
-
+                Canvas.stopBackgroundMusic();
                 switchToScreen(new Main());
             }
 
