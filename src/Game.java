@@ -13,11 +13,11 @@ public class Game extends Canvas{
     private boolean leftKeyPressed;
     public static int scoreCount;
     public static int levelCount = 1;
-    private static String filePath1 = "resources/GameMusic/Theme1.wav";  //Selfmade = theme2
-    private static String filePath2 = "resources/GameMusic/Theme2.wav";  //Selfmade = theme3
-    private static String filePath3 = "resources/GameMusic/Theme3.wav";  //Selfmade = theme4
-    private static String filePath4 = "resources/GameMusic/Theme4.wav";  //Selfmade = theme5
-    private static String filePath5 = "resources/GameMusic/Theme5.wav";  //Selfmade = theme6
+    private static String filePath1 = "resources/GameMusic/Theme(SelfMade)/Theme2.wav";  //Selfmade = theme2
+    private static String filePath2 = "resources/GameMusic/Theme(SelfMade)/Theme3.wav";  //Selfmade = theme3
+    private static String filePath3 = "resources/GameMusic/Theme(SelfMade)/Theme4.wav";  //Selfmade = theme4
+    private static String filePath4 = "resources/GameMusic/Theme(SelfMade)/Theme5.wav";  //Selfmade = theme5
+    private static String filePath5 = "resources/GameMusic/Theme(SelfMade)/Theme6.wav";  //Selfmade = theme6
 
 
 
