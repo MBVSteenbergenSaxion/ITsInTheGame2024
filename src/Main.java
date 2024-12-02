@@ -22,7 +22,7 @@ public class Main extends Canvas{
     utils.MyButton leaderBoardButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
 
-    private String filePath = "resources/GameMusic/TetrisTheme.wav";
+    private String filePath = "resources/GameMusic/America, F  Yeah - Team America OST.wav";
 
     /**
      * Initialize method to initialize:
@@ -105,7 +105,7 @@ public class Main extends Canvas{
             if (utils.Utility.checkBounds(x, y,
                     leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width,
                     leaderBoardButton.height, true)) {
-
+                Canvas.stopBackgroundMusic();
                 switchToScreen(new Leaderboard());
             }
 
