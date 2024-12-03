@@ -32,10 +32,6 @@ public class Main extends Canvas{
      * */
     @Override
     public void init() {
-        SaxionApp.drawImage("resources/Images/eagle_left.jpg", 0, 0, Settings.width / 3, Settings.height);
-        SaxionApp.drawImage("resources/Images/eagle_right.jpg", Settings.width - Settings.width / 3, 0, Settings.width / 3, Settings.height);
-        SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
-        SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
 
         gameButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         gameButton.y = (int) (Settings.height * 0.40);
@@ -121,6 +117,11 @@ public class Main extends Canvas{
         MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Start Game");
         MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
+
+        SaxionApp.drawImage("resources/Images/eagle_left.jpg", 0, 0, Settings.width / 3, Settings.height);
+        SaxionApp.drawImage("resources/Images/eagle_right.jpg", Settings.width - Settings.width / 3, 0, Settings.width / 3, Settings.height);
+        SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
+        SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
 
     }
 
