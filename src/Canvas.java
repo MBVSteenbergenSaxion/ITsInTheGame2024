@@ -5,6 +5,7 @@ import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
 import javax.sound.sampled.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -15,7 +16,6 @@ public class Canvas implements GameLoop {
     public static Canvas activeCanvas;
     private static Clip backgroundMusic;
     Color backgroundColor = SaxionApp.createColor(0,0,128);
-    DynamicFrameThread dynamicFrameThread = new DynamicFrameThread();
 
 
     public Canvas() {
@@ -67,6 +67,22 @@ public class Canvas implements GameLoop {
 
         SaxionApp.startGameLoop(mainApp, Settings.width, Settings.height, Settings.ms);
 
+        Frame[] frames = Frame.getFrames();
+        frames[0].addComponentListener(new ComponentAdapter() {
+
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                Settings.width = frames[0].getWidth();
+                Settings.height = frames[0].getHeight();
+                SaxionApp.clear();
+                activeCanvas.init();
+                frames[0].repaint();
+            }
+
+        });
+
+
     }
 
 
@@ -83,7 +99,7 @@ public class Canvas implements GameLoop {
     public void init() {
         try {
             utils.Utility.customizeScreen();
-            dynamicFrameThread.start();
+            //dynamicFrameThread.start();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
