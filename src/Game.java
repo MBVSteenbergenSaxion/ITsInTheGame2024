@@ -18,7 +18,8 @@ public class Game extends Canvas {
             ("resources/GameMusic/Theme(SelfMade)/Theme3.wav"),
             ("resources/GameMusic/Theme(SelfMade)/Theme4.wav"),
             ("resources/GameMusic/Theme(SelfMade)/Theme5.wav"),
-            ("resources/GameMusic/Theme(SelfMade)/Theme6.wav")
+            ("resources/GameMusic/Theme(SelfMade)/Theme6.wav"),
+            ("resources/GameMusic/Theme(SelfMade)/Theme7.wav")
     };
 
     public Game() {
@@ -159,7 +160,7 @@ public class Game extends Canvas {
     }
 
     public static void levelChangingMusic() {
-        for (int i = 0; i < tetrisLevelUpAudio.length; i++) {
+        for (int i = 1; i < tetrisLevelUpAudio.length; i++) {
             if (levelCount == i) {
                 Canvas.stopBackgroundMusic();
                 Canvas.playBackgroundMusic(tetrisLevelUpAudio[i - 1]);
