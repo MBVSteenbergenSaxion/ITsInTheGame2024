@@ -52,6 +52,7 @@ public class GameThread extends Thread {
                     draw = false;
                     Game.gd = null;
                     Game.gt = null;
+
                     Canvas.switchToScreen(new GameOver());
                 }
 
