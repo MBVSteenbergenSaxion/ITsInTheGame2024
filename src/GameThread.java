@@ -56,7 +56,7 @@ public class GameThread extends Thread {
                 }
 
                 gridDraw.moveBlockToBackground();
-                scoreCounterThread += gridDraw.clearLines();
+                scoreCounterThread += gridDraw.clearLineCheck();
 
                 Game.updateScore(scoreCounterThread);
                 int lvl = scoreCounterThread / scorePerLevel + 1;

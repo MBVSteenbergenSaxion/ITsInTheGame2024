@@ -24,7 +24,7 @@ public class Game extends Canvas{
     public Game() {
         super();
 
-        gd = new GridDraw(GridSettings.width);
+        gd = new GridDraw();
         gt = new GameThread(gd);
 
         upKeyPressed = false;
@@ -150,7 +150,7 @@ public class Game extends Canvas{
         gt.interrupt();
         SaxionApp.clear();
         Canvas.stopBackgroundMusic();
-        gd = new GridDraw(GridSettings.width);
+        gd = new GridDraw();
         gt = new GameThread(gd);
         gt.start();
         Canvas.playBackgroundMusic(tetrisLevelUpAudio[0]);

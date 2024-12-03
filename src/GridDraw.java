@@ -1,61 +1,53 @@
-import Grid.Block;
-import Grid.GridSettings;
+import Grid.*;
 import Shapes.*;
 import nl.saxion.app.SaxionApp;
-
 import java.awt.*;
-import java.util.ArrayList;
 
 public class GridDraw {
 
-    private int gridRows;
-    private int gridWidth;
-    private static int gridCellSize;
-    private Color[][] background;
+    private static int gridRows, gridWidth, gridCellSize;
+    private static int nextGridRows, nextGridWidth, nextGridCellSize;
 
-    private int nextGridRows;
-    private int nextGridWidth;
-    private static int nextGridCellSize;
+    private static Color[][] background;
 
-    //private static Block block;
-    private Block[] blocks;
-    private Color[] colors;
+    private static Block[] blocks;
+    private static Color[] colors;
 
-    //Variables for next- and currentblock
-    public static int randomBlock;
-    public static int currentBlockId;
-    private Block nextblock;
-    private Block currentblock;
-    public int setRotation;
+    public static int randomBlock, currentBlockId, setRotation, randomColorValue;
+    private Block nextblock, currentblock;
 
-    public GridDraw(int width) {
-        gridWidth = width;
-        gridCellSize = GridSettings.blockSize;
-        gridRows = GridSettings.height;
-
-        nextGridWidth = GridSettings.nextPieceWidth;
-        nextGridCellSize = GridSettings.blockNextSize;
-        nextGridRows = GridSettings.nextPieceHeight;
+    public GridDraw() {
+        initializeGridSettings();
 
         background = new Color[gridRows][gridWidth];
 
-        blocks = new Block[]{new LShape(),
+        blocks = new Block[]{
+                new LShape(),
                 new IShape(),
                 new JShape(),
                 new OShape(),
                 new SShape(),
                 new ZShape(),
-                new TShape()};
-        colors = new Color[]{SaxionApp.createColor(4, 83, 255), //Blue
+                new TShape()
+        };
+
+        colors = new Color[]{
+                SaxionApp.createColor(4, 83, 255), //Blue
                 SaxionApp.createColor(253, 103, 1), //Orange
                 SaxionApp.createColor(254, 255, 6), //Yellow
                 SaxionApp.createColor(0, 255, 6), //Green
                 SaxionApp.createColor(254, 4, 253), //Pink
                 SaxionApp.createColor(255, 17, 4), //Red
-                SaxionApp.createColor(5, 239, 253)}; //Cyan
-
-
+                SaxionApp.createColor(5, 239, 253) //Cyan
+        };
     }
+
+    /** INITIALIZING METHODS
+     * - spawnBlock()
+     * - setCurrentBlock()
+     * - setNextPiece()
+     * - initializeGridSettings()
+     * */
 
     public void spawnBlock() {
         setCurrentBlock();
@@ -64,39 +56,39 @@ public class GridDraw {
     }
 
     public void setCurrentBlock() {
-        if (randomBlock == 1) {
-            setRotation = 1;
-        } else {
-            setRotation = SaxionApp.getRandomValueBetween(0,4);
-        }
+        spawnRotationCheck();
+
         currentblock = nextblock;
         currentBlockId = randomBlock;
 
-        setNextPiece();
-        if (randomBlock == currentBlockId) {
-            setNextPiece();
-        }
+        setNextPieceCheck();
     }
 
     public void setNextPiece() {
-
         randomBlock = SaxionApp.getRandomValueBetween(0, blocks.length);
-        if (randomBlock == currentBlockId) {
-            randomBlock = SaxionApp.getRandomValueBetween(0, blocks.length);
-        }
-        int randomColorValue = SaxionApp.getRandomValueBetween(0, colors.length);
+        randomColorValue = SaxionApp.getRandomValueBetween(0, colors.length);
+
         nextblock = blocks[randomBlock];
         nextblock.color = colors[randomColorValue];
     }
 
-    public boolean isBlockOutOfBounds() {
-        if (currentblock.getY() < 0) {
-            //So if gameover you can't move the last block
-            currentblock = null;
-            return true;
-        }
-        return false;
+    private void initializeGridSettings() {
+        gridWidth = GridSettings.width;
+        gridCellSize = GridSettings.blockSize;
+        gridRows = GridSettings.height;
+
+        nextGridWidth = GridSettings.nextPieceWidth;
+        nextGridCellSize = GridSettings.blockNextSize;
+        nextGridRows = GridSettings.nextPieceHeight;
     }
+
+    /** MOVEMENT METHODS
+     * - moveBlockDown()
+     * - moveBlockLeft()
+     * - moveBlockRight()
+     * - dropBlock()
+     * - rotateBlock()
+     * */
 
     public boolean moveBlockDown() {
         if (!checkBottom()) {
@@ -109,7 +101,6 @@ public class GridDraw {
     }
 
     public void moveBlockLeft() {
-        //If block == null (see blockoutofbounds method above), you can't move the block anymore!
         if (currentblock == null) {
             return;
         }
@@ -123,7 +114,6 @@ public class GridDraw {
     }
 
     public void moveBlockRight() {
-        //If block == null (see blockoutofbounds method above), you can't move the block anymore!
         if (currentblock == null) {
             return;
         }
@@ -137,7 +127,6 @@ public class GridDraw {
     }
 
     public void dropBlock() {
-        //If block == null (see blockoutofbounds method above), you can't move the block anymore!
         if (currentblock == null) {
             return;
         }
@@ -150,7 +139,6 @@ public class GridDraw {
     }
 
     public void rotateBlock() {
-        //If block == null (see blockoutofbounds method above), you can't move the block anymore!
         if (currentblock == null) {
             return;
         }
@@ -170,6 +158,73 @@ public class GridDraw {
         }
 
         repaint();
+    }
+
+    /** CHECK METHODS
+     * - spawnRotationCheck()
+     * - setNextPieceCheck()
+     * - clearLines()
+     * - isBlockOutOfBounds()
+     * - checkBottom()
+     * - checkLeft()
+     * - checkRight()
+     * */
+
+    private void spawnRotationCheck() {
+        if (randomBlock == 1) {
+            setRotation = 1;
+        } else {
+            setRotation = SaxionApp.getRandomValueBetween(0,4);
+        }
+    }
+
+    private void setNextPieceCheck() {
+        setNextPiece();
+        if (randomBlock == currentBlockId) {
+            setNextPiece();
+        }
+    }
+
+    public int clearLineCheck() {
+        boolean lineFilled;
+        int linesCleared = 0;
+
+        for (int row = gridRows - 1; row >= 0; row--) {
+            lineFilled = true;
+            //If no block == to null, it means the line is full and the line must be removed
+            for (int col = 0; col < gridWidth; col++) {
+
+                //If this term is met, the loop is terminated, and it means there was a null block in the row
+                if (background[row][col] == null) {
+                    lineFilled = false;
+                    break;
+                }
+            }
+
+            //If in the innerloop the boolean is not set to false, then the line gets cleared and repainted
+            if (lineFilled) {
+                clearLine(row);
+                shiftDown(row);
+                linesCleared++;
+                //remove the upper line if a line is cleared (Otherwise array out of bounds)
+                clearLine(0);
+                //To overcome that a row is not counted because the r is already updated
+                row++;
+
+                repaint();
+                Game.scoreCount++;
+                SaxionApp.playSound("resources/gameSounds/lineCompletion.wav");
+            }
+        }
+        return linesCleared;
+    }
+
+    public boolean isBlockOutOfBounds() {
+        if (currentblock.getY() < 0) {
+            currentblock = null;
+            return true;
+        }
+        return false;
     }
 
     private boolean checkBottom() {
@@ -272,40 +327,20 @@ public class GridDraw {
         return true;
     }
 
-    //Rows counting from bottom to top and left to right
-    public int clearLines() {
-        boolean lineFilled;
-        int linesCleared = 0;
 
-        for (int row = gridRows - 1; row >= 0; row--) {
-            lineFilled = true;
-            //If no block == to null, it means the line is full and the line must be removed
-            for (int col = 0; col < gridWidth; col++) {
-
-                //If this term is met, the loop is terminated, and it means there was a null block in the row
-                if (background[row][col] == null) {
-                    lineFilled = false;
-                    break;
-                }
-            }
-
-            //If in the innerloop the boolean is not set to false, then the line gets cleared and repainted
-            if (lineFilled) {
-                clearLine(row);
-                shiftDown(row);
-                linesCleared++;
-                //remove the upper line if a line is cleared (Otherwise array out of bounds)
-                clearLine(0);
-                //To overcome that a row is not counted because the r is already updated
-                row++;
-
-                repaint();
-                Game.scoreCount++;
-                SaxionApp.playSound("resources/gameSounds/lineCompletion.wav");
-            }
-        }
-        return linesCleared;
-    }
+    /** DRAWING METHODS
+     * - clearLine(int row)
+     * - shiftDown(int r)
+     * - repaint()
+     * - drawBackground()
+     * - moveBlockToBackground()
+     * - drawGridSquare(Color, int x, int y)
+     * - drawBlock()
+     * - drawGrid()
+     * - drawNextGridSquare(Color, int x, int y)
+     * - drawNextPieceGrid()
+     * - drawNextBlock()
+     * */
 
     private void clearLine(int row) {
         for (int i = 0; i < gridWidth; i++) {
@@ -314,10 +349,34 @@ public class GridDraw {
     }
 
     private void shiftDown(int r) {
-        //outer loop starts from the point r in thats given in clearlines method and then looks above to move everything once at a time
         for (int row = r; row > 0; row--) {
+            if (gridWidth >= 0) {
+                //Copy's the array of the row from the row above
+                System.arraycopy(background[row - 1], 0, background[row], 0, gridWidth);
+            }
+        }
+    }
+
+    public void repaint() {
+        drawBlock();
+        drawNextBlock();
+    }
+
+    public void drawBackground() {
+        Color color;
+
+        SaxionApp.setBorderColor(SaxionApp.DEFAULT_BACKGROUND_COLOR);
+        for (int row = 0; row < gridRows; row++) {
             for (int col = 0; col < gridWidth; col++) {
-                background[row][col] = background[row - 1][col];
+                color = background[row][col];
+
+                if (color != null) {
+                    int x = col * gridCellSize + GridSettings.startPanelX;
+                    int y = row * gridCellSize + GridSettings.startPanelY;
+
+                    drawGridSquare(color, x, y);
+
+                }
             }
         }
     }
@@ -346,14 +405,22 @@ public class GridDraw {
         }
     }
 
-    public void repaint() {
-        drawBlock();
-        drawNextBlock();
+    private static void drawGridSquare(Color color, int x, int y) {
+        SaxionApp.setFill(color);
+        SaxionApp.drawRectangle(x, y, gridCellSize, gridCellSize);
     }
 
-    /**
-     * Draws a block on the screen with the specified color.
-     */
+    public void drawGrid() {
+        for (int row = 0; row < gridRows; row++) {
+            for (int col = 0; col < gridWidth; col++) {
+                int x = col * gridCellSize + GridSettings.startPanelX;
+                int y = row * gridCellSize + GridSettings.startPanelY;
+                SaxionApp.setBorderColor(Color.LIGHT_GRAY);
+                drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
+            }
+        }
+    }
+
     public void drawBlock() {
 
         if(this.currentblock != null){
@@ -380,49 +447,10 @@ public class GridDraw {
         }
     }
 
-    public void drawBackground() {
-        Color color;
-
-        SaxionApp.setBorderColor(SaxionApp.DEFAULT_BACKGROUND_COLOR);
-        for (int row = 0; row < gridRows; row++) {
-            for (int col = 0; col < gridWidth; col++) {
-                color = background[row][col];
-
-                if (color != null) {
-                    int x = col * gridCellSize + GridSettings.startPanelX;
-                    int y = row * gridCellSize + GridSettings.startPanelY;
-
-                    drawGridSquare(color, x, y);
-
-                }
-            }
-        }
+    private static void drawNextGridSquare (Color color, int x, int y) {
+        SaxionApp.setFill(color);
+        SaxionApp.drawRectangle(x,y,nextGridCellSize,nextGridCellSize);
     }
-
-    /**
-     * Draws a rectangular grid based on the dimensions and settings defined in GridSettings.
-     * <p>
-     * This method iterates over the height and width specified in GridSettings to calculate the
-     * position of each grid square. It then calls the drawGridSquare method to draw each square
-     * at the computed coordinates with the default background color.
-     */
-    public void drawGrid() {
-        for (int row = 0; row < gridRows; row++) {
-            for (int col = 0; col < gridWidth; col++) {
-                int x = col * gridCellSize + GridSettings.startPanelX;
-                int y = row * gridCellSize + GridSettings.startPanelY;
-                SaxionApp.setBorderColor(Color.LIGHT_GRAY);
-                drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
-                /*
-                if (row == 0 || row == gridRows - 1 || col == 0 || col == gridWidth - 1) {
-                    drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
-                }
-
-                 */
-            }
-        }
-    }
-
 
     public void drawNextPieceGrid() {
         for (int row = 0; row < nextGridRows; row++) {
@@ -431,7 +459,7 @@ public class GridDraw {
                 int y = row * nextGridCellSize + GridSettings.startNextPanelY;
                 SaxionApp.setBorderColor(Color.LIGHT_GRAY);
                 drawNextGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
-             }
+            }
         }
     }
 
@@ -457,23 +485,5 @@ public class GridDraw {
             }
         }
     }
-
-    /**
-     * Draws a single square of the grid at the specified coordinates with the given color.
-     *
-     * @param color the color to fill the grid square
-     * @param x     the x-coordinate of the top-left corner of the grid square
-     * @param y     the y-coordinate of the top-left corner of the
-     */
-    private static void drawGridSquare(Color color, int x, int y) {
-        SaxionApp.setFill(color);
-        SaxionApp.drawRectangle(x, y, gridCellSize, gridCellSize);
-    }
-
-    private static void drawNextGridSquare (Color color, int x, int y) {
-        SaxionApp.setFill(color);
-        SaxionApp.drawRectangle(x,y,nextGridCellSize,nextGridCellSize);
-    }
-
 
 }
