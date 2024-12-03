@@ -3,34 +3,22 @@ package Grid;
 import nl.saxion.app.SaxionApp;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Block {
 
-    /**
-     * A predefined 2D array representing a specific block shape.
-     * The array consists of three rows and two columns, forming an L-shaped pattern.
-     * Each element in the array represents a part of the block, where 1 indicates a filled cell
-     * and 0 indicates an empty cell.
-     */
     private int[][] shape;
     public Color color;
-    private int x,y;
+    private int x, y, currentRotation;
     private int[][][] shapes;
-    private int currentRotation;
 
     public Block(int[][] shape) {
         this.shape = shape;
-        this.color = color;
-
         initShapes();
     }
 
-    //Controls the shape with the rotations (4 rotations)
     private void initShapes() {
         shapes = new int[4][][];
 
-        //Here it becomes rotated (explained in rotation method)
         for (int i = 0; i < 4; i++) {
             int row = shape[0].length;
             int col = shape.length;
@@ -49,7 +37,7 @@ public class Block {
     public void spawn(int rotation) {
         currentRotation = rotation;
         y = -getHeight();
-        x = SaxionApp.getRandomValueBetween(0, GridSettings.width - getWidth() -1);
+        x = SaxionApp.getRandomValueBetween(0, GridSettings.width - getWidth() - 1);
 
         shape = shapes[currentRotation];
     }
@@ -77,11 +65,11 @@ public class Block {
         return shape[0].length;
     }
 
-    public int getX(){
+    public int getX() {
         return x;
     }
 
-    public void setX(int newX){
+    public void setX(int newX) {
         x = newX;
     }
 
@@ -89,7 +77,7 @@ public class Block {
         return y;
     }
 
-    public void setY(int newY){
+    public void setY(int newY) {
         y = newY;
     }
 
