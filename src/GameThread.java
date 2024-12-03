@@ -1,28 +1,18 @@
 import nl.saxion.app.SaxionApp;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class GameThread extends Thread {
 
-    private GridDraw gridDraw;
+    private static GridDraw gridDraw;
     static boolean draw;
-
-    //Create integer variables for the score, level and the number of score is needed to levelup
-    private int scoreCounterThread;
-    private int level = 1;
-    private int scorePerLevel = 2;
-
-    //Creates integer variables with the standard speed and the speed amount that will be deleted every time you level up
-    private int gameSpeed = 1000;
-    private int speedUpPerLevel = 150;
+    private static int scoreCounterThread, level, scorePerLevel, gameSpeed, speedUpPerLevel;
 
     public int nextBlockId;
 
     public GameThread(GridDraw gridDraw) {
-        this.gridDraw = gridDraw;
-        draw = true;
+        GameThread.gridDraw = gridDraw;
+        initializeStartValues();
     }
+
 
     public static void main(String[] args) {
     }
@@ -48,28 +38,51 @@ public class GameThread extends Thread {
                     }
                 }
 
-                if(gridDraw.isBlockOutOfBounds()) {
-                    draw = false;
-                    Game.gd = null;
-                    Game.gt = null;
-                    Canvas.switchToScreen(new GameOver());
-                }
+                ifGameOver();
 
                 gridDraw.moveBlockToBackground();
                 scoreCounterThread += gridDraw.clearLineCheck();
 
-                Game.updateScore(scoreCounterThread);
-                int lvl = scoreCounterThread / scorePerLevel + 1;
-
-                if (level < 6) {
-                    if (lvl > level) {
-
-                        level = lvl;
-                        Game.updateLevel(level);
-                        gameSpeed -= speedUpPerLevel;
-                    }
-                }
+                setLevel();
             }
             }
         }
+
+    /** METHODS FOR READABILITY
+     * - initializeStartValues()
+     * - setLevel()
+     * - ifGameOver()
+     * */
+
+
+    private static void initializeStartValues() {
+        draw = true;
+        scorePerLevel = 2;
+        level = 1;
+        gameSpeed = 1000;
+        speedUpPerLevel = 150;
     }
+
+    private static void setLevel() {
+        Game.updateScore(scoreCounterThread);
+        int lvl = scoreCounterThread / scorePerLevel + 1;
+
+        if (level < 6) {
+            if (lvl > level) {
+
+                level = lvl;
+                Game.updateLevel(level);
+                gameSpeed -= speedUpPerLevel;
+            }
+        }
+    }
+
+    private static void ifGameOver() {
+        if(gridDraw.isBlockOutOfBounds()) {
+            draw = false;
+            Game.gd = null;
+            Game.gt = null;
+            Canvas.switchToScreen(new GameOver());
+        }
+    }
+}
