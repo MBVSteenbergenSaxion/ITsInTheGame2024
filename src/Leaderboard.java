@@ -1,10 +1,12 @@
 import nl.saxion.app.SaxionApp;
+import org.w3c.dom.css.RGBColor;
 import utils.*;
 import Leaderboard.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
 import javax.security.sasl.SaslClient;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -105,7 +107,15 @@ public class Leaderboard extends Canvas {
         SaxionApp.drawText("Leaderboard", Settings.width/3 + Settings.width/35, Settings.height/7 - Settings.height/10, 50);
         for (int i = 0; i < scores.size(); i++) {
             Score currentScore = scores.get(i);
-
+            if (i == 0){
+                SaxionApp.setTextDrawingColor(Color.yellow);
+            }else if (i == 1){
+                SaxionApp.setTextDrawingColor(Color.lightGray);
+            }else if (i == 2){
+                SaxionApp.setTextDrawingColor(new Color( 204, 102, 0));
+            }else {
+                SaxionApp.setTextDrawingColor(Color.gray);
+            }
             SaxionApp.drawText(currentScore.name, Settings.width/6, Settings.height/5+i*50, 50);
             SaxionApp.drawText(String.valueOf(currentScore.highScore),(Settings.width/6)*5 - 50,Settings.height/5+i*50,50);
         }
