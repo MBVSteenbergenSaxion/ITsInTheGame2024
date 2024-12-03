@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 import Leaderboard.*;
@@ -42,8 +39,12 @@ public class LeaderboardBackend {
     public static void writeToCSV(String[] score) throws IOException {
 
         File CSVFile = new File("resources/Leaderboard/scores.csv");
-        FileWriter fileWriter = new FileWriter(CSVFile);
+        FileWriter fw = new FileWriter(CSVFile.getAbsoluteFile(), true);
 
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        bw.write("Username,1000");
+        bw.close();
 
     }
 
