@@ -78,8 +78,9 @@ public class Utility {
 
         Frame[] frames = Frame.getFrames();
         BufferedImage customImage = ImageIO.read(new File("resources/Images/Tetris_Logo.png"));
+        BufferedImage customImage2 = ImageIO.read(new File("resources/Images/NavyEagleLogo.jpg"));
 
-        FrameThread frameThread = new FrameThread(frames, customImage);
+        FrameThread frameThread = new FrameThread(frames, customImage, customImage2);
         frameThread.start();
 
 
