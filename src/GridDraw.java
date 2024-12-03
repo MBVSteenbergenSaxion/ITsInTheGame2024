@@ -26,6 +26,7 @@ public class GridDraw {
     public static int currentBlockId;
     private Block nextblock;
     private Block currentblock;
+    public int setRotation;
 
     public GridDraw(int width) {
         gridWidth = width;
@@ -58,11 +59,16 @@ public class GridDraw {
 
     public void spawnBlock() {
         setCurrentBlock();
-        currentblock.spawn();
+        currentblock.spawn(setRotation);
         nextblock.nextSpawn();
     }
 
     public void setCurrentBlock() {
+        if (randomBlock == 1) {
+            setRotation = 1;
+        } else {
+            setRotation = SaxionApp.getRandomValueBetween(0,4);
+        }
         currentblock = nextblock;
         currentBlockId = randomBlock;
 
