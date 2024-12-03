@@ -1,76 +1,83 @@
 import nl.saxion.app.SaxionApp;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class GameThread extends Thread {
 
-    private GridDraw gridDraw;
-    static boolean draw;
+    public GridDraw gridDraw;
+    public volatile boolean running = true;
+    public volatile boolean paused = false;
 
-    //Create integer variables for the score, level and the number of score is needed to levelup
+    private static boolean draw = true;
+
     private int scoreCounterThread;
     private int level = 1;
-    private int scorePerLevel = 2;
+    private final int scorePerLevel = 2;
 
-    //Creates integer variables with the standard speed and the speed amount that will be deleted every time you level up
     private int gameSpeed = 1000;
-    private int speedUpPerLevel = 150;
+    private final int speedUpPerLevel = 150;
 
     public int nextBlockId;
 
     public GameThread(GridDraw gridDraw) {
         this.gridDraw = gridDraw;
-        draw = true;
-    }
-
-    public static void main(String[] args) {
     }
 
     @Override
     public void run() {
-        gridDraw.setNextPiece();
-
-        while(true){
-
-            if(draw){
-
-                gridDraw.spawnBlock();
-                nextBlockId = GridDraw.randomBlock;
-
-
-                while (gridDraw.moveBlockDown()) {
-                    SaxionApp.clear();
+        while (running) {
+            synchronized (this) {
+                while (paused) {
                     try {
-                        Thread.sleep(gameSpeed);
+                        wait();
                     } catch (InterruptedException e) {
                         return;
                     }
                 }
+            }
 
-                if(gridDraw.isBlockOutOfBounds()) {
-                    draw = false;
-                    Game.gd = null;
-                    Game.gt = null;
+            gridDraw.setNextPiece();
+            gridDraw.spawnBlock();
+            nextBlockId = GridDraw.randomBlock;
 
-                    Canvas.switchToScreen(new GameOver(scoreCounterThread));
-                }
-
-                gridDraw.moveBlockToBackground();
-                scoreCounterThread += gridDraw.clearLines();
-
-                Game.updateScore(scoreCounterThread);
-                int lvl = scoreCounterThread / scorePerLevel + 1;
-
-                if (level < 6) {
-                    if (lvl > level) {
-
-                        level = lvl;
-                        Game.updateLevel(level);
-                        gameSpeed -= speedUpPerLevel;
-                    }
+            while (gridDraw.moveBlockDown()) {
+                SaxionApp.clear();
+                try {
+                    Thread.sleep(gameSpeed);
+                } catch (InterruptedException e) {
+                    return;
                 }
             }
+
+            if (gridDraw.isBlockOutOfBounds()) {
+                stopGame();
+                Canvas.switchToScreen(new GameOver(scoreCounterThread));
+                return;
+            }
+
+            gridDraw.moveBlockToBackground();
+            scoreCounterThread += gridDraw.clearLines();
+
+            Game.updateScore(scoreCounterThread);
+            int newLevel = scoreCounterThread / scorePerLevel + 1;
+
+            if (newLevel > level && level < 6) {
+                level = newLevel;
+                Game.updateLevel(level);
+                gameSpeed -= speedUpPerLevel;
             }
         }
     }
+
+    public synchronized void pauseGame() {
+        paused = true;
+    }
+
+    public synchronized void resumeGame() {
+        paused = false;
+        notify();
+    }
+
+    public void stopGame() {
+        running = false;
+        interrupt();
+    }
+}

@@ -4,7 +4,6 @@ import Shapes.*;
 import nl.saxion.app.SaxionApp;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class GridDraw {
 
@@ -30,11 +29,11 @@ public class GridDraw {
 
     public GridDraw(int width) {
         gridWidth = width;
-        gridCellSize = GridSettings.blockSize;
+        gridCellSize = GridSettings.getBlockSize();
         gridRows = GridSettings.height;
 
         nextGridWidth = GridSettings.nextPieceWidth;
-        nextGridCellSize = GridSettings.blockNextSize;
+        nextGridCellSize = GridSettings.getBlockNextSize();
         nextGridRows = GridSettings.nextPieceHeight;
 
         background = new Color[gridRows][gridWidth];
@@ -67,7 +66,7 @@ public class GridDraw {
         if (randomBlock == 1) {
             setRotation = 1;
         } else {
-            setRotation = SaxionApp.getRandomValueBetween(0,4);
+            setRotation = SaxionApp.getRandomValueBetween(0, 4);
         }
         currentblock = nextblock;
         currentBlockId = randomBlock;
@@ -104,6 +103,7 @@ public class GridDraw {
         }
 
         currentblock.moveDown();
+
         repaint();
         return true;
     }
@@ -173,6 +173,7 @@ public class GridDraw {
     }
 
     private boolean checkBottom() {
+
         if (currentblock.getBottomEdge() == gridRows) {
             return false;
         }
@@ -196,7 +197,7 @@ public class GridDraw {
                         break;
                     }
 
-                    if(utils.Utility.isArrayInBounds(background, y, x)){
+                    if (utils.Utility.isArrayInBounds(background, y, x)) {
                         if (background[y][x] != null) {
                             return false;
                         }
@@ -207,6 +208,7 @@ public class GridDraw {
                 row--;
             }
         }
+
         return true;
     }
 
@@ -324,7 +326,7 @@ public class GridDraw {
 
     public void moveBlockToBackground() {
 
-        if(this.currentblock != null){
+        if (this.currentblock != null) {
             int[][] shape = currentblock.getShape();
             int height = currentblock.getHeight();
             int width = currentblock.getWidth();
@@ -356,7 +358,7 @@ public class GridDraw {
      */
     public void drawBlock() {
 
-        if(this.currentblock != null){
+        if (this.currentblock != null) {
             int height = currentblock.getHeight();
             int width = currentblock.getWidth();
             Color color = currentblock.getColor();
@@ -366,12 +368,12 @@ public class GridDraw {
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
                     if (shape[row][col] == 1) {
-                        int x = (currentblock.getX() + col) * gridCellSize + GridSettings.startPanelX;
-                        int y = (currentblock.getY() + row) * gridCellSize + GridSettings.startPanelY;
+                        int x = (currentblock.getX() + col) * gridCellSize + GridSettings.getStartPanelX();
+                        int y = (currentblock.getY() + row) * gridCellSize + GridSettings.getStartPanelY();
 
-                        if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX,
-                                GridSettings.startPanelY, GridSettings.widthPanel,
-                                GridSettings.heightPanel, false)) {
+                        if (utils.Utility.checkBounds(x, y, GridSettings.getStartPanelX(),
+                                GridSettings.getStartPanelY(), GridSettings.getWidthPanel(),
+                                GridSettings.getHeightPanel(), false)) {
                             drawGridSquare(color, x, y);
                         }
                     }
@@ -389,8 +391,8 @@ public class GridDraw {
                 color = background[row][col];
 
                 if (color != null) {
-                    int x = col * gridCellSize + GridSettings.startPanelX;
-                    int y = row * gridCellSize + GridSettings.startPanelY;
+                    int x = col * gridCellSize + GridSettings.getStartPanelX();
+                    int y = row * gridCellSize + GridSettings.getStartPanelY();
 
                     drawGridSquare(color, x, y);
 
@@ -409,8 +411,8 @@ public class GridDraw {
     public void drawGrid() {
         for (int row = 0; row < gridRows; row++) {
             for (int col = 0; col < gridWidth; col++) {
-                int x = col * gridCellSize + GridSettings.startPanelX;
-                int y = row * gridCellSize + GridSettings.startPanelY;
+                int x = col * gridCellSize + GridSettings.getStartPanelX();
+                int y = row * gridCellSize + GridSettings.getStartPanelY();
                 SaxionApp.setBorderColor(Color.LIGHT_GRAY);
                 drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
                 /*
@@ -427,35 +429,41 @@ public class GridDraw {
     public void drawNextPieceGrid() {
         for (int row = 0; row < nextGridRows; row++) {
             for (int col = 0; col < nextGridWidth; col++) {
-                int x = col * nextGridCellSize + GridSettings.startNextPanelX;
-                int y = row * nextGridCellSize + GridSettings.startNextPanelY;
+                int x = col * nextGridCellSize + GridSettings.getStartNextPanelX();
+                int y = row * nextGridCellSize + GridSettings.getStartNextPanelY();
                 SaxionApp.setBorderColor(Color.LIGHT_GRAY);
                 drawNextGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
-             }
+            }
         }
     }
 
     public void drawNextBlock() {
-        int height = nextblock.getHeight();
-        int width = nextblock.getWidth();
-        Color color = nextblock.getColor();
-        int[][] shape = nextblock.getShape();
 
-        SaxionApp.setBorderColor(Color.LIGHT_GRAY);
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                if (shape[row][col] == 1) {
-                    int x = (nextblock.getX() + col) * nextGridCellSize + GridSettings.startNextPanelX;
-                    int y = (nextblock.getY() + row) * nextGridCellSize + GridSettings.startNextPanelY;
+        if (this.nextblock != null) {
+            int height = nextblock.getHeight();
+            int width = nextblock.getWidth();
+            Color color = nextblock.getColor();
+            int[][] shape = nextblock.getShape();
 
-                    if (utils.Utility.checkBounds(x, y, GridSettings.startNextPanelX,
-                            GridSettings.startNextPanelY, GridSettings.widthNextPanel,
-                            GridSettings.heightNextPanel, false)) {
-                        drawNextGridSquare(color, x, y);
+            SaxionApp.setBorderColor(Color.LIGHT_GRAY);
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    if (shape[row][col] == 1) {
+                        int x = (nextblock.getX() + col) * nextGridCellSize + GridSettings.getStartNextPanelX();
+                        int y = (nextblock.getY() + row) * nextGridCellSize + GridSettings.getStartNextPanelY();
+
+                        if (utils.Utility.checkBounds(x, y, GridSettings.getStartNextPanelX(),
+                                GridSettings.getStartNextPanelY(), GridSettings.getWidthNextPanel(),
+                                GridSettings.getHeightNextPanel(), false)) {
+                            drawNextGridSquare(color, x, y);
+                        }
                     }
                 }
             }
+
         }
+
+
     }
 
     /**
@@ -470,9 +478,9 @@ public class GridDraw {
         SaxionApp.drawRectangle(x, y, gridCellSize, gridCellSize);
     }
 
-    private static void drawNextGridSquare (Color color, int x, int y) {
+    private static void drawNextGridSquare(Color color, int x, int y) {
         SaxionApp.setFill(color);
-        SaxionApp.drawRectangle(x,y,nextGridCellSize,nextGridCellSize);
+        SaxionApp.drawRectangle(x, y, nextGridCellSize, nextGridCellSize);
     }
 
 

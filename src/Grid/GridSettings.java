@@ -3,30 +3,66 @@ import nl.saxion.app.SaxionApp;
 
 public class GridSettings {
 
-    private static final int screenHeight = SaxionApp.getHeight();
-    private static final int screenWidth = SaxionApp.getWidth();
+    public static int screenHeight = SaxionApp.getHeight();
+    public static int screenWidth = SaxionApp.getWidth();
 
-    public static int width = 10;
-    public static int height = 15;
+    public static final int width = 10;
+    public static final int height = 15;
 
-    public static int nextPieceWidth = 4;
-    public static int nextPieceHeight = 4;
+    public static final int nextPieceWidth = 4;
+    public static final int nextPieceHeight = 4;
 
-    public static int startPanelX = screenWidth / 3;
-    public static int endPanelX = startPanelX * 2;
-    public static int widthPanel = endPanelX - startPanelX;
-    public static int startPanelY = (int)((double) screenHeight / 3 - screenHeight * 0.20);
-    //square
-    public static int blockSize = widthPanel / GridSettings.width;
-    public static int heightPanel = startPanelY  * height;
+    public static int getStartPanelX() {
+        return screenWidth / 3;
+    }
 
-    private static final int loweringGrid = 3;
+    public static int getEndPanelX() {
+        return getStartPanelX() * 2;
+    }
 
-    public static int startNextPanelX = screenWidth / 10;
-    public static int endNextPanelX = startNextPanelX * 2;
-    public static int widthNextPanel = endNextPanelX - startNextPanelX;
-    public static int blockNextSize = widthNextPanel / nextPieceWidth;
-    public static int startNextPanelY = (int)((double) screenHeight / 3 - screenHeight * 0.20 + (blockSize * loweringGrid));
-    public static int heightNextPanel = startPanelY  * nextPieceHeight;
+    public static int getWidthPanel() {
+        return getEndPanelX() - getStartPanelX();
+    }
 
+    public static int getStartPanelY() {
+        return (int) ((double) screenHeight / 3 - screenHeight * 0.20);
+    }
+
+    public static int getBlockSize() {
+        return getWidthPanel() / width;
+    }
+
+    public static int getHeightPanel() {
+        return getStartPanelY() * height;
+    }
+
+    public static int getStartNextPanelX() {
+        return screenWidth / 10;
+    }
+
+    public static int getEndNextPanelX() {
+        return getStartNextPanelX() * 2;
+    }
+
+    public static int getWidthNextPanel() {
+        return getEndNextPanelX() - getStartNextPanelX();
+    }
+
+    public static int getBlockNextSize() {
+        return getWidthNextPanel() / nextPieceWidth;
+    }
+
+    public static int getStartNextPanelY() {
+        return (int) ((double) screenHeight / 3 - screenHeight * 0.20 + (getBlockSize() * 3));
+    }
+
+    public static int getHeightNextPanel() {
+        return getStartPanelY() * nextPieceHeight;
+    }
+
+    // Update screen dimensions
+    public static void updateScreenDimensions(int newWidth, int newHeight) {
+        screenWidth = newWidth;
+        screenHeight = newHeight;
+    }
 }

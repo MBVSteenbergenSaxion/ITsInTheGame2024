@@ -1,11 +1,10 @@
+import Grid.GridSettings;
 import nl.saxion.app.SaxionApp;
-import nl.saxion.app.audio.MediaPlayer;
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
 import javax.sound.sampled.*;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -16,7 +15,6 @@ public class Canvas implements GameLoop {
     public static Canvas activeCanvas;
     private static Clip backgroundMusic;
     Color backgroundColor = SaxionApp.createColor(0,0,128);
-
 
     public Canvas() {
     }
@@ -75,9 +73,9 @@ public class Canvas implements GameLoop {
                 super.componentResized(e);
                 Settings.width = frames[0].getWidth();
                 Settings.height = frames[0].getHeight();
+                GridSettings.updateScreenDimensions(frames[0].getWidth(), frames[0].getHeight());
                 SaxionApp.clear();
                 activeCanvas.init();
-                frames[0].repaint();
             }
 
         });
@@ -99,7 +97,6 @@ public class Canvas implements GameLoop {
     public void init() {
         try {
             utils.Utility.customizeScreen();
-            //dynamicFrameThread.start();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

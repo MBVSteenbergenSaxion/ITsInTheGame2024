@@ -27,9 +27,6 @@ public class Game extends Canvas{
      */
     public Game() {
         super();
-
-        gd = new GridDraw(GridSettings.width);
-        gt = new GameThread(gd);
         upKeyPressed = false;
 
     }
@@ -50,9 +47,21 @@ public class Game extends Canvas{
      */
     @Override
     public void init() {
+        gd = new GridDraw(GridSettings.width);
+
+        if (gt != null) {
+            gt = null;
+            gd = null;
+            gd = new GridDraw(GridSettings.width);
+
+        }
+        gt = new GameThread(gd);
+        gt.start();
 
         Canvas.playBackgroundMusic(filePath1);
-        startGame();
+
+        SaxionApp.clear();
+
         scoreCount = 0;
         restartButton.x = Settings.width - Settings.width / 4;
         restartButton.y = Settings.height / 3;
@@ -106,7 +115,8 @@ public class Game extends Canvas{
     }
 
     public void startGame() {
-        gt.start();
+
+
     }
 
     @Override
