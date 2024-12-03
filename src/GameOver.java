@@ -1,3 +1,4 @@
+import nl.saxion.app.SaxionApp;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 import utils.MyButton;
@@ -18,9 +19,11 @@ public class GameOver extends Canvas{
      */
     private static ArrayList<Character> keyboardInput = new ArrayList<>();
     TextBox usernameInput = new TextBox();
+    private static int finalHighscore;
 
-    public GameOver(){
+    public GameOver(int highscore){
         super();
+        finalHighscore = highscore;
     }
 
 

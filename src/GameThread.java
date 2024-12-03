@@ -53,7 +53,7 @@ public class GameThread extends Thread {
                     Game.gd = null;
                     Game.gt = null;
 
-                    Canvas.switchToScreen(new GameOver());
+                    Canvas.switchToScreen(new GameOver(scoreCounterThread));
                 }
 
                 gridDraw.moveBlockToBackground();
