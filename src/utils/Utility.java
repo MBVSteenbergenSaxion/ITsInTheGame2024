@@ -79,8 +79,9 @@ public class Utility {
         Frame[] frames = Frame.getFrames();
         BufferedImage customImage = ImageIO.read(new File("resources/Images/Tetris_Logo.png"));
 
-        frames[0].setIconImage(customImage);
-        frames[0].setTitle("Navy Eagle - ");
+        FrameThread frameThread = new FrameThread(frames, customImage);
+        frameThread.start();
+
 
     }
 
