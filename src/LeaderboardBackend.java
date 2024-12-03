@@ -1,4 +1,7 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import Leaderboard.*;
@@ -20,18 +23,28 @@ public class LeaderboardBackend {
         sortScores(scores);
         return scores;
     }
-private static void sortScores(ArrayList<Score> scoreSort) {
-    int n = scoreSort.size();
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            // Compare the ages of adjacent students
-            if (scoreSort.get(j).highScore < scoreSort.get(j + 1).highScore) {
-                // Swap the students if they're in the wrong order
-                Score temp = scoreSort.get(j);
-                scoreSort.set(j, scoreSort.get(j + 1));
-                scoreSort.set(j + 1, temp);
+
+    private static void sortScores(ArrayList<Score> scoreSort) {
+        int n = scoreSort.size();
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+
+                if (scoreSort.get(j).highScore < scoreSort.get(j + 1).highScore) {
+                    Score temp = scoreSort.get(j);
+                    scoreSort.set(j, scoreSort.get(j + 1));
+                    scoreSort.set(j + 1, temp);
+                }
             }
         }
     }
-}
+
+    public static void writeToCSV(String[] score) throws IOException {
+
+        File CSVFile = new File("resources/Leaderboard/scores.csv");
+        FileWriter fileWriter = new FileWriter(CSVFile);
+
+
+    }
+
 }
