@@ -13,7 +13,6 @@ public class Canvas implements GameLoop {
     private static Canvas activeCanvas;
     private static Clip backgroundMusic;
     Color backgroundColor = SaxionApp.createColor(0,0,128);
-
     public Canvas() {
     }
 

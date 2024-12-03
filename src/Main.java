@@ -38,18 +38,18 @@ public class Main extends Canvas{
         SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
 
         gameButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
-        gameButton.y = (int) (Settings.height * 0.50 - Settings.height * 0.15);
+        gameButton.y = (int) (Settings.height * 0.40);
         gameButton.width = Settings.buttonWidth;
         gameButton.height = Settings.buttonHeight;
         Canvas.playBackgroundMusic(filePath);
 
         leaderBoardButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
-        leaderBoardButton.y = (int) (Settings.height * 0.70 - Settings.height * 0.15);
+        leaderBoardButton.y = (int) (Settings.height * 0.60);
         leaderBoardButton.width = Settings.buttonWidth;
         leaderBoardButton.height = Settings.buttonHeight;
 
         quitButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
-        quitButton.y = (int) (Settings.height * 0.9 - Settings.height * 0.15);
+        quitButton.y = (int) (Settings.height * 0.8);
         quitButton.width = Settings.buttonWidth;
         quitButton.height = Settings.buttonHeight;
 
