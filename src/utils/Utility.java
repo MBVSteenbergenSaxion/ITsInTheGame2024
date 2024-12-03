@@ -2,7 +2,11 @@ package utils;
 
 import nl.saxion.app.SaxionApp;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Utility {
 
@@ -68,6 +72,16 @@ public class Utility {
             arrayObj = array[indexes[i]];
         }
         return true;
+    }
+
+    public static void customizeScreen() throws IOException, InterruptedException {
+
+        Frame[] frames = Frame.getFrames();
+        BufferedImage customImage = ImageIO.read(new File("resources/Images/Tetris_Logo.png"));
+
+        frames[0].setIconImage(customImage);
+        frames[0].setTitle("Navy Eagle - ");
+
     }
 
 }

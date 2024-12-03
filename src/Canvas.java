@@ -76,6 +76,12 @@ public class Canvas implements GameLoop {
 
     @Override
     public void init() {
+        try {
+            utils.Utility.customizeScreen();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         if (activeCanvas != null) {
             activeCanvas.init();
         }
