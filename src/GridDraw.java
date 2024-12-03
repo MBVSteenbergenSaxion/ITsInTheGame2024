@@ -1,6 +1,7 @@
 import Grid.*;
 import Shapes.*;
 import nl.saxion.app.SaxionApp;
+
 import java.awt.*;
 
 public class GridDraw {
@@ -42,12 +43,13 @@ public class GridDraw {
         };
     }
 
-    /** INITIALIZING METHODS
+    /**
+     * INITIALIZING METHODS
      * - spawnBlock()
      * - setCurrentBlock()
      * - setNextPiece()
      * - initializeGridSettings()
-     * */
+     */
 
     public void spawnBlock() {
         setCurrentBlock();
@@ -82,13 +84,14 @@ public class GridDraw {
         nextGridRows = GridSettings.nextPieceHeight;
     }
 
-    /** MOVEMENT METHODS
+    /**
+     * MOVEMENT METHODS
      * - moveBlockDown()
      * - moveBlockLeft()
      * - moveBlockRight()
      * - dropBlock()
      * - rotateBlock()
-     * */
+     */
 
     public boolean moveBlockDown() {
         if (!checkBottom()) {
@@ -160,7 +163,8 @@ public class GridDraw {
         repaint();
     }
 
-    /** CHECK METHODS
+    /**
+     * CHECK METHODS
      * - spawnRotationCheck()
      * - setNextPieceCheck()
      * - clearLines()
@@ -168,13 +172,13 @@ public class GridDraw {
      * - checkBottom()
      * - checkLeft()
      * - checkRight()
-     * */
+     */
 
     private void spawnRotationCheck() {
         if (randomBlock == 1) {
             setRotation = 1;
         } else {
-            setRotation = SaxionApp.getRandomValueBetween(0,4);
+            setRotation = SaxionApp.getRandomValueBetween(0, 4);
         }
     }
 
@@ -191,24 +195,18 @@ public class GridDraw {
 
         for (int row = gridRows - 1; row >= 0; row--) {
             lineFilled = true;
-            //If no block == to null, it means the line is full and the line must be removed
             for (int col = 0; col < gridWidth; col++) {
-
-                //If this term is met, the loop is terminated, and it means there was a null block in the row
                 if (background[row][col] == null) {
                     lineFilled = false;
                     break;
                 }
             }
 
-            //If in the innerloop the boolean is not set to false, then the line gets cleared and repainted
             if (lineFilled) {
                 clearLine(row);
                 shiftDown(row);
                 linesCleared++;
-                //remove the upper line if a line is cleared (Otherwise array out of bounds)
                 clearLine(0);
-                //To overcome that a row is not counted because the r is already updated
                 row++;
 
                 repaint();
@@ -236,8 +234,6 @@ public class GridDraw {
         int width = currentblock.getWidth();
         int height = currentblock.getHeight();
 
-        //Checks first the first column and for that column every row
-        //Then checks second column and for that column every row
         for (int col = 0; col < width; col++) {
 
             int row = height - 1;
@@ -245,13 +241,13 @@ public class GridDraw {
                 if (shape[row][col] != 0) {
 
                     int x = (currentblock.getX() + col);
-                    int y = (currentblock.getY() + row + 1); //+1 for the block next under the shape
+                    int y = (currentblock.getY() + row + 1);
 
                     if (y < 0) {
                         break;
                     }
 
-                    if(utils.Utility.isArrayInBounds(background, y, x)){
+                    if (utils.Utility.isArrayInBounds(background, y, x)) {
                         if (background[y][x] != null) {
                             return false;
                         }
@@ -274,11 +270,10 @@ public class GridDraw {
         int width = currentblock.getWidth();
         int height = currentblock.getHeight();
 
-        //Checks first the first row and for that row every column from up to down
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 if (shape[row][col] != 0) {
-                    int x = (currentblock.getX() + col - 1); //-1 for the block next left to the shape
+                    int x = (currentblock.getX() + col - 1);
                     int y = (currentblock.getY() + row);
 
                     if (y < 0) {
@@ -305,11 +300,10 @@ public class GridDraw {
         int width = currentblock.getWidth();
         int height = currentblock.getHeight();
 
-        //Checks first the first row and for that row every column from up to down
         for (int row = 0; row < height; row++) {
             for (int col = width - 1; col >= 0; col--) {
                 if (shape[row][col] != 0) {
-                    int x = (currentblock.getX() + col + 1); //+1 for the block next right to the shape
+                    int x = (currentblock.getX() + col + 1);
                     int y = (currentblock.getY() + row);
 
                     if (y < 0) {
@@ -328,7 +322,8 @@ public class GridDraw {
     }
 
 
-    /** DRAWING METHODS
+    /**
+     * DRAWING METHODS
      * - clearLine(int row)
      * - shiftDown(int r)
      * - repaint()
@@ -340,7 +335,7 @@ public class GridDraw {
      * - drawNextGridSquare(Color, int x, int y)
      * - drawNextPieceGrid()
      * - drawNextBlock()
-     * */
+     */
 
     private void clearLine(int row) {
         for (int i = 0; i < gridWidth; i++) {
@@ -383,7 +378,7 @@ public class GridDraw {
 
     public void moveBlockToBackground() {
 
-        if(this.currentblock != null){
+        if (this.currentblock != null) {
             int[][] shape = currentblock.getShape();
             int height = currentblock.getHeight();
             int width = currentblock.getWidth();
@@ -423,7 +418,7 @@ public class GridDraw {
 
     public void drawBlock() {
 
-        if(this.currentblock != null){
+        if (this.currentblock != null) {
             int height = currentblock.getHeight();
             int width = currentblock.getWidth();
             Color color = currentblock.getColor();
@@ -447,9 +442,9 @@ public class GridDraw {
         }
     }
 
-    private static void drawNextGridSquare (Color color, int x, int y) {
+    private static void drawNextGridSquare(Color color, int x, int y) {
         SaxionApp.setFill(color);
-        SaxionApp.drawRectangle(x,y,nextGridCellSize,nextGridCellSize);
+        SaxionApp.drawRectangle(x, y, nextGridCellSize, nextGridCellSize);
     }
 
     public void drawNextPieceGrid() {
