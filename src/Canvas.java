@@ -5,12 +5,14 @@ import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
 import javax.sound.sampled.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
 public class Canvas implements GameLoop {
     private static Canvas activeCanvas;
     private static Clip backgroundMusic;
+    Color backgroundColor = SaxionApp.createColor(0,0,128);
 
     public Canvas() {
     }
@@ -78,6 +80,7 @@ public class Canvas implements GameLoop {
         if (activeCanvas != null) {
             activeCanvas.init();
         }
+        SaxionApp.setBackgroundColor(backgroundColor);
     }
 
     @Override
