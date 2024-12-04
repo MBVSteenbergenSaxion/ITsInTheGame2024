@@ -4,8 +4,8 @@ public class GameThread extends Thread {
 
     private static GridDraw gridDraw;
     static boolean draw;
-    private static int scoreCounterThread, level, scorePerLevel, gameSpeed, speedUpPerLevel;
-
+    private static int scoreCounterThread, level, scorePerLevel, speedUpPerLevel;
+    public static int gameSpeed;
     public int nextBlockId;
 
     public GameThread(GridDraw gridDraw) {

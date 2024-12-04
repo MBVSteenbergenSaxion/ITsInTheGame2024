@@ -1,0 +1,331 @@
+PSEUDOCODE GAME.java
+
+class Game extends Canvas {
+
+    long FRAME_TIME = 1000/50 (== Canvas loopspeed)
+    int SHAPE_COUNT = Shape.values().length (== Shape nieuwe klasse met enum ipv class (zie pseudoCode_Shape)
+
+    GridDraw gridDraw (== bestaande klasse aangepast voor het nieuwe prototype)
+    SideDraw sideDraw (== nieuwe klasse waarmee rechts van het spel wordt getekend (next piece, stats, instructies)
+
+    Clock clock (== klasse voor clock ipv gamethread, kijken hoe we deze implementeren)
+
+    Shape currentShape (== nieuwe klasse voor de shapes)
+    Shape nextShape (== zie ^)
+
+    boolean isPaused (== true of false om te pauzeren)
+    boolean isNewGame (== true of false om te kijken of de game nog moet starten)
+    boolean isGameOver (== true of false om te kijken of de speler gameover is)
+
+    int level
+    int score
+
+    int currentCol, currentRow, currentRotation (== geeft het getal van de huidige coordinaten en rotatie van de Shape)
+
+    int dropCooldown (== getal voor de cooldown wanneer de nieuwe shape wordt gespawned)
+    !float/double! gameSpeed (== decimaal getal voor de snelheid van het spel)
+
+    boolean rotationClockWiseKeyPressed, rotationAntiClockWisePressed, dropKeyPressed; (== om te checken of de key al gereleased is of niet)
+
+    Game() {
+        //Basis eigenschappen van frame
+        super()
+
+        //Initialiseerd de draw klassen
+        gridDraw = new GridDraw()
+        sideDraw = new SideDraw()
+
+        //Manier nodig om plek te bepalen waar de griddraw en sidedraw moet komen te staan
+        add(gridDraw, layout(CENTER)
+        add(sideDraw, layout(EAST)
+    }
+
+    void keyboardEvent(KeyboardEvent keyboardEvent) {
+        if (keyboardEvent.isKeyPressed()) {
+            switch (keyboardEvent.getKeyCode()) {
+
+                !//Wanneer de dropkey wordt gebruikt en de game is niet gepauzeerd en de cooldown voor het vallen van de volgende shape gelijk is aan 0,
+                  dan word de cycle versneld naar 25 cycles per seconde ipv de cycle die wordt vastgezet in de clock methode.
+                case (dropkey):
+                    if (notPaused & dropCooldown == 0) {
+                        clock.setCyclesPerSecond(25.0);
+                        dropKeyPressed = true;
+                    }
+                    break;
+
+                //Wanneer key naar links dan word de as één tile naar links verplaatst, aangegeven met col
+                case (leftkey)
+                    if (notPaused & gridDraw.isPossibleAndEmpty(...) {
+                        currentCol--;
+                    }
+                    break;
+
+                //Wanneer key naar rechts dan word de as één tile naar rechts verplaatst aangegeven met col
+                case (rightkey)
+                    if (notPaused & gridDraw.isPossibleAndEmpty(...) {
+                        currentCol++;
+                    }
+                    break;
+
+                //Wanneer key om tegen de klok in te roteren geklikt, dan roteert de shape op basis van de meegegeven rotatie
+                  en wordt er gekeken of de huidige rotatie kleiner wordt dan 0, deze wordt dan terug geschreven naar 3
+                case (rotateTegenKlokInKey)
+                    if (notPaused & notRotationAntiClockWiseKeyPressed) {
+                        int newRotation;
+                        if (currentRotation == 0) {
+                            newRotation = 3;
+                        } else {
+                            newRotation = currentRotation - 1;
+                        }
+                        rotateShape(newRotation);
+                        rotationAntiClockWiseKeyPressed = true;
+                    }
+                    break;
+
+                //Wanneer key om met de klok mee te roteren geklikt, dan roteert de shape op basis van de meegegeven rotatie
+                  en wordt er gekeken of de huidige rotatie groter wordt dan 3, deze wordt dan terug geschreven naar 0
+                case (rotateMetKlokMetKey)
+                    if (notPaused & notRotationClockWiseKeyPressed) {
+                        int newRotation;
+                        if (currentRotation == 3) {
+                            newRotation = 0;
+                        } else {
+                            newRotation = currentRotation + 1;
+                        }
+                        rotateShape(newRotation);
+                        rotationClockWiseKeyPressed = true;
+                    }
+
+                //Wanneer key om te pauzeren wordt gedrukt, dan wordt er gekeken of de speler niet al gameover is en of er niet eerst een
+                  nieuwe game moet worden gestart. Hierna krijgt de pauzeer boolean variable de tegengestelde waarde en wordt een methode vanuit
+                  de clock klasse opgeroepen om het verder af te handelen
+                case (pauseKey):
+                    if(notGameOver & notNewGame) {
+                        isPaused = !isPaused;
+                        clock.setPaused(isPaused);
+                    }
+                    break;
+
+                //Wanneer key startgame gedrukt, moet het gameover zijn of een nieuwe game zijn, hierna wordt een aparte methode aangeroepen om
+                  het verder af te handelen
+                case (startgameKey):
+                    if (gameOver | newgame) {
+                        resetGame();
+                    }
+                    break;
+            }
+        } else {
+            switch (keyboardEvent.getKeyCode()) {
+                case dropKey:
+                    dropKeyPressed = false;
+                case rotationClockWiseKey:
+                    rotationClockWiseKeyPressed = false;
+                case rotationAntiClockWiseKey:
+                    rotationAntiClockWiseKeyPressed = false;
+            }
+        }
+    }
+
+    //Start de game running. Initialiseert alles en start gameloop
+    void startGame() {
+
+        //Initialiseert newGame boolean en gamespeed
+        isNewGame = true;
+        gameSpeed = ...;
+
+        //Setup timer zonder dat ie begint te runnen voor er enter wordt gedruk
+        clock = new Clock(gameSpeed);
+        clock.setPaused(true);
+
+        while(true) {
+            //Krijg de tijd dat frame wordt gestart
+            long start = System.nanoTime();
+
+            //Update clock
+            clock.update();
+
+            //Wanneer cycle klaar is op de clock, dan kan de game worden geupdate en de shape omlaag worden geduwd
+            if(clock.cycleDone()) {
+                updateGame();
+            }
+
+            //Als het nodig is de dropcooldown af laten tellen
+            if(dropcooldown > 0) {
+                dropcooldown--;
+            }
+
+            //Spel tonen aan gebruiker
+            updateRenderGame();
+
+            //Als loop sneller is dan frame tijd, dan wordt er een sleep gedaan --> KAN NIET MET SAXION, moet aparte thread worden gedaan
+              SAMEN kijken naar hoe we thread gaan implementeren ipv deze while loop in game.java!!!
+            long delta = (System.nanoTime() - start) / 1000000
+            if(delta < FRAME_TIME) {
+                Thread.sleep(FRAME_TIME - delta);
+            }
+        }
+    }
+
+    //Updates the game en verwerkt grootste gedeelte van de logica
+    void updateGame() {
+        //Kan de shape naar de volgende row (beneden) bewegen?
+        if (gridDraw.isPossibleAndEmpty(...) {
+            //Zo ja
+            currentRow++;
+        } else {
+            //Zo nee, dan heb je of onder kant van het bord geraakt, of je hebt een andere shape geraakt.
+              De shape moet worden toegevoegd aan de grid
+            gridDraw.addPiece(...);
+
+            //Hierna kijken of er rows gecleared moeten worden, zo ja score + 1 (evtuele toevoeging, meer lines tegelijk meer punten)
+            int removedLines = gridDraw.checkRow();
+            if (removedLines > 0) {
+                score = score + removedLines;
+            }
+
+            //Gamespeed moet hoger worden met bepaalde waarde
+            gamespeed += ... * removedLiens
+            clock.setCyclesPerSecond(gamespeed);
+            clock.reset();
+
+            //kleine buffer zodat volgende shape niet gelijk komt vallen
+            dropCooldown = ...;
+
+            //level updaten
+
+            //Nieuwe shape spawnen
+            spawnShape();
+        }
+    }
+
+    //Het spel laten zien aan de gebruiker met elke update
+    void updateRender() {
+        gridDraw.repaint;
+        sideDraw.repaint;
+    }
+
+    //Wanneer het spel gereset moet worden (na gameover of begingame, wordt aangeroepen wanneer er enter wordt gedrukt.)
+    void resetGame() {
+        level = 1;
+        score = 0;
+        gameSpeed = 1.0;
+        nextType = Shape.values()[randomValue(0, SHAPE_COUNT)];
+        isnewgame = false;
+        isgameover = false;
+        gridDraw.clear();
+        clock.reset();
+        clock.setCyclesPerSecond(gameSpeed);
+        spawnShape();
+    }
+
+    //Initialiseert huidige shape en reset de geupdate variable van de oude shape, en de volgende shape wordt ook bepaald
+    void spawnShape() {
+        //Zet terug naar goede waardes
+        currentShape = nextShape;
+        currentCol = currentShape.getDefaultColumnValue();
+        currentRow = currentShape.getDefaultRowValue();
+        currentRotation = 0;
+        nextShape = Shape.values()[getRandomvalue(0,SHAPE_COUNT)];
+
+        //Als spawnpoint niet geldig is, dan betekend het dat de shape out of bounds is en dus gameover.
+          Want hij zit hoger dan mogelijk row waarde
+        if(notGridDraw.isPossibleAndEmpty(...) {
+            gameover = true;
+            clock.setPaused(true);
+        }
+    }
+
+    //Laat shape roteren met de nieuwe rotatie waarde
+    void rotateShape(int newRotation) {
+        //Als de shape niet te roteren valt zonder buiten het grid te komen of samen met een andere shape in de background te vallen
+          is het nodig om naast de shape te draaien ook een nieuwe as te maken. Dit wordt pas toegepast als dat nodig is
+        newCol = currentCol;
+        newRow = currentRow;
+
+        //Krijg de omranding van de shape met de nieuwe terug op de grid
+        int newLeftSide = currentShape.getLeftSide(newRotation);
+        int newRightSide = currentShape.getRightSide(newRotation);
+        int newTopSide = currentShape.getTopSide(newRotation);
+        int newBottomSide = currentShape.getBottomSide(newRotation);
+
+        //CHECK (nieuwe methode maken?) Wanneer de shape is te ver naar links of naar rechts,
+        dat die buiten het grid valt moeten de coordinaten worden aangepast
+        if (currentCol < -newLeftSide) {
+            newCol = newLeftSide;
+        } else if (currentCol + currentShape.getDimension() - newRightSide >= GridDraw.amountOfCol) {
+            int adjustment = (currentCol + currentShape.getDimension() - newRightSide) - GridDraw.amountOfCol + 1;
+            newCol = newCol - adjustment;
+        }
+
+        //CHECK (^) wanneer de shape te ver omhoog gaat of te laag naar beneden.
+        if (currentRow < -newTopSide) {
+            newRow = newTopSide;
+        } else if (currentRow + currentShape.getDimension() - newBottomSide) >= GridDraw.amountOfRow) {
+            int adjustment = (currentRow + currentShape.getDimension() - newRightSide) - GridDraw.amountOfRow + 1;
+            newRow = newRow - adjustment;
+        }
+
+        //Als de nieuwe positie goed is dan de nieuwe variablen als huidige zetten (meegeven met de nieuwe variable dus)
+        if (gridDraw.isPossibleAndEmpty(...) {
+            currentRotation = newRotation;
+            currentCol = newCol;
+            currentRow = newRow;
+        }
+    }
+
+    //Return for ifPaused
+    boolean isPaused() {
+        return isPaused;
+    }
+
+    //Return for ifGameOver
+    boolean isGameOver() {
+        return isGameOver;
+    }
+
+    //Return for newgame
+    boolean isNewGame() {
+        return isNewGame;
+    }
+
+    //Return for Score
+    int getScore() {
+        return score;
+    }
+
+    //Return for level
+    int getLevel() {
+        return level;
+    }
+
+    //Return for Shape
+    Shape getShape() {
+        return currentShape;
+    }
+
+    //Return for NextShape
+    Shape getNextShape() {
+        return nextShape;
+    }
+
+    //Return for shapecol
+    int getShapeCol() {
+        return currentCol;
+    }
+
+    //Return for shapeRow
+    int getShapeRow() {
+        return currentRow;
+    }
+
+    //Return for currentRotation
+    int getCurrentRotation() {
+        return currentRotation;
+    }
+
+    //Main methode voor oproepen tetris constructor en startgame methode
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.startGame();
+    }
+}
