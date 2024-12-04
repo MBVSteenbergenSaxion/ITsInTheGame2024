@@ -10,7 +10,12 @@ public class GameThread extends Thread {
 
     public GameThread(GridDraw gridDraw) {
         GameThread.gridDraw = gridDraw;
-        initializeStartValues();
+
+        draw = true;
+        scorePerLevel = 2;
+        level = 1;
+        gameSpeed = 1000;
+        speedUpPerLevel = 150;
     }
 
 
@@ -49,19 +54,9 @@ public class GameThread extends Thread {
         }
 
     /** METHODS FOR READABILITY
-     * - initializeStartValues()
      * - setLevel()
      * - ifGameOver()
      * */
-
-
-    private static void initializeStartValues() {
-        draw = true;
-        scorePerLevel = 2;
-        level = 1;
-        gameSpeed = 1000;
-        speedUpPerLevel = 150;
-    }
 
     private static void setLevel() {
         Game.updateScore(scoreCounterThread);
