@@ -1,0 +1,66 @@
+PSEUDOCODE NEW CLASS Clock.java (--> kijken hoe te vervangen met een nieuwe thread, vanwege saxionapp en complexiteit)
+
+class Clock {
+
+    double milliSecondsPerCycle; (--> hoeveelheid milliseconden per cycle)
+    long lastUpdate; (--> Laatste keer dat de clock is geupdate)
+    int doneCycles; (--> hoeveelheid cycles die nog niet zijn verwerkt)
+    double amountOfTooMuchTime; (--> hoeveelheid tijd die over is tussen de cycles)
+    boolean isPaused;
+
+    //Maakt nieuwe Clock en bepaalt zijn cycles per seconde
+    Clock(double gameSpeed) {
+        setCyclesPerSecond(gameSpeed);
+        resetValues();
+    }
+
+    //Geeft aan hoeveel cycles er per seconde uitgevoerd moeten worden
+    void setCyclesPerSecond(double gameSpeed) {
+        milliSecondsPerCycle = (1.0 / gameSpeed) * 1000
+    }
+
+    //Initialiseer de beginwaarden van Clock weer nadat de Clock klasse opnieuw wordt aangeroepen vanuit game.java
+    void resetValues() {
+        doneCycles = 0;
+        amountOfTooMuchTime = 0.0;
+        lastUpdate = getCurrentTime();
+        isPaused = false;
+    }
+
+    //Update the clock stats
+    void update() {
+        //Huidige tijd en delta tijd
+        long currentUpdate = getCurrentTime();
+        double delta = (double)(currentUpdate - lastUpdate) + amountOfToMuch;
+
+        //Update de tijden als de game niet gepauzeerd is
+        if(notPaused) {
+            doneCycles = doneCycles + (int)(Math.floor(delta / milliSecondsPerCycle);
+            amountOfTooMuchTime = delta % milliSecondPerCycle;
+        }
+
+        //Zet lastupdate naar currentupdate
+        lastUpdate = currentUpdate;
+    }
+
+    //Zet pausedvariable
+    void setPaused(boolean paused) {
+        isPaused = paused;
+    }
+
+    boolean getIsPaused() {
+        return isPaused();
+    }
+
+    boolean hasDoneCycles() {
+        if(doneCycles > 0) {
+            doneCycles--;
+            return true;
+        }
+        return false;
+    }
+
+    long getCurrentTime() {
+        return (System.nanoTime() / 1000000);
+    }
+}
