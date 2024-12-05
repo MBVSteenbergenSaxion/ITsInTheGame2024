@@ -1,0 +1,14 @@
+class Shape'soort' extends Shape {
+
+    public Shape'soort'() {
+        super(
+            new Color(rgb),
+            grootte van dimensie shape
+            aantal van columns die bezet zijn bij rotatie 0 (spawnrotatie)
+            aantal van rows die bezet zijn bij rotatie 0 (spawnrotatie)
+
+            //3d boolean met 4 rotaties erin en per rotatie shape getekend met false of true
+            new boolean[][][]{ { {},{},{},{}, }, { {},{},{},{}, }, { {},{},{},{}, }, { {},{},{},{},} }
+        );
+    }
+}
