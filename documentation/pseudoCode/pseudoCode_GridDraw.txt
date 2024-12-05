@@ -1,0 +1,104 @@
+class GridDraw {
+
+    int BORDER_WIDTH (== width of border of around the grid --> so the panel)
+
+    int VISIBLE_GRID_ROWS; (--> rows visible on the grid)
+    int HIDDEN_GRID_ROWS; (--> rows hidden on the grid for shapespawning)
+
+    int GRID_COLUMNS;
+    int GRID_ROWS
+
+    int BLOCK_SIZE (--> the size of the blocks on the grid)
+    int SHADE_PIXELS (--> amount of pixels that on the block that makes a shadow
+
+    int CENTERX_GRID (--> the middle of the grid on X)
+    int CENTERY_GRID (--> the middle of the grid on Y)
+    int PANEL_WIDTH (--> amount of colums * the size of blocks + BORDERWIDTH * 2)
+    int PANEL_HEIGHT (--> amount of visible rows * size of blocks + BORDERWIDTH * 2)
+
+    Game game;
+    Shape[][] blocks;
+
+    public GridDraw(Game game) {
+        initialize game & blocks(--> amount of rows & colums)
+
+        initialize GridDraw panel in background color black
+    }
+
+    void clear() {
+        Loop through every block index and set its value to null
+    }
+
+    //All the checks for !shapeplacement!
+    boolean isPossibleAndEmpty(...) {
+
+        //Check for valid column
+        if (x is smaller then negativeMostLeftSide OR the give x + dimensionOfShape - mostRightSide is Bigger or Equal as GRID_COLUMNS)
+            return false
+
+        //Check for valid row
+        if (y is smaller then negativeMostTopSide OR the give y + dimensionOfShape - mostBottomSide is Bigger or Equal as GRID_ROWS)
+            return false
+
+        -- Loop through all tiles of the Shape (type.getDimension) and check if one of those tiles is indeed a Tile (type.isBlock) AND if that tile is occupied (isOccupied)
+            IF SO --> return false
+
+        //If nothing returns false, then the boolean gives back true
+        return true
+
+    }
+
+    //Add piece on grid
+    //Will just add the blocks on the grid, even when it overlaps other tiles. Therefor we have checks ^
+    void addPiece(...) {
+        loop through every tile of the piece (shapeDimension)
+            if(shape.isBlock() (--> called from shape to check if that block is set to true in the shape))
+                IF SO then setTile()
+    }
+
+    //Checks if and how many lines there are cleared, another method is called for clearing the cleared lines
+    int checkLines {
+        int completedLines;
+
+        //Loop through every row
+            if(row is full and needs to be removed --> checkLine(row)) {
+                completedLines++;
+            }
+
+        return completedLines
+    }
+
+    boolean checkLine(int line) {
+
+        //Check through every column in the given row (fori)
+            if(notOccupied(that column, given line) {
+                return false --> because the row not fully occupied
+            }
+
+        //Loop that checks the row one above the give line and will loop till the rows equal to zero.
+            //Loop that checks every colums per row
+                setTile(column, nextRow(line +1) , and change this line with block on the current line
+
+        //Line is cleared
+        return true
+    }
+
+    //Check if a block is occupied
+    boolean isOccupied(...) {
+        returns true if the block on that coordinate is not null
+    }
+
+    //Set a block (coordinate) with a give block
+    void setTile(x, y, block) {
+        shapes[][] = block
+    }
+
+    //Get a block (coordinate) by its column and row
+    Shape getTile(x,y) {
+        return blocks[][];
+    }
+
+
+
+
+}
