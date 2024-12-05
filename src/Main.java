@@ -1,15 +1,12 @@
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
-import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-
-import javax.sound.sampled.Clip;
 
 public class Main extends Canvas{
 
@@ -22,7 +19,7 @@ public class Main extends Canvas{
         super();
     }
 
-    public Map<String, String> env;
+    public static Map<String, String> env;
 
     utils.MyButton gameButton = new MyButton();
     utils.MyButton leaderBoardButton = new MyButton();
@@ -39,13 +36,7 @@ public class Main extends Canvas{
     @Override
     public void init() {
 
-        if(env == null){
-            try {
-                env = EnvLoader.loadEnv(".env");
-            } catch (IOException e) {
-                // Logic for if the .env file isn't found
-            }
-        }
+        loadEnv();
 
         gameButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         gameButton.y = (int) (Settings.height * 0.40);
@@ -139,7 +130,15 @@ public class Main extends Canvas{
 
     }
 
-
+    private void loadEnv(){
+        if(env == null){
+            try {
+                env = EnvLoader.loadEnv(".env");
+            } catch (IOException e) {
+                // Logic for if the .env file isn't found
+            }
+        }
+    }
 }
 
 

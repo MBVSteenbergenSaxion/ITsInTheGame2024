@@ -1,4 +1,8 @@
 import java.io.*;
+
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
+import utils.SFTP;
 import java.util.ArrayList;
 
 import Leaderboard.*;
@@ -36,15 +40,42 @@ public class LeaderboardBackend {
         }
     }
 
-    public static void writeToCSV(String[] score) throws IOException {
+    public static void writeToCSVOffline(String[] score) throws IOException {
 
         File CSVFile = new File("resources/Leaderboard/scores.csv");
         FileWriter fw = new FileWriter(CSVFile.getAbsoluteFile(), true);
 
         BufferedWriter bw = new BufferedWriter(fw);
 
+        //String array for score
         bw.write("Username,1000");
         bw.close();
+
+    }
+
+    public static void writeToCSVOnline(String[] score) throws IOException, JSchException, SftpException {
+
+        String username = Main.env.get("USER");
+        String password = Main.env.get("PASS");
+        String ip = Main.env.get("IP");
+
+        String tempPath = "temp/scores.csv";
+
+        SFTP.downloadFile(username, password, ip);
+
+        File CSVFile = new File(tempPath);
+        FileWriter fw = new FileWriter(CSVFile.getAbsoluteFile(), true);
+
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        //String array for score
+        bw.write("Username,1000");
+        bw.close();
+
+        SFTP.deleteFile(username, password, ip);
+        SFTP.putFile(username, password, ip);
+
+        if(CSVFile.delete()) System.out.println("temp emptied");
 
     }
 
