@@ -1,0 +1,50 @@
+class Shape {
+
+    Color baseColor
+    Color lightColor
+    Color darkColor
+
+    int spawnCol
+    int spawnRow
+    int dimension
+
+    int rows
+    int cols
+
+    boolean[][][] blocks
+
+    Shape() (...) {
+        initialiseer alle waardes van Shape
+        en initialiseer de startwaardes met col is de helft van het scherm - (de dimensie van de shape/2)
+    }
+
+    //Alle gets hieronder normale returns van gegevens uit Shape()
+    getBaseColor()
+    getLighterColor()
+    getDarkerColor()
+    getDimension()
+    getSpawnColumn()
+    getSpawnRow()
+    getColumns()
+    getRows()
+
+    boolean isBlock(...) {
+        kijkt of de gegeven coördinaten van de shape in die rotatie een true of een false bevatten.
+    }
+
+    int getLeftSide(..) {
+        loopt links naar rechts en kijken dan of er in die column (links --> rechts) een block bezet is, dat x-coordinaat wordt doorgegeven dankzij isTile als meest linkerzijde van shape
+    }
+
+    int getRightSide() {
+        loopt rechts naar links en kijken dan of er in die column een block bezet is, dat x-coordinaat van de dimension afgehaalt om alle blokken links van dat xcoordinaat te weten en wordt berekendt door isTile als meest rechtzijde van shape
+    }
+
+    int getTopSide() {
+        loopt boven naar beneden en kijkden dan of er in die row een block bezet is, dat y-coordinaat wordt doorgegeven dankzij isTyle als hoogstezijde van shape
+    }
+
+    int getBottomSide() {
+        loop onder naar boven en kijkt dan of er in die row een block bezet is, dat y-coordinaat wordt van de dimension afgehaalt alle blokken boven van dat y-coordinaat te weten en wordt berekend door isTile() als meest ondersterte punt van shape
+    }
+}
