@@ -89,12 +89,12 @@ class GridDraw {
     }
 
     //Set a block (coordinate) with a give block
-    void setTile(x, y, block) {
+    void setBlock(x, y, block) {
         shapes[][] = block
     }
 
     //Get a block (coordinate) by its column and row
-    Shape getTile(x,y) {
+    Shape getBlock(x,y) {
         return blocks[][];
     }
 
@@ -120,6 +120,59 @@ class GridDraw {
         drawRectangle(x, y+shadewidth, blocksize, shadewidth)
         drawRectangle(x + shadewidth, y, shadewidth, blocksize)
 
+    }
+
+    void paint() {
+
+        if (paused) {
+            drawText("paused") at centerx - stringwidth and centery
+        } else if (new game) {
+            drawText("TETRIS")
+            drawText("Press enter to play")
+        } else if (gameover) {
+            drawText("GAME OVER")
+            drawText("Press enter to play again")
+        } else {
+
+            //Draw tiles on board
+            for(x = 0, x < GRID_COLUMS; x++) {
+                for(y = HIDDEN_GRID_ROWS; y < GRID_ROWS; y++) {
+                    Shape block = getBlock(x,y);
+                    if (block doesnt is NULL {
+                        drawBlock(block, x * blocksize, (y - HIDDEN_GRID_ROWS) * blocksize)
+                    }
+                }
+            }
+
+            Shape shape = game.getShape()
+            shapeCol = game.getShapeCol()
+            shapeRow = game.getShapeRow()
+            shapeRotation = game.getShapeRotation()
+
+            //Draw piece
+            fori(col = 0;  col < shape.dimension; col++){
+                fori(row =0; row < shape.dimension; row++){
+                    if(shapeRow + row >= 2 (--> When the row of the shape + the row of the loop is atleast 2, means it not out of the grid) && shape.isBlock(col,row,shapeRotation)) {
+                        drawBlock(shape, (shapeCol + col) * blocksize, (shapeRow + row - HIDDEN_GRID_ROWS) * blocksize);
+                    }
+                }
+            }
+
+            //LOOPS FOR GHOSTPIECE --> First make working game...
+
+            //Draw grid with lines (only the background color or blockcolor) --> less lagg
+            setBorderColor(color)
+            fori(x=0; x<GRID_COLUMNS; x++) {
+                fori(y=0; y<VISIBLE_GRID_ROWS; y++) {
+                    drawLine(0, y * blocksize, GRID_COLUMNS * blocksize, y * blocksize)
+                    drawLine(x * blocksize, 0, x * blocksizem VISIBLE_GRID_ROWS * blocksize)
+                }
+            }
+        }
+
+
+        //Draw outline of panel
+        drawLines * 4 (Left, Top, Right, Bottom)
     }
 
 }
