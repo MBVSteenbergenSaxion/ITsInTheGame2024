@@ -24,8 +24,6 @@ public class Leaderboard extends Canvas {
      *
      */
     private String filePath = "resources/GameMusic/TetrisTheme.wav";
-    private int highscore = 1000;
-    private String username = "name";
     ArrayList<Score> scores = new ArrayList<>();
 
     utils.MyButton menuButton = new MyButton();
@@ -33,6 +31,7 @@ public class Leaderboard extends Canvas {
 
     @Override
     public void init() {
+        Canvas.stopBackgroundMusic();
         Canvas.playBackgroundMusic(filePath);
         String filename = "resources/Leaderboard/scores.csv";
         File CsvFile = new File(filename);

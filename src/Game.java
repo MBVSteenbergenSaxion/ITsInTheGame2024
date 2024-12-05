@@ -47,14 +47,13 @@ public class Game extends Canvas{
      */
     @Override
     public void init() {
+
+        Canvas.stopBackgroundMusic();
+
+        gt = null;
+        gd = null;
+
         gd = new GridDraw(GridSettings.width);
-
-        if (gt != null) {
-            gt = null;
-            gd = null;
-            gd = new GridDraw(GridSettings.width);
-
-        }
         gt = new GameThread(gd);
         gt.start();
 

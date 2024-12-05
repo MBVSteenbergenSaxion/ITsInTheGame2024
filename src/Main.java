@@ -36,6 +36,8 @@ public class Main extends Canvas{
     @Override
     public void init() {
 
+        Canvas.stopBackgroundMusic();
+
         loadEnv();
 
         gameButton.x = Settings.width / 2 - Settings.buttonWidth / 2;

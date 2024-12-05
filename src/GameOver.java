@@ -36,6 +36,8 @@ public class GameOver extends Canvas{
     @Override
     public void init() {
 
+        Canvas.stopBackgroundMusic();
+
         usernameInput.x = Settings.width / 3;
         usernameInput.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
         usernameInput.fontSize = 25;
