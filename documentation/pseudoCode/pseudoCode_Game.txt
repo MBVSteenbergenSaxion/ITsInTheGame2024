@@ -3,7 +3,9 @@ PSEUDOCODE GAME.java
 class Game extends Canvas {
 
     long FRAME_TIME = 1000/50 (== Canvas loopspeed)
-    int SHAPE_COUNT = Shape.values().length (== Shape nieuwe klasse met enum ipv class (zie pseudoCode_Shape)
+    int SHAPE_COUNT (== Shape nieuwe klasse met enum ipv class (zie pseudoCode_Shape)
+
+    Shape[] shapes
 
     GridDraw gridDraw (== bestaande klasse aangepast voor het nieuwe prototype)
     SideDraw sideDraw (== nieuwe klasse waarmee rechts van het spel wordt getekend (next piece, stats, instructies)
@@ -27,9 +29,15 @@ class Game extends Canvas {
 
     boolean rotationClockWiseKeyPressed, rotationAntiClockWisePressed, dropKeyPressed; (== om te checken of de key al gereleased is of niet)
 
-    Game() {
+    Game() extends Canvas{
         //Basis eigenschappen van frame
         super()
+
+        shapes = new Shape[] {
+        			alle shapes
+        };
+
+  		TYPE_COUNT = types.length;
 
         //Initialiseerd de draw klassen
         gridDraw = new GridDraw()
@@ -209,7 +217,7 @@ class Game extends Canvas {
         level = 1;
         score = 0;
         gameSpeed = 1.0;
-        nextType = Shape.values()[randomValue(0, SHAPE_COUNT)];
+        nextType = shapes[randomValue(0, SHAPE_COUNT)];
         isnewgame = false;
         isgameover = false;
         gridDraw.clear();
@@ -225,7 +233,7 @@ class Game extends Canvas {
         currentCol = currentShape.getDefaultColumnValue();
         currentRow = currentShape.getDefaultRowValue();
         currentRotation = 0;
-        nextShape = Shape.values()[getRandomvalue(0,SHAPE_COUNT)];
+        nextShape = shapes[getRandomvalue(0,SHAPE_COUNT)];
 
         //Als spawnpoint niet geldig is, dan betekend het dat de shape out of bounds is en dus gameover.
           Want hij zit hoger dan mogelijk row waarde
