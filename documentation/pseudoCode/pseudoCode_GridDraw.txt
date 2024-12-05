@@ -98,7 +98,28 @@ class GridDraw {
         return blocks[][];
     }
 
+    //Draw a block on grid with give coordinates and shape
+    void drawBlockNoColor(...){
+        drawBlockWithColor(gets all the sorts of color from Shape, and also gives back coordinates);
+    }
 
+    void drawBlockWithColor(all sorts of color from shape and also the coordinates) {
 
+        //Fills the entire block
+        setFill(basecolor)
+        drawRectangle(x,y,blocksize,blocksize)
+
+        //Fills the south and west of block
+        setFill(darkColor)
+        drawRectangle(x, y+blocksize-shadewidth, blocksize, shadewidth)
+        drawRectangle(x + blocksize - shadewidth, y, shadewidth, blocksize)
+
+        //Fills the north and ease of block
+        setFill(lightColor)
+        //forloop is possible if we want diagnonal and then drawing lines with x or y everytime littlebit smaller, for now the same as above
+        drawRectangle(x, y+shadewidth, blocksize, shadewidth)
+        drawRectangle(x + shadewidth, y, shadewidth, blocksize)
+
+    }
 
 }
