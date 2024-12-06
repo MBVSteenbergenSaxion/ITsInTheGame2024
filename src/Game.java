@@ -12,14 +12,12 @@ public class Game extends Canvas{
     private boolean rightKeyPressed;
     private boolean leftKeyPressed;
     public static int scoreCount;
-    public static int levelCount = 1;
+    public static int levelCount;
     private static String filePath1 = "resources/GameMusic/Theme(SelfMade)/Theme2.wav";  //Selfmade = theme2
     private static String filePath2 = "resources/GameMusic/Theme(SelfMade)/Theme3.wav";  //Selfmade = theme3
     private static String filePath3 = "resources/GameMusic/Theme(SelfMade)/Theme4.wav";  //Selfmade = theme4
     private static String filePath4 = "resources/GameMusic/Theme(SelfMade)/Theme5.wav";  //Selfmade = theme5
     private static String filePath5 = "resources/GameMusic/Theme(SelfMade)/Theme6.wav";  //Selfmade = theme6
-
-
 
     /**
      * Default constructor for the Game class.
@@ -50,8 +48,11 @@ public class Game extends Canvas{
 
         Canvas.stopBackgroundMusic();
 
-        gt = null;
-        gd = null;
+        if(gt != null){
+            gt.interrupt();
+            gt = null;
+            gd = null;
+        }
 
         gd = new GridDraw(GridSettings.width);
         gt = new GameThread(gd);
@@ -62,6 +63,8 @@ public class Game extends Canvas{
         SaxionApp.clear();
 
         scoreCount = 0;
+        levelCount = 1;
+
         restartButton.x = Settings.width - Settings.width / 4;
         restartButton.y = Settings.height / 3;
         restartButton.width = Settings.buttonWidth / 2;
@@ -113,10 +116,6 @@ public class Game extends Canvas{
         draw();
     }
 
-    public void startGame() {
-
-
-    }
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
@@ -219,7 +218,4 @@ public class Game extends Canvas{
         }
 
     }
-
-
-
 }
