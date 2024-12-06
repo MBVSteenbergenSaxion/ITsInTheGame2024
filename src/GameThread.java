@@ -2,18 +2,51 @@ import nl.saxion.app.SaxionApp;
 
 public class GameThread extends Thread {
 
-    public GameThread(GridDraw gd) {
+    private long FRAME_TIME;
+    private boolean running;
+    private boolean isPaused;
 
-    }
-
-    public static void main(String[] args) {
-
+    public GameThread(int framesPerSecond) {
+        this.FRAME_TIME = 1000/ framesPerSecond;
+        this.running = false;
     }
 
     @Override
     public void run() {
+        while (running) {
+            long startTime = System.nanoTime();
+
+            //Game.updateGame();
+            //Game.renderGame();
+
+            long elapsedTime = (System.nanoTime() - startTime) / 1000000; //Convert nano to millseconds
+
+            long sleepTime = FRAME_TIME - elapsedTime;
+            if (sleepTime > 0) {
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void stopGame() {
+        running = false;
+    }
+
+    public void setPaused(boolean paused) {
+        isPaused = paused;
+    }
+
+    public boolean getPaused() {
+        return isPaused;
+    }
+    public static void main(String[] args) {
 
     }
+
 }
     /*
     private static GridDraw gridDraw;

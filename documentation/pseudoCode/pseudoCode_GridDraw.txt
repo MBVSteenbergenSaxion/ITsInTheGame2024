@@ -134,7 +134,7 @@ class GridDraw {
             drawText("Press enter to play again")
         } else {
 
-            //Draw tiles on board
+            //Draw background on board
             for(x = 0, x < GRID_COLUMS; x++) {
                 for(y = HIDDEN_GRID_ROWS; y < GRID_ROWS; y++) {
                     Shape block = getBlock(x,y);
