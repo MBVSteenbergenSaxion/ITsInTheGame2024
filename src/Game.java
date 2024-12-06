@@ -206,17 +206,14 @@ public class Game extends Canvas {
         /*
         SaxionApp.drawText("Score: " + scoreCount, (Settings.width / 4 - Settings.width / 12), Settings.height / 2, 20);
         SaxionApp.drawText("Level: " + levelCount, (Settings.width / 4 - Settings.width / 12), Settings.height - Settings.height / 4, 20);
-
+        */
         if (gd != null) {
             gridDrawMethodCalling();
         }
-        */
+
     }
 
-    /*private static void gridDrawMethodCalling() {
-        gd.drawGrid();
-        gd.drawNextPieceGrid();
-        gd.drawBackground();
-        gd.repaint();
-    }*/
+    private static void gridDrawMethodCalling() {
+        gd.paint();
+    }
 }

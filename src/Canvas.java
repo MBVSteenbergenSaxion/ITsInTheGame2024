@@ -12,9 +12,13 @@ import java.io.IOException;
 public class Canvas implements GameLoop {
     private static Canvas activeCanvas;
     private static Clip backgroundMusic;
-    Color backgroundColor = SaxionApp.createColor(0,0,128);
-
+    private static Color backgroundColor = SaxionApp.createColor(0,0,128);
+    private static Color gridColor = backgroundColor.brighter();
     public Canvas() {
+    }
+
+    public static Color getColor() {
+        return gridColor;
     }
 
     public static void playBackgroundMusic(String filePath) {

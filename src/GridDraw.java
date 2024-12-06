@@ -4,10 +4,32 @@ import nl.saxion.app.SaxionApp;
 
 import java.awt.*;
 
+import static nl.saxion.app.SaxionApp.drawLine;
+
 public class GridDraw {
 
-    public GridDraw() {
+    private static int VISIBLE_GRID_ROWS, HIDDEN_GRID_ROWS, GRID_COLUMNS;
+    private static int startX_PANEL, startY_PANEL, endX_PANEL, endY_PANEL;
+    private static int BLOCK_SIZE;
+    public GridSettings gs;
 
+    public GridDraw() {
+        /*
+        initialize game & blocks(--> amount of rows & colums)
+
+        initialize GridDraw panel in background color black
+        * */
+
+        GridSettings gs = new GridSettings();
+
+        VISIBLE_GRID_ROWS = gs.VISIBLE_GRID_ROWS;
+        HIDDEN_GRID_ROWS = gs.HIDDEN_GRID_ROWS;
+        GRID_COLUMNS = gs.GRID_COLUMNS;
+        startX_PANEL = gs.startX_PANEL;
+        startY_PANEL = gs.startY_PANEL;
+        endX_PANEL = gs.endX_PANEL;
+        endY_PANEL = gs.endY_PANEL;
+        BLOCK_SIZE = gs.BLOCK_SIZE;
     }
 
     public void drawBlockWithoutColor() {
@@ -19,8 +41,31 @@ public class GridDraw {
     }
 
     public void paint() {
-        //Draw outline of panel
-        //drawLines * 4 (Left, Top, Right, Bottom)
+        //Draw grid with lines (only the background color or blockcolor) --> less lagg
+        /*
+        setBorderColor(color)
+        fori(x=0; x<GRID_COLUMNS; x++) {
+            fori(y=0; y<VISIBLE_GRID_ROWS; y++) {
+                drawLine(0, y * blocksize, GRID_COLUMNS * blocksize, y * blocksize)
+                drawLine(x * blocksize, 0, x * blocksizem VISIBLE_GRID_ROWS * blocksize)
+            }
+        }*/
+
+        //Draw grid in outline (Only with lines)
+        SaxionApp.setBorderColor(Canvas.getColor());
+        for (int x = 0; x < GRID_COLUMNS; x++) {
+            for (int y = 0; y < VISIBLE_GRID_ROWS; y++) {
+                drawLine(startX_PANEL, y * BLOCK_SIZE + startY_PANEL, GRID_COLUMNS * BLOCK_SIZE + startX_PANEL, y * BLOCK_SIZE + startY_PANEL);
+                drawLine(x * BLOCK_SIZE + startX_PANEL, startY_PANEL, x * BLOCK_SIZE + startX_PANEL, VISIBLE_GRID_ROWS * BLOCK_SIZE + startY_PANEL);
+            }
+
+        }
+        //Draw outline grid
+        SaxionApp.setBorderColor(Color.lightGray);
+        drawLine(startX_PANEL, startY_PANEL, startX_PANEL, endY_PANEL); //Line LeftSide
+        drawLine(endX_PANEL, startY_PANEL, endX_PANEL, endY_PANEL); //Line RightSide
+        drawLine(startX_PANEL, startY_PANEL, endX_PANEL, startY_PANEL); //Line TopSide
+        drawLine(startX_PANEL, endY_PANEL, endX_PANEL, endY_PANEL); //Line BottomSide
     }
 
 

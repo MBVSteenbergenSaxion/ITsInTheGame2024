@@ -37,7 +37,7 @@ public class Block {
     public void spawn(int rotation) {
         currentRotation = rotation;
         y = -getHeight();
-        x = SaxionApp.getRandomValueBetween(0, GridSettings.width - getWidth() - 1);
+        //x = SaxionApp.getRandomValueBetween(0, //GridSettings.width - getWidth() - 1);
 
         shape = shapes[currentRotation];
     }

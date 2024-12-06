@@ -2,7 +2,7 @@ package Grid;
 import nl.saxion.app.SaxionApp;
 
 public class GridSettings {
-
+    /*
     private static final int screenHeight = SaxionApp.getHeight();
     private static final int screenWidth = SaxionApp.getWidth();
 
@@ -28,5 +28,24 @@ public class GridSettings {
     public static int blockNextSize = widthNextPanel / nextPieceWidth;
     public static int startNextPanelY = (int)((double) screenHeight / 3 - screenHeight * 0.20 + (blockSize * loweringGrid));
     public static int heightNextPanel = startPanelY  * nextPieceHeight;
+    */
+    private static final int screenHeight = SaxionApp.getHeight();
+    private static final int screenWidth = SaxionApp.getWidth();
+
+    public int VISIBLE_GRID_ROWS = 15;
+    public int HIDDEN_GRID_ROWS = 2;
+    public int GRID_COLUMNS = 10;
+
+    public int startX_PANEL = screenWidth / 50;
+    public int startY_PANEL = screenHeight / 50;
+    public int endX_PANEL = screenWidth / 2;
+
+    public int widthPanel = endX_PANEL - startX_PANEL;
+
+
+    public int BLOCK_SIZE = widthPanel / GRID_COLUMNS;
+
+
+    public int endY_PANEL = startY_PANEL + BLOCK_SIZE * VISIBLE_GRID_ROWS;
 
 }
