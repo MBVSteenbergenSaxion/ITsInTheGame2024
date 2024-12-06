@@ -5,7 +5,7 @@ import nl.saxion.app.interaction.*;
 public class Game extends Canvas {
 
     public static GridDraw gd;
-    public static GameThread gt;
+    //public static GameThread gt;
     private boolean upKeyPressed, rightKeyPressed, leftKeyPressed;
     public static int scoreCount;
     public static int levelCount = 1;
@@ -26,7 +26,7 @@ public class Game extends Canvas {
         super();
 
         gd = new GridDraw();
-        gt = new GameThread(gd);
+        //gt = new GameThread(gd);
     }
 
     /**
@@ -51,6 +51,7 @@ public class Game extends Canvas {
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
+        /*
         if (keyboardEvent.isKeyPressed()) {
             //Handles key pressed
             switch (keyboardEvent.getKeyCode()) {
@@ -90,7 +91,7 @@ public class Game extends Canvas {
                     leftKeyPressed = false;
 
             }
-        }
+        }*/
     }
 
 
@@ -123,9 +124,10 @@ public class Game extends Canvas {
      */
 
     public void startGame() {
+        /*
         startAudioGame();
         gt.start();
-        scoreCount = 0;
+        scoreCount = 0;*/
     }
 
     public static void startAudioGame() {
@@ -176,19 +178,19 @@ public class Game extends Canvas {
      */
 
     private static void back2Main() {
-        gt.interrupt();
+        //gt.interrupt();
         Canvas.stopBackgroundMusic();
         switchToScreen(new Main());
     }
 
     private static void restart() {
         scoreCount = 0;
-        gt.interrupt();
+        //gt.interrupt();
         SaxionApp.clear();
         Canvas.stopBackgroundMusic();
         gd = new GridDraw();
-        gt = new GameThread(gd);
-        gt.start();
+        //gt = new GameThread(gd);
+        //gt.start();
         startAudioGame();
     }
 
@@ -201,19 +203,20 @@ public class Game extends Canvas {
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
 
+        /*
         SaxionApp.drawText("Score: " + scoreCount, (Settings.width / 4 - Settings.width / 12), Settings.height / 2, 20);
         SaxionApp.drawText("Level: " + levelCount, (Settings.width / 4 - Settings.width / 12), Settings.height - Settings.height / 4, 20);
 
         if (gd != null) {
             gridDrawMethodCalling();
         }
-
+        */
     }
 
-    private static void gridDrawMethodCalling() {
+    /*private static void gridDrawMethodCalling() {
         gd.drawGrid();
         gd.drawNextPieceGrid();
         gd.drawBackground();
         gd.repaint();
-    }
+    }*/
 }

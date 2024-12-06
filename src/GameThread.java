@@ -22,6 +22,7 @@ public class GameThread extends Thread {
     public static void main(String[] args) {
     }
 
+    /*
     @Override
     public void run() {
         gridDraw.setNextPiece();
@@ -52,7 +53,7 @@ public class GameThread extends Thread {
             }
             }
         }
-
+*/
     /** METHODS FOR READABILITY
      * - setLevel()
      * - ifGameOver()
@@ -73,11 +74,11 @@ public class GameThread extends Thread {
     }
 
     private static void ifGameOver() {
-        if(gridDraw.isBlockOutOfBounds()) {
+        /*if(gridDraw.isBlockOutOfBounds()) {
             draw = false;
             Game.gd = null;
             Game.gt = null;
             Canvas.switchToScreen(new GameOver());
-        }
+        }*/
     }
 }
