@@ -6,6 +6,7 @@ class Game extends Canvas {
     int SHAPE_COUNT (== Shape nieuwe klasse met enum ipv class (zie pseudoCode_Shape)
 
     Shape[] shapes
+    int SHAPE_COUNT;
 
     GridDraw gridDraw (== bestaande klasse aangepast voor het nieuwe prototype)
     SideDraw sideDraw (== nieuwe klasse waarmee rechts van het spel wordt getekend (next piece, stats, instructies)
@@ -37,7 +38,7 @@ class Game extends Canvas {
         			alle shapes
         };
 
-  		TYPE_COUNT = types.length;
+  		SHAPE_COUNT = shapes.length;
 
         //Initialiseerd de draw klassen
         gridDraw = new GridDraw()

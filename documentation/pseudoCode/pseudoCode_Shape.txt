@@ -1,5 +1,6 @@
 class Shape {
 
+    /*
     Color baseColor
     Color lightColor
     Color darkColor
@@ -12,6 +13,7 @@ class Shape {
     int cols
 
     boolean[][][] blocks
+    */
 
     Shape() (...) {
         initialiseer alle waardes van Shape

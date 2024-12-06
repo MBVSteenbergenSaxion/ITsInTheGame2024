@@ -32,20 +32,20 @@ public class GridSettings {
     private static final int screenHeight = SaxionApp.getHeight();
     private static final int screenWidth = SaxionApp.getWidth();
 
-    public int VISIBLE_GRID_ROWS = 15;
-    public int HIDDEN_GRID_ROWS = 2;
-    public int GRID_COLUMNS = 10;
+    public static int VISIBLE_GRID_ROWS = 15;
+    public static int HIDDEN_GRID_ROWS = 2;
+    public static int GRID_COLUMNS = 10;
 
-    public int startX_PANEL = screenWidth / 50;
-    public int startY_PANEL = screenHeight / 50;
-    public int endX_PANEL = screenWidth / 2;
+    public static int startX_PANEL = screenWidth / 50;
+    public static int startY_PANEL = screenHeight / 50;
+    public static int endX_PANEL = screenWidth / 2;
 
-    public int widthPanel = endX_PANEL - startX_PANEL;
-
-
-    public int BLOCK_SIZE = widthPanel / GRID_COLUMNS;
+    public static int widthPanel = endX_PANEL - startX_PANEL;
 
 
-    public int endY_PANEL = startY_PANEL + BLOCK_SIZE * VISIBLE_GRID_ROWS;
+    public static int BLOCK_SIZE = widthPanel / GRID_COLUMNS;
+
+
+    public static int endY_PANEL = startY_PANEL + BLOCK_SIZE * VISIBLE_GRID_ROWS;
 
 }
