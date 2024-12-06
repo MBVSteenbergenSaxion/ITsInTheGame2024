@@ -6,6 +6,23 @@ import java.awt.*;
 
 public class GridDraw {
 
+    public GridDraw() {
+
+    }
+
+    public void drawBlockWithoutColor() {
+
+    }
+
+    public void drawBlockWithColor() {
+
+    }
+
+    public void paint() {
+        //Draw outline of panel
+        //drawLines * 4 (Left, Top, Right, Bottom)
+    }
+
 
 }
 
