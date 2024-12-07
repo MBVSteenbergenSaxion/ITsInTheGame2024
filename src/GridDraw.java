@@ -1,5 +1,4 @@
 import Grid.*;
-import Grid.Shape;
 import Shapes.*;
 import nl.saxion.app.SaxionApp;
 
@@ -13,8 +12,6 @@ public class GridDraw {
     private static int startX_PANEL, startY_PANEL, endX_PANEL, endY_PANEL;
     private static int BLOCK_SIZE;
     public GridSettings gs;
-    private Game game;
-    private Shape[][] blocks;
 
     public GridDraw() {
         /*
@@ -35,50 +32,24 @@ public class GridDraw {
         BLOCK_SIZE = gs.BLOCK_SIZE;
     }
 
-    public boolean isPossibleAndEmpty() {
-        return true;
+    public void drawBlockWithoutColor() {
+
     }
 
-    public void addPiece(Shape shape, int x, int y, int rotation) {
-        for (int col = 0; col < shape.getDimension(); col++) {
-            for (int row = 0; row < shape.getDimension(); row++) {
-                if(shape.isBlock(col, row, rotation)) {
-                    setTile(col + x, row + y, shape);
-                }
-            }
-        }
-    }
+    public void drawBlockWithColor() {
 
-    public void setTile(int x, int y, Shape shape) {
-        blocks[y][x] = shape;
-    }
-
-    public Shape getTile(int x, int y) {
-        return blocks[y][x];
-    }
-
-    public void drawBlockWithoutColor(Shape shape, int x, int y) {
-        drawBlockWithColor(shape.getBaseColor(), x, y);
-    }
-
-    public void drawBlockWithColor(Color base, int x, int y) {
-        SaxionApp.setFill(base);
-        SaxionApp.drawRectangle(x, y, BLOCK_SIZE, BLOCK_SIZE);
     }
 
     public void paint() {
-        Shape shape = game.getCurrentShape();
-        int shapeColumn = game.getShapeCol();
-        int shapeRow = game.getShapeRow();
-        int shapeRotation = game.getCurrentRotation();
-
-        for (int col = 0; col < shape.getDimension(); col++) {
-            for (int row = 0; row < shape.getDimension(); row++) {
-                if (shape.isBlock(col, row,shapeRotation)) {
-                    drawBlockWithoutColor(shape, (shapeColumn + col) * BLOCK_SIZE, (shapeRow + row) * BLOCK_SIZE);
-                }
+        //Draw grid with lines (only the background color or blockcolor) --> less lagg
+        /*
+        setBorderColor(color)
+        fori(x=0; x<GRID_COLUMNS; x++) {
+            fori(y=0; y<VISIBLE_GRID_ROWS; y++) {
+                drawLine(0, y * blocksize, GRID_COLUMNS * blocksize, y * blocksize)
+                drawLine(x * blocksize, 0, x * blocksizem VISIBLE_GRID_ROWS * blocksize)
             }
-        }
+        }*/
 
         //Draw grid in outline (Only with lines)
         SaxionApp.setBorderColor(Canvas.getColor());
@@ -96,6 +67,8 @@ public class GridDraw {
         drawLine(startX_PANEL, startY_PANEL, endX_PANEL, startY_PANEL); //Line TopSide
         drawLine(startX_PANEL, endY_PANEL, endX_PANEL, endY_PANEL); //Line BottomSide
     }
+
+
 }
 
 /*

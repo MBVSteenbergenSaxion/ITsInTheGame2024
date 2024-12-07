@@ -59,10 +59,6 @@ public class Shape {
     public int getRows() {
         return rows;
     }
-
-    public boolean isBlock(int x, int y, int rotation) {
-        return blocks[rotation][x][y];
-    }
     private int getTopSide(int rotation) {
         return 0;
     }

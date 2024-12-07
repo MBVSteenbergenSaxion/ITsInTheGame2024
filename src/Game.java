@@ -1,5 +1,4 @@
 import Grid.Shape;
-import Shapes.IShape;
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.*;
@@ -24,23 +23,18 @@ public class Game extends Canvas {
 
     private int CURRENT_COL, CURRENT_ROW, CURRENT_ROTATION;
 
-    private int DROP_COOLDOWN;
-    private static int GAME_SPEED;
 
 
     public Game() {
         super();
 
-        shapes = new Shape[] {
-                new IShape()
-                };
-
         gd = new GridDraw();
+        gt = new GameThread(gd);
     }
 
     @Override
     public void init() {
-        startGame();
+
     }
 
     @Override
@@ -55,109 +49,9 @@ public class Game extends Canvas {
 
     @Override
     public void loop() {
-        draw();
+        super.loop();
     }
 
-    public void startGame() {
-        isNewGame = true;
-        GAME_SPEED = 1000;
-
-        gt = new GameThread(GAME_SPEED);
-        //Latere functie om spel niet gelijk te starten
-        // gt.isPaused();
-
-        gt.start();
-        updateGame();
-        renderGame();
-    }
-
-    public void updateGame() {
-        /*
-        if(gd.isPossibleAndEmpty(CURRENT_TYPE, CURRENT_ROW + 1 (--> om éém rij lager te kijken dan huidige rij), CURRENT_COL, CURRENT_ROTATION)) {
-            Kan de shape naar de volgende row (beneden) bewegen?
-            CURRENT_ROW++;
-        } else {
-            //De shape kan niet verder naar beneden omdat hij een ander block op het grid raakt of het onderste van het grid
-            //daarna wordt de huidige shape op het grid gevoegd
-            gd.addPiece(CURRENT_TYPE, CURRENT_ROW, CURRENT_COL, CURRENT_ROTATION);
-
-            //After this check if there are any lines cleared
-            //And with the amount of clearedlines the score is updated
-
-            //Gamespeed aanpassen op clearedlines, als er deze update lines gecleared zijn, dan wordt de gamespeed hoger
-            GAME_SPEED += 0.1 * clearedLines
-
-            //Level updaten
-
-
-
-
-        }
-         */
-        spawnShape();
-        gd.addPiece(CURRENT_SHAPE, CURRENT_COL, CURRENT_ROW, CURRENT_ROTATION);
-
-    }
-
-    public void renderGame() {
-        gridAndSideRepaint();
-    }
-
-    public void resetGame() {
-        //Zet alle beginwaardes terug naar standaardwaardes
-    }
-
-    public void spawnShape() {
-        this.CURRENT_SHAPE = shapes[0];
-        this.CURRENT_COL = CURRENT_SHAPE.getSpawnColumn();
-        this.CURRENT_ROW = CURRENT_SHAPE.getSpawnRow();
-        this.CURRENT_ROTATION = 0;
-
-
-        //Check if gameover with isPossibleAndEmpty()
-    }
-
-    //private void rotate(int newRotation)
-
-    public boolean isPaused() {
-        return isPaused;
-    }
-
-    public boolean isGameOver() {
-        return isGameOver;
-    }
-
-    public boolean isNewGame() {
-        return isNewGame;
-    }
-
-    public Shape getCurrentShape() {
-        return CURRENT_SHAPE;
-    }
-
-    public Shape getNextShape() {
-        return NEXT_SHAPE;
-    }
-
-    public int getShapeCol() {
-        return CURRENT_COL;
-    }
-
-    public int getShapeRow() {
-        return CURRENT_ROW;
-    }
-
-    public int getCurrentRotation() {
-        return CURRENT_ROTATION;
-    }
-
-    public void draw() {
-        gridDrawMethodCalling();
-    }
-
-    public static void gridAndSideRepaint() {
-        gridDrawMethodCalling();
-    }
     private static void gridDrawMethodCalling() {
         gd.paint();
     }

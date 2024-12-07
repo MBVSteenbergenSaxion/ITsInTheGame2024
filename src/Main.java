@@ -92,6 +92,7 @@ public class Main extends Canvas{
                     true)) {
                 Canvas.stopBackgroundMusic();
                 switchToScreen(new Game());
+
             }
 
             if (utils.Utility.checkBounds(x, y,
