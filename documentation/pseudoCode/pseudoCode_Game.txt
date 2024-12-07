@@ -5,7 +5,8 @@ class Game extends Canvas {
     long FRAME_TIME = 1000/50 (== Canvas loopspeed)
     int SHAPE_COUNT (== Shape nieuwe klasse met enum ipv class (zie pseudoCode_Shape)
 
-    Shape[] shapes;
+    Shape[] shapes
+    int SHAPE_COUNT;
 
     GridDraw gridDraw (== bestaande klasse aangepast voor het nieuwe prototype)
     SideDraw sideDraw (== nieuwe klasse waarmee rechts van het spel wordt getekend (next piece, stats, instructies)

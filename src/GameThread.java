@@ -2,20 +2,6 @@ import nl.saxion.app.SaxionApp;
 
 public class GameThread extends Thread {
 
-    public GameThread(GridDraw gd) {
-
-    }
-
-    public static void main(String[] args) {
-
-    }
-
-    @Override
-    public void run() {
-
-    }
-}
-    /*
     private static GridDraw gridDraw;
     static boolean draw;
     private static int scoreCounterThread, level, scorePerLevel, speedUpPerLevel;
@@ -36,7 +22,7 @@ public class GameThread extends Thread {
     public static void main(String[] args) {
     }
 
-
+    /*
     @Override
     public void run() {
         gridDraw.setNextPiece();
@@ -71,7 +57,7 @@ public class GameThread extends Thread {
     /** METHODS FOR READABILITY
      * - setLevel()
      * - ifGameOver()
-     *
+     * */
 
     private static void setLevel() {
         Game.updateScore(scoreCounterThread);
@@ -93,7 +79,6 @@ public class GameThread extends Thread {
             Game.gd = null;
             Game.gt = null;
             Canvas.switchToScreen(new GameOver());
-        }
+        }*/
     }
 }
-*/
