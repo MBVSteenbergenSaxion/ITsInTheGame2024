@@ -17,7 +17,7 @@ public class GridDraw {
     private Shape[][] blocks;
 
     public GridDraw() {
-        GridSettings gs = new GridSettings();
+        this.gs = new GridSettings();
 
 
         VISIBLE_GRID_ROWS = gs.VISIBLE_GRID_ROWS;
@@ -61,7 +61,17 @@ public class GridDraw {
     }
 
     public void paint() {
+        if (gt == null) {
+            System.err.println("GameThread is not initialized.");
+            return;
+        }
+
         Shape shape = gt.getCurrentShape();
+        if (shape == null) {
+            System.err.println("Current shape is null.");
+            return;
+        }
+
         int shapeColumn = gt.getShapeColumns();
         int shapeRow = gt.getShapeRows();
         int shapeRotation = gt.getCurrentRotation();

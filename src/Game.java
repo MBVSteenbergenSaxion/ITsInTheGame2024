@@ -26,6 +26,7 @@ public class Game extends Canvas {
 
         gd = new GridDraw();
         gt = new GameThread(gd);
+        gt.start();;
     }
 
     @Override
@@ -67,7 +68,6 @@ public class Game extends Canvas {
 
 
     public void startGame() {
-        gt.start();
     }
 
 

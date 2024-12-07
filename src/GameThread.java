@@ -53,10 +53,14 @@ public class GameThread extends Thread {
     }
 
     private void spawnShape() {
-        this.currentShape = shapes[0];
-        this.currentColumn = currentShape.getSpawnColumn();
-        this.currentRow = currentShape.getSpawnRow();
-        this.currentRotation = 0;
+        if (shapes.length > 0) {
+            this.currentShape = shapes[0];  // Zorg ervoor dat de shape niet null is
+            this.currentColumn = currentShape.getSpawnColumn();
+            this.currentRow = currentShape.getSpawnRow();
+            this.currentRotation = 0;
+        } else {
+            System.err.println("No shapes available to spawn.");
+        }
     }
 
 
