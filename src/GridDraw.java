@@ -11,10 +11,13 @@ public class GridDraw {
     private static int BLOCK_SIZE;
     private static int SHADOW_SIZE;
 
+    private Shape[][] blocks;
+
     private Game game;
 
     public GridDraw(Game game) {
         this.game = game;
+        this.blocks = new Shape[VISIBLE_GRID_ROWS + HIDDEN_GRID_ROWS][GRID_COLUMNS];
 
         GridSettings gs = new GridSettings();
         VISIBLE_GRID_ROWS = gs.VISIBLE_GRID_ROWS;
@@ -28,6 +31,34 @@ public class GridDraw {
         SHADOW_SIZE = gs.SHADOW_SIZE;
     }
 
+    /** CHECKS
+     * - isPossibleAndEmpty()
+     * */
+
+    public boolean isPossibleAndEmpty(Shape shape, int x, int y, int rotation) {
+
+        if(x < -shape.getLeftSideShape(rotation) || (x + shape.getDimension() - shape.getRightSideShape(rotation) )>= GRID_COLUMNS) {
+            return false;
+        }
+
+        if(y < -shape.getTopSide(rotation) || y + shape.getDimension() - shape.getBottomSide(rotation) >= (VISIBLE_GRID_ROWS + HIDDEN_GRID_ROWS)) {
+            return false;
+        }
+
+        for (int col = 0; col < shape.getDimension(); col++) {
+            for (int row = 0; row < shape.getDimension(); row++) {
+                if(shape.isBlock(col, row, rotation) && isOccupied(x + col, y + row)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean isOccupied(int x, int y) {
+        return blocks[y][x] != null;
+    }
 
     /** DRAWING on Grid
      * - drawBlockWithOutColor --> Gets the shape colors to draw the blocks with
