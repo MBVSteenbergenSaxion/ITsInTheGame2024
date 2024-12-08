@@ -160,19 +160,20 @@ public class Game extends Canvas {
         switchToScreen(new Main());
     }
 
-    private void restart() {
-        scoreCount = 0;
+    public void restart() {
+        //scoreCount = 0;
 
-        //gt.interrupt();
-
+        /*gt.interrupt();
         SaxionApp.clear();
         Canvas.stopBackgroundMusic();
+
         gd = new GridDraw(this);
-
-        //gt = new GameThread(gd);
-        //gt.start();
-
+        gt = new GameThread(this);
+        gt.start();
         startAudioGame();
+        */
+        this.currentShape = shapes[SaxionApp.getRandomValueBetween(0 , SHAPE_COUNT)];
+        spawnShape();
     }
 
 
