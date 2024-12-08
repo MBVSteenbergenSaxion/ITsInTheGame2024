@@ -40,7 +40,7 @@ public class Game extends Canvas {
         };
         SHAPE_COUNT = shapes.length;
 
-        currentShape = shapes[0];
+        updateGame();
 
         gd = new GridDraw(this);
         //gt = new GameThread(gd);
@@ -232,6 +232,17 @@ public class Game extends Canvas {
 
     private static void gridDrawMethodCalling() {
         gd.paint();
+    }
+
+    private void updateGame() {
+        spawnShape();
+    }
+
+    private void spawnShape() {
+        this.currentShape = shapes[SaxionApp.getRandomValueBetween(0 , SHAPE_COUNT)];
+        this.currentCol = currentShape.getSpawnColumn();
+        this.currentRow = currentShape.getSpawnRow();
+        this.currentRotation = 0;
     }
 
     public Shape getCurrentShape() {
