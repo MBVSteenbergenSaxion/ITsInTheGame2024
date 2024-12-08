@@ -1,10 +1,7 @@
 import Grid.*;
 import Grid.Shape;
-import Shapes.*;
 import nl.saxion.app.SaxionApp;
-
 import java.awt.*;
-
 import static nl.saxion.app.SaxionApp.drawLine;
 
 public class GridDraw {
@@ -12,20 +9,14 @@ public class GridDraw {
     private static int VISIBLE_GRID_ROWS, HIDDEN_GRID_ROWS, GRID_COLUMNS;
     private static int startX_PANEL, startY_PANEL, endX_PANEL, endY_PANEL;
     private static int BLOCK_SIZE;
-    public GridSettings gs;
+    private static int SHADOW_SIZE;
 
     private Game game;
 
     public GridDraw(Game game) {
         this.game = game;
-        /*
-        initialize game & blocks(--> amount of rows & colums)
-
-        initialize GridDraw panel in background color black
-        * */
 
         GridSettings gs = new GridSettings();
-
         VISIBLE_GRID_ROWS = gs.VISIBLE_GRID_ROWS;
         HIDDEN_GRID_ROWS = gs.HIDDEN_GRID_ROWS;
         GRID_COLUMNS = gs.GRID_COLUMNS;
@@ -34,15 +25,34 @@ public class GridDraw {
         endX_PANEL = gs.endX_PANEL;
         endY_PANEL = gs.endY_PANEL;
         BLOCK_SIZE = gs.BLOCK_SIZE;
+        SHADOW_SIZE = gs.SHADOW_SIZE;
     }
+
+
+    /** DRAWING on Grid
+     * - drawBlockWithOutColor --> Gets the shape colors to draw the blocks with
+     * - drawBlockWithColor --> Draws
+     * */
 
     public void drawBlockWithoutColor(Shape shape, int x, int y) {
-        drawBlockWithColor(Color.red, x, y);
+        drawBlockWithColor(shape.getBaseColor(),shape.getBaseColor().darker(), shape.getBaseColor().brighter(), x, y);
     }
 
-    public void drawBlockWithColor(Color baseColor, int x, int y) {
+    public void drawBlockWithColor(Color baseColor, Color darkerColor, Color brighterColor, int x, int y) {
         SaxionApp.setFill(baseColor);
         SaxionApp.drawRectangle(x,y, BLOCK_SIZE, BLOCK_SIZE);
+
+        SaxionApp.setBorderColor(darkerColor);
+        for(int i = 0; i < SHADOW_SIZE; i++) {
+            SaxionApp.drawLine(x + BLOCK_SIZE - SHADOW_SIZE + i, y, x + BLOCK_SIZE - SHADOW_SIZE + i, y + BLOCK_SIZE - 1);
+            SaxionApp.drawLine(x, y + BLOCK_SIZE - SHADOW_SIZE + i, x + BLOCK_SIZE - 1, y + BLOCK_SIZE - SHADOW_SIZE + i);
+        }
+
+        SaxionApp.setBorderColor(brighterColor);
+        for(int i = 0; i < SHADOW_SIZE; i++) {
+            SaxionApp.drawLine(x, y + i, x + BLOCK_SIZE - i - 1, y + i);
+            SaxionApp.drawLine(x + i, y, x + i, y + BLOCK_SIZE - i - 1);
+        }
     }
 
     public void paint() {

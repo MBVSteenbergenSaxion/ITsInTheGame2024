@@ -7,7 +7,7 @@ public class IShape extends Shape {
 
     public IShape() {
         super(
-                new Color(255, 0 ,0),
+                new Color(200, 0 ,0),
                 4,
                 4,
                 1,
