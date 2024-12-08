@@ -18,7 +18,7 @@ public class GameThread extends Thread {
 
     @Override
     public void run() {
-
+        game.restart();
 
         while(true) {
             updateGame();
