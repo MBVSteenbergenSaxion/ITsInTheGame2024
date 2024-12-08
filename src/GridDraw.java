@@ -16,7 +16,8 @@ public class GridDraw {
 
     private Game game;
 
-    public GridDraw() {
+    public GridDraw(Game game) {
+        this.game = game;
         /*
         initialize game & blocks(--> amount of rows & colums)
 
