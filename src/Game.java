@@ -16,9 +16,7 @@ public class Game extends Canvas {
     private static Shape[] shapes;
 
     private Shape currentShape;
-    private int currentCol;
-    private int currentRow;
-    private int currentRotation;
+    private int currentCol, currentRow, currentRotation;
 
     utils.MyButton restartButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
@@ -46,6 +44,7 @@ public class Game extends Canvas {
         //gt = new GameThread(gd);
     }
 
+
     /**
      * STANDARD GAME METHODS
      * - init()
@@ -68,47 +67,6 @@ public class Game extends Canvas {
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
-        /*
-        if (keyboardEvent.isKeyPressed()) {
-            //Handles key pressed
-            switch (keyboardEvent.getKeyCode()) {
-                case 39, 68: //ArrowRight or D
-                    if (!rightKeyPressed) {
-                        gd.moveBlockRight();
-                        SaxionApp.playSound("resources/gameSounds/movement.wav");
-                        rightKeyPressed = true;
-                    }
-                    break;
-                case 37, 65: //ArrowLeft or A
-                    if (!leftKeyPressed) {
-                        gd.moveBlockLeft();
-                        SaxionApp.playSound("resources/gameSounds/movement.wav");
-                        leftKeyPressed = true;
-                    }
-                    break; //ArrowDown or S
-                case 40, 83:
-                    gd.dropBlock();
-                    break;
-                case 38, 87: //ArrowUp or W
-                    if (!upKeyPressed) {
-                        gd.rotateBlock();
-                        SaxionApp.playSound("resources/gameSounds/rotation.wav");
-                        upKeyPressed = true;
-                    }
-                    break;
-            }
-        }else {
-            // Handle key releases
-            switch (keyboardEvent.getKeyCode()) {
-                case 38, 87: //ArrowUp or W
-                    upKeyPressed = false;
-                case 39, 68: //ArrowRight or D
-                    rightKeyPressed = false;
-                case 37, 65: //ArrowLeft or A
-                    leftKeyPressed = false;
-
-            }
-        }*/
     }
 
 
@@ -134,6 +92,7 @@ public class Game extends Canvas {
         }
     }
 
+
     /**
      * START METHODS
      * - startGame()
@@ -141,15 +100,13 @@ public class Game extends Canvas {
      */
 
     public void startGame() {
-        /*
-        startAudioGame();
-        gt.start();
-        scoreCount = 0;*/
+        //gt.start();
     }
 
     public static void startAudioGame() {
         Canvas.playBackgroundMusic(tetrisLevelUpAudio[0]);
     }
+
 
     /**
      * INITIALIZING METHODS
@@ -162,6 +119,7 @@ public class Game extends Canvas {
         buttonName.width = Settings.buttonWidth / 2;
         buttonName.height = Settings.buttonHeight / 2;
     }
+
 
     /**
      * UPDATERS
@@ -188,6 +146,7 @@ public class Game extends Canvas {
         }
     }
 
+
     /**
      * METHODS FOR BUTTONS
      * - back2Main()
@@ -196,26 +155,33 @@ public class Game extends Canvas {
 
     private static void back2Main() {
         //gt.interrupt();
+
         Canvas.stopBackgroundMusic();
         switchToScreen(new Main());
     }
 
     private void restart() {
         scoreCount = 0;
+
         //gt.interrupt();
+
         SaxionApp.clear();
         Canvas.stopBackgroundMusic();
         gd = new GridDraw(this);
+
         //gt = new GameThread(gd);
         //gt.start();
+
         startAudioGame();
     }
+
 
     /**
      * DRAWING
      * - draw()
      * - gridDrawMethodCalling()
      */
+
     private void draw() {
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
@@ -224,6 +190,7 @@ public class Game extends Canvas {
         SaxionApp.drawText("Score: " + scoreCount, (Settings.width / 4 - Settings.width / 12), Settings.height / 2, 20);
         SaxionApp.drawText("Level: " + levelCount, (Settings.width / 4 - Settings.width / 12), Settings.height - Settings.height / 4, 20);
         */
+
         if (gd != null) {
             gridDrawMethodCalling();
         }
@@ -233,6 +200,14 @@ public class Game extends Canvas {
     private static void gridDrawMethodCalling() {
         gd.paint();
     }
+
+
+    /**
+     * Updaters
+     *  - updateGame()
+     *  - renderGame()
+     *  - spawnShape()
+     * */
 
     private void updateGame() {
         spawnShape();
@@ -244,6 +219,15 @@ public class Game extends Canvas {
         this.currentRow = currentShape.getSpawnRow();
         this.currentRotation = 0;
     }
+
+
+    /**
+     * Getters
+     * - getCurrentShape()
+     * - getShapeColumn()
+     * - getShapeRow()
+     * - getShapeRotation()
+     * */
 
     public Shape getCurrentShape() {
         return currentShape;
