@@ -1,3 +1,5 @@
+import Grid.Shape;
+import Shapes.IShape;
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.*;
@@ -9,6 +11,14 @@ public class Game extends Canvas {
     private boolean upKeyPressed, rightKeyPressed, leftKeyPressed;
     public static int scoreCount;
     public static int levelCount = 1;
+
+    private static int SHAPE_COUNT;
+    private static Shape[] shapes;
+
+    private Shape currentShape;
+    private int currentCol;
+    private int currentRow;
+    private int currentRotation;
 
     utils.MyButton restartButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
@@ -24,6 +34,13 @@ public class Game extends Canvas {
 
     public Game() {
         super();
+
+        shapes= new Shape[] {
+                new IShape()
+        };
+        SHAPE_COUNT = shapes.length;
+
+        currentShape = shapes[0];
 
         gd = new GridDraw();
         //gt = new GameThread(gd);
@@ -216,4 +233,21 @@ public class Game extends Canvas {
     private static void gridDrawMethodCalling() {
         gd.paint();
     }
+
+    public Shape getCurrentShape() {
+        return currentShape;
+    }
+
+    public int getShapeColumn() {
+        return currentCol;
+    }
+
+    public int getShapeRow() {
+        return currentRow;
+    }
+
+    public int getShapeRotation() {
+        return currentRotation;
+    }
+
 }
