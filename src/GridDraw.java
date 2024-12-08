@@ -1,4 +1,5 @@
 import Grid.*;
+import Grid.Shape;
 import Shapes.*;
 import nl.saxion.app.SaxionApp;
 
@@ -13,7 +14,7 @@ public class GridDraw {
     private static int BLOCK_SIZE;
     public GridSettings gs;
 
-    private int[][] shape = {{1,0},{1,0},{1,1}};
+    private Game game;
 
     public GridDraw() {
         /*
@@ -34,7 +35,7 @@ public class GridDraw {
         BLOCK_SIZE = gs.BLOCK_SIZE;
     }
 
-    public void drawBlockWithoutColor(int[][] block, int x, int y) {
+    public void drawBlockWithoutColor(Shape shape, int x, int y) {
         drawBlockWithColor(Color.red, x, y);
     }
 
@@ -45,10 +46,14 @@ public class GridDraw {
 
     public void paint() {
 
+        Shape shape = game.getCurrentShape();
+        int shapeCol = game.getShapeColumn();
+        int shapeRow = game.getShapeRow();
+        int shapeRotation = game.getShapeRotation();
         SaxionApp.setBorderColor(Color.LIGHT_GRAY);
-        for (int row = 0; row < shape.length; row++) {
-            for (int col = 0; col <shape[0].length; col++) {
-                if(shape[row][col] == 1) {
+        for (int row = 0; row < shape.getDimension(); row++) {
+            for (int col = 0; col < shape.getDimension(); col++) {
+                if(shape.isBlock(col, row, shapeRotation)) {
                     int x = (0 + col) * BLOCK_SIZE + startX_PANEL;
                     int y = (0 + row) * BLOCK_SIZE + startY_PANEL;
                     drawBlockWithoutColor(shape, x, y);
