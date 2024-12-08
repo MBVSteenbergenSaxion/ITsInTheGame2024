@@ -26,15 +26,7 @@ public class Game extends Canvas {
         super();
 
         gd = new GridDraw();
-<<<<<<< HEAD
-        gt = new GameThread(gd);
-<<<<<<< HEAD
-        gt.start();;
-=======
         //gt = new GameThread(gd);
->>>>>>> parent of d48318e ([Done to much] Cannot find the problem, classes stay null)
-=======
->>>>>>> parent of b1276f3 ([Done to much] Cannot find the problem, classes stay null)
     }
 
     /**
@@ -132,17 +124,10 @@ public class Game extends Canvas {
      */
 
     public void startGame() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
         /*
         startAudioGame();
         gt.start();
         scoreCount = 0;*/
->>>>>>> parent of d48318e ([Done to much] Cannot find the problem, classes stay null)
-=======
-        gt.start();
->>>>>>> parent of b1276f3 ([Done to much] Cannot find the problem, classes stay null)
     }
 
     public static void startAudioGame() {

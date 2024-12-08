@@ -14,16 +14,8 @@ public class GridDraw {
     public GridSettings gs;
 
     public GridDraw() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        this.gs = new GridSettings();
-=======
         /*
         initialize game & blocks(--> amount of rows & colums)
->>>>>>> parent of d48318e ([Done to much] Cannot find the problem, classes stay null)
-=======
-        GridSettings gs = new GridSettings();
->>>>>>> parent of b1276f3 ([Done to much] Cannot find the problem, classes stay null)
 
         initialize GridDraw panel in background color black
         * */
@@ -49,24 +41,6 @@ public class GridDraw {
     }
 
     public void paint() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        if (gt == null) {
-            System.err.println("GameThread is not initialized.");
-            return;
-        }
-
-=======
->>>>>>> parent of b1276f3 ([Done to much] Cannot find the problem, classes stay null)
-        Shape shape = gt.getCurrentShape();
-        int shapeColumn = gt.getShapeColumns();
-        int shapeRow = gt.getShapeRows();
-        int shapeRotation = gt.getCurrentRotation();
-
-        for (int col = 0; col < shape.getDimension(); col++) {
-            for (int row = 0; row < shape.getDimension(); row++) {
-                drawBlockWithoutColor(shape, (shapeColumn + col) * BLOCK_SIZE, (shapeRow + row - HIDDEN_GRID_ROWS) * BLOCK_SIZE);
-=======
         //Draw grid with lines (only the background color or blockcolor) --> less lagg
         /*
         setBorderColor(color)
@@ -74,7 +48,6 @@ public class GridDraw {
             fori(y=0; y<VISIBLE_GRID_ROWS; y++) {
                 drawLine(0, y * blocksize, GRID_COLUMNS * blocksize, y * blocksize)
                 drawLine(x * blocksize, 0, x * blocksizem VISIBLE_GRID_ROWS * blocksize)
->>>>>>> parent of d48318e ([Done to much] Cannot find the problem, classes stay null)
             }
         }*/
 

@@ -73,35 +73,6 @@ public class GameThread extends Thread {
         }
     }
 
-<<<<<<< HEAD
-    private void update() {
-        gridDraw.addPiece(currentShape, currentColumn, currentRow, currentRotation);
-        spawnShape();
-    }
-
-    private void spawnShape() {
-        this.currentShape = shapes[0];
-        this.currentColumn = currentShape.getSpawnColumn();
-        this.currentRow = currentShape.getSpawnRow();
-        this.currentRotation = 0;
-    }
-
-
-    public Shape getCurrentShape() {
-        return currentShape;
-    }
-
-    public int getShapeColumns() {
-        return currentColumn;
-    }
-
-    public int getShapeRows() {
-        return currentRow;
-    }
-
-    public int getCurrentRotation() {
-        return currentRotation;
-=======
     private static void ifGameOver() {
         /*if(gridDraw.isBlockOutOfBounds()) {
             draw = false;
@@ -109,6 +80,5 @@ public class GameThread extends Thread {
             Game.gt = null;
             Canvas.switchToScreen(new GameOver());
         }*/
->>>>>>> parent of d48318e ([Done to much] Cannot find the problem, classes stay null)
     }
 }
