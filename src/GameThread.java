@@ -2,27 +2,53 @@ import nl.saxion.app.SaxionApp;
 
 public class GameThread extends Thread {
 
-    private static GridDraw gridDraw;
-    static boolean draw;
-    private static int scoreCounterThread, level, scorePerLevel, speedUpPerLevel;
     public static int gameSpeed;
-    public int nextBlockId;
+    private static Game game;
 
-    public GameThread(GridDraw gridDraw) {
-        GameThread.gridDraw = gridDraw;
+    public GameThread(Game game) {
+        this.game = game;
 
-        draw = true;
-        scorePerLevel = 2;
-        level = 1;
         gameSpeed = 1000;
-        speedUpPerLevel = 150;
+
     }
 
 
     public static void main(String[] args) {
     }
 
-    /*
+    @Override
+    public void run() {
+
+
+        while(true) {
+            updateGame();
+            try {
+                Thread.sleep(gameSpeed);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    private void updateGame() {
+        game.spawnShape();
+    }
+
+}
+
+
+
+
+
+/*
+
+
+    private static GridDraw gridDraw;
+    static boolean draw;
+    private static int scoreCounterThread, level, scorePerLevel, speedUpPerLevel;
+    public int nextBlockId;
+
     @Override
     public void run() {
         gridDraw.setNextPiece();
@@ -53,32 +79,31 @@ public class GameThread extends Thread {
             }
             }
         }
-*/
-    /** METHODS FOR READABILITY
-     * - setLevel()
-     * - ifGameOver()
-     * */
 
-    private static void setLevel() {
-        Game.updateScore(scoreCounterThread);
-        int lvl = scoreCounterThread / scorePerLevel + 1;
+/** METHODS FOR READABILITY
+ * - setLevel()
+ * - ifGameOver()
+ *
 
-        if (level < 6) {
-            if (lvl > level) {
+private static void setLevel() {
+    Game.updateScore(scoreCounterThread);
+    int lvl = scoreCounterThread / scorePerLevel + 1;
 
-                level = lvl;
-                Game.updateLevel(level);
-                gameSpeed -= speedUpPerLevel;
-            }
+    if (level < 6) {
+        if (lvl > level) {
+
+            level = lvl;
+            Game.updateLevel(level);
+            gameSpeed -= speedUpPerLevel;
         }
     }
+}
 
-    private static void ifGameOver() {
+private static void ifGameOver() {
         /*if(gridDraw.isBlockOutOfBounds()) {
             draw = false;
             Game.gd = null;
             Game.gt = null;
             Canvas.switchToScreen(new GameOver());
-        }*/
-    }
-}
+        }
+}*/
