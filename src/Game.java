@@ -7,6 +7,7 @@ import nl.saxion.app.interaction.*;
 public class Game extends Canvas {
 
     public static GridDraw gd;
+    public static GameThread gt;
     //public static GameThread gt;
     private boolean upKeyPressed, rightKeyPressed, leftKeyPressed;
     public static int scoreCount;
@@ -38,10 +39,9 @@ public class Game extends Canvas {
         };
         SHAPE_COUNT = shapes.length;
 
-        updateGame();
 
         gd = new GridDraw(this);
-        //gt = new GameThread(gd);
+        gt = new GameThread(this);
     }
 
 
@@ -100,7 +100,7 @@ public class Game extends Canvas {
      */
 
     public void startGame() {
-        //gt.start();
+        gt.start();
     }
 
     public static void startAudioGame() {
@@ -209,11 +209,7 @@ public class Game extends Canvas {
      *  - spawnShape()
      * */
 
-    private void updateGame() {
-        spawnShape();
-    }
-
-    private void spawnShape() {
+    public void spawnShape() {
         this.currentShape = shapes[SaxionApp.getRandomValueBetween(0 , SHAPE_COUNT)];
         this.currentCol = currentShape.getSpawnColumn();
         this.currentRow = currentShape.getSpawnRow();
