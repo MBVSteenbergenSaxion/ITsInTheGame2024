@@ -44,7 +44,7 @@ public class GridSettings {
 
 
     public static int BLOCK_SIZE = widthPanel / GRID_COLUMNS;
-    public static int SHADOW_SIZE = 5;
+    public static int SHADOW_SIZE = BLOCK_SIZE / 9;
 
     public static int endY_PANEL = startY_PANEL + BLOCK_SIZE * VISIBLE_GRID_ROWS;
 
