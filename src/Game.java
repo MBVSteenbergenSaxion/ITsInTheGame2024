@@ -217,7 +217,7 @@ public class Game extends Canvas {
         this.currentShape = shapes[SaxionApp.getRandomValueBetween(0 , SHAPE_COUNT)];
         this.currentCol = currentShape.getSpawnColumn();
         this.currentRow = currentShape.getSpawnRow();
-        this.currentRotation = 0;
+        this.currentRotation = 3;
     }
 
 
