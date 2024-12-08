@@ -42,7 +42,7 @@ public class Game extends Canvas {
 
         currentShape = shapes[0];
 
-        gd = new GridDraw();
+        gd = new GridDraw(this);
         //gt = new GameThread(gd);
     }
 
@@ -200,12 +200,12 @@ public class Game extends Canvas {
         switchToScreen(new Main());
     }
 
-    private static void restart() {
+    private void restart() {
         scoreCount = 0;
         //gt.interrupt();
         SaxionApp.clear();
         Canvas.stopBackgroundMusic();
-        gd = new GridDraw();
+        gd = new GridDraw(this);
         //gt = new GameThread(gd);
         //gt.start();
         startAudioGame();
