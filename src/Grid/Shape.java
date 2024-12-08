@@ -62,8 +62,4 @@ public class Shape {
     private int getTopSide(int rotation) {
         return 0;
     }
-
-    public boolean isBlock(int x, int y, int rotation) {
-        return blocks[rotation][y][x];
-    }
 }
