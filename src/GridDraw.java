@@ -13,6 +13,8 @@ public class GridDraw {
     private static int BLOCK_SIZE;
     public GridSettings gs;
 
+    private int[][] shape = {{1,0},{1,0},{1,1}};
+
     public GridDraw() {
         /*
         initialize game & blocks(--> amount of rows & colums)
@@ -32,24 +34,27 @@ public class GridDraw {
         BLOCK_SIZE = gs.BLOCK_SIZE;
     }
 
-    public void drawBlockWithoutColor() {
-
+    public void drawBlockWithoutColor(int[][] block, int x, int y) {
+        drawBlockWithColor(Color.red, x, y);
     }
 
-    public void drawBlockWithColor() {
-
+    public void drawBlockWithColor(Color baseColor, int x, int y) {
+        SaxionApp.setFill(baseColor);
+        SaxionApp.drawRectangle(x,y, BLOCK_SIZE, BLOCK_SIZE);
     }
 
     public void paint() {
-        //Draw grid with lines (only the background color or blockcolor) --> less lagg
-        /*
-        setBorderColor(color)
-        fori(x=0; x<GRID_COLUMNS; x++) {
-            fori(y=0; y<VISIBLE_GRID_ROWS; y++) {
-                drawLine(0, y * blocksize, GRID_COLUMNS * blocksize, y * blocksize)
-                drawLine(x * blocksize, 0, x * blocksizem VISIBLE_GRID_ROWS * blocksize)
+
+        SaxionApp.setBorderColor(Color.LIGHT_GRAY);
+        for (int row = 0; row < shape.length; row++) {
+            for (int col = 0; col <shape[0].length; col++) {
+                if(shape[row][col] == 1) {
+                    int x = (0 + col) * BLOCK_SIZE + startX_PANEL;
+                    int y = (0 + row) * BLOCK_SIZE + startY_PANEL;
+                    drawBlockWithoutColor(shape, x, y);
+                }
             }
-        }*/
+        }
 
         //Draw grid in outline (Only with lines)
         SaxionApp.setBorderColor(Canvas.getColor());
