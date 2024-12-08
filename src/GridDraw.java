@@ -57,7 +57,6 @@ public class GridDraw {
     }
 
     public void paint() {
-
         Shape shape = game.getCurrentShape();
         int shapeCol = game.getShapeColumn();
         int shapeRow = game.getShapeRow();
