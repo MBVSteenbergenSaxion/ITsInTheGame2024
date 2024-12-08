@@ -25,7 +25,7 @@ public class Shape {
 
         //en initialiseer de startwaardes met col is de helft van het scherm - (de dimensie van de shape/2)
         SPAWN_COL = (GridSettings.startX_PANEL + ((GridSettings.GRID_COLUMNS * GridSettings.BLOCK_SIZE) / 2)) - (DIMENSION / 2);
-        SPAWN_ROW = getTopSide(3);
+        SPAWN_ROW = getTopSide(0);
     }
 
     public Color getBaseColor() {

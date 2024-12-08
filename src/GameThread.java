@@ -32,7 +32,7 @@ public class GameThread extends Thread {
 
 
     private void updateGame() {
-        game.spawnShape();
+        game.update();
     }
 
 }

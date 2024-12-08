@@ -214,9 +214,20 @@ public class Game extends Canvas {
         this.currentShape = shapes[SaxionApp.getRandomValueBetween(0 , SHAPE_COUNT)];
         this.currentCol = currentShape.getSpawnColumn();
         this.currentRow = currentShape.getSpawnRow();
-        this.currentRotation = 3;
+        this.currentRotation = 0;
+
+        if(!gd.isPossibleAndEmpty(currentShape, currentCol, currentRow, currentRotation)) {
+            System.out.println("GameOver");
+        }
     }
 
+    public void update() {
+        if (gd.isPossibleAndEmpty(currentShape, currentCol, currentRow + 1, currentRotation)) {
+            currentRow++;
+        } else {
+            spawnShape();
+        }
+    }
 
     /**
      * Getters
