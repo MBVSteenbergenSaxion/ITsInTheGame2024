@@ -31,7 +31,8 @@ public class GridDraw {
 
     /** DRAWING on Grid
      * - drawBlockWithOutColor --> Gets the shape colors to draw the blocks with
-     * - drawBlockWithColor --> Draws
+     * - drawBlockWithColor --> Draws the shape with drawRectangle for the base color to fill a rectangle and draws the shadow with lines
+     * - paint() --> draws every item on the grid (currentshape, grid and the outline of the gridpanel)
      * */
 
     public void drawBlockWithoutColor(Shape shape, int x, int y) {
