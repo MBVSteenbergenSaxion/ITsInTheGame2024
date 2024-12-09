@@ -23,6 +23,9 @@ public class GameThread extends Thread {
 
     @Override
     public void run() {
+
+        gridDraw.setNextPiece();
+
         while (running) {
             synchronized (this) {
                 while (paused) {
@@ -34,7 +37,6 @@ public class GameThread extends Thread {
                 }
             }
 
-            gridDraw.setNextPiece();
             gridDraw.spawnBlock();
             nextBlockId = GridDraw.randomBlock;
 
