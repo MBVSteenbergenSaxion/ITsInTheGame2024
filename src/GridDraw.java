@@ -379,6 +379,7 @@ public class GridDraw {
     }
 
     private static void drawBlock(Color color, int x, int y) {
+        SaxionApp.setBorderColor(Canvas.getColor().brighter());
         SaxionApp.setFill(color);
         SaxionApp.drawRectangle(x,y, GridSettings.blockSize, GridSettings.blockSize);
 
@@ -414,7 +415,6 @@ public class GridDraw {
 
         //Draw background
         Color color;
-        SaxionApp.setBorderColor(SaxionApp.DEFAULT_BACKGROUND_COLOR);
         for (int row = 0; row < gridRows; row++) {
             for (int col = 0; col < gridWidth; col++) {
                 color = background[row][col];
@@ -428,6 +428,7 @@ public class GridDraw {
                 }
             }
         }
+
 
         //Draw currentblock
         if (this.currentblock != null) {
