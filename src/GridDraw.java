@@ -406,8 +406,26 @@ public class GridDraw {
 
 
     public void paint() {
-        Color color;
 
+
+        //Draw grid in outline (Only with lines)
+        SaxionApp.setBorderColor(Canvas.getColor().brighter());
+        SaxionApp.setFill(Canvas.getColor());
+        for (int col = 0; col < GridSettings.width; col++) {
+            for (int row = 0; row < GridSettings.height; row++) {
+                int x = col * gridCellSize + GridSettings.startPanelX;
+                int y = row * gridCellSize + GridSettings.startPanelY;
+                SaxionApp.drawRectangle(x, y, GridSettings.blockSize, GridSettings.blockSize);
+
+                //SaxionApp.drawLine(GridSettings.startPanelX, y * GridSettings.blockSize + GridSettings.startPanelY, GridSettings.width * GridSettings.blockSize + GridSettings.startPanelX, y * GridSettings.blockSize + GridSettings.startPanelY);
+                //SaxionApp.drawLine(x * GridSettings.blockSize + GridSettings.startPanelX, GridSettings.startPanelY, x * GridSettings.blockSize + GridSettings.startPanelX, GridSettings.height * GridSettings.blockSize + GridSettings.startPanelY);
+            }
+
+        }
+
+
+        //Draw background
+        Color color;
         SaxionApp.setBorderColor(SaxionApp.DEFAULT_BACKGROUND_COLOR);
         for (int row = 0; row < gridRows; row++) {
             for (int col = 0; col < gridWidth; col++) {
@@ -423,6 +441,7 @@ public class GridDraw {
             }
         }
 
+        //Draw currentblock
         if (this.currentblock != null) {
             int height = currentblock.getHeight();
             int width = currentblock.getWidth();
@@ -444,16 +463,6 @@ public class GridDraw {
                     }
                 }
             }
-        }
-
-        //Draw grid in outline (Only with lines)
-        SaxionApp.setBorderColor(Canvas.getColor().brighter());
-        for (int x = 0; x < GridSettings.width; x++) {
-            for (int y = 0; y < GridSettings.height; y++) {
-                SaxionApp.drawLine(GridSettings.startPanelX, y * GridSettings.blockSize + GridSettings.startPanelY, GridSettings.width * GridSettings.blockSize + GridSettings.startPanelX, y * GridSettings.blockSize + GridSettings.startPanelY);
-                SaxionApp.drawLine(x * GridSettings.blockSize + GridSettings.startPanelX, GridSettings.startPanelY, x * GridSettings.blockSize + GridSettings.startPanelX, GridSettings.height * GridSettings.blockSize + GridSettings.startPanelY);
-            }
-
         }
 
 
