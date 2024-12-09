@@ -327,14 +327,12 @@ public class GridDraw {
      * - clearLine(int row)
      * - shiftDown(int r)
      * - repaint()
-     * - drawBackground()
      * - moveBlockToBackground()
-     * - drawGridSquare(Color, int x, int y)
-     * - drawBlock()
-     * - drawGrid()
-     * - drawNextGridSquare(Color, int x, int y)
+     * - drawBlock(Color color, int x, int y)
+     * - paint()
      * - drawNextPieceGrid()
      * - drawNextBlock()
+     * - drawNextGridSquare(Color, int x, int y)
      */
 
     private void clearLine(int row) {
@@ -357,12 +355,7 @@ public class GridDraw {
         drawNextBlock();
     }
 
-    public void drawBackground() {
-
-    }
-
     public void moveBlockToBackground() {
-
         if (this.currentblock != null) {
             int[][] shape = currentblock.getShape();
             int height = currentblock.getHeight();
@@ -385,7 +378,6 @@ public class GridDraw {
         }
     }
 
-
     private static void drawBlock(Color color, int x, int y) {
         SaxionApp.setFill(color);
         SaxionApp.drawRectangle(x,y, GridSettings.blockSize, GridSettings.blockSize);
@@ -404,10 +396,7 @@ public class GridDraw {
 
     }
 
-
     public void paint() {
-
-
         //Draw grid in outline (Only with lines)
         SaxionApp.setBorderColor(Canvas.getColor().brighter());
         SaxionApp.setFill(Canvas.getColor());
@@ -422,7 +411,6 @@ public class GridDraw {
             }
 
         }
-
 
         //Draw background
         Color color;
