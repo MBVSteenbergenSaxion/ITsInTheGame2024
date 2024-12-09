@@ -210,9 +210,8 @@ public class Game extends Canvas {
     }
 
     private static void gridDrawMethodCalling() {
-        gd.drawGrid();
+        gd.paint();
         gd.drawNextPieceGrid();
-        gd.drawBackground();
         gd.repaint();
     }
 }

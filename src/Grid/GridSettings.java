@@ -16,9 +16,11 @@ public class GridSettings {
     public static int endPanelX = startPanelX * 2;
     public static int widthPanel = endPanelX - startPanelX;
     public static int startPanelY = (int)((double) screenHeight / 3 - screenHeight * 0.20);
+
     //square
-    public static int blockSize = widthPanel / GridSettings.width;
-    public static int heightPanel = startPanelY  * height;
+    public static int blockSize = widthPanel / width;
+    public static int endPanelY = startPanelY + blockSize * height;
+    public static int shadowSize = blockSize / 9;
 
     private static final int loweringGrid = 3;
 

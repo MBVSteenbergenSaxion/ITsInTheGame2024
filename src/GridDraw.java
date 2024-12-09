@@ -353,27 +353,12 @@ public class GridDraw {
     }
 
     public void repaint() {
-        drawBlock();
+        paint();
         drawNextBlock();
     }
 
     public void drawBackground() {
-        Color color;
 
-        SaxionApp.setBorderColor(SaxionApp.DEFAULT_BACKGROUND_COLOR);
-        for (int row = 0; row < gridRows; row++) {
-            for (int col = 0; col < gridWidth; col++) {
-                color = background[row][col];
-
-                if (color != null) {
-                    int x = col * gridCellSize + GridSettings.startPanelX;
-                    int y = row * gridCellSize + GridSettings.startPanelY;
-
-                    drawGridSquare(color, x, y);
-
-                }
-            }
-        }
     }
 
     public void moveBlockToBackground() {
@@ -400,28 +385,48 @@ public class GridDraw {
         }
     }
 
-    private static void drawGridSquare(Color color, int x, int y) {
+
+    private static void drawBlock(Color color, int x, int y) {
         SaxionApp.setFill(color);
-        SaxionApp.drawRectangle(x, y, gridCellSize, gridCellSize);
+        SaxionApp.drawRectangle(x,y, GridSettings.blockSize, GridSettings.blockSize);
+
+        SaxionApp.setBorderColor(color.darker());
+        for(int i = 0; i < GridSettings.shadowSize; i++) {
+            SaxionApp.drawLine(x + GridSettings.blockSize - GridSettings.shadowSize + i, y, x + GridSettings.blockSize - GridSettings.shadowSize + i, y + GridSettings.blockSize - 1);
+            SaxionApp.drawLine(x, y + GridSettings.blockSize - GridSettings.shadowSize + i, x + GridSettings.blockSize - 1, y + GridSettings.blockSize - GridSettings.shadowSize + i);
+        }
+
+        SaxionApp.setBorderColor(color.brighter());
+        for(int i = 0; i < GridSettings.shadowSize; i++) {
+            SaxionApp.drawLine(x, y + i, x + GridSettings.blockSize - i - 1, y + i);
+            SaxionApp.drawLine(x + i, y, x + i, y + GridSettings.blockSize - i - 1);
+        }
+
     }
 
-    public void drawGrid() {
+
+    public void paint() {
+        Color color;
+
+        SaxionApp.setBorderColor(SaxionApp.DEFAULT_BACKGROUND_COLOR);
         for (int row = 0; row < gridRows; row++) {
             for (int col = 0; col < gridWidth; col++) {
-                int x = col * gridCellSize + GridSettings.startPanelX;
-                int y = row * gridCellSize + GridSettings.startPanelY;
-                SaxionApp.setBorderColor(Color.LIGHT_GRAY);
-                drawGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
+                color = background[row][col];
+
+                if (color != null) {
+                    int x = col * gridCellSize + GridSettings.startPanelX;
+                    int y = row * gridCellSize + GridSettings.startPanelY;
+
+                    drawBlock(color, x, y);
+
+                }
             }
         }
-    }
-
-    public void drawBlock() {
 
         if (this.currentblock != null) {
             int height = currentblock.getHeight();
             int width = currentblock.getWidth();
-            Color color = currentblock.getColor();
+            color = currentblock.getColor();
             int[][] shape = currentblock.getShape();
 
             SaxionApp.setBorderColor(Color.LIGHT_GRAY);
@@ -433,18 +438,31 @@ public class GridDraw {
 
                         if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX,
                                 GridSettings.startPanelY, GridSettings.widthPanel,
-                                GridSettings.heightPanel, false)) {
-                            drawGridSquare(color, x, y);
+                                GridSettings.endPanelY, false)) {
+                            drawBlock(color, x, y);
                         }
                     }
                 }
             }
         }
-    }
 
-    private static void drawNextGridSquare(Color color, int x, int y) {
-        SaxionApp.setFill(color);
-        SaxionApp.drawRectangle(x, y, nextGridCellSize, nextGridCellSize);
+        //Draw grid in outline (Only with lines)
+        SaxionApp.setBorderColor(Canvas.getColor().brighter());
+        for (int x = 0; x < GridSettings.width; x++) {
+            for (int y = 0; y < GridSettings.height; y++) {
+                SaxionApp.drawLine(GridSettings.startPanelX, y * GridSettings.blockSize + GridSettings.startPanelY, GridSettings.width * GridSettings.blockSize + GridSettings.startPanelX, y * GridSettings.blockSize + GridSettings.startPanelY);
+                SaxionApp.drawLine(x * GridSettings.blockSize + GridSettings.startPanelX, GridSettings.startPanelY, x * GridSettings.blockSize + GridSettings.startPanelX, GridSettings.height * GridSettings.blockSize + GridSettings.startPanelY);
+            }
+
+        }
+
+
+        //Draw outline grid
+        SaxionApp.setBorderColor(Color.lightGray);
+        SaxionApp.drawLine(GridSettings.startPanelX, GridSettings.startPanelY, GridSettings.startPanelX, GridSettings.endPanelY); //Line LeftSide
+        SaxionApp.drawLine(GridSettings.endPanelX, GridSettings.startPanelY, GridSettings.endPanelX, GridSettings.endPanelY); //Line RightSide
+        SaxionApp.drawLine(GridSettings.startPanelX, GridSettings.startPanelY, GridSettings.endPanelX, GridSettings.startPanelY); //Line TopSide
+        SaxionApp.drawLine(GridSettings.startPanelX, GridSettings.endPanelY, GridSettings.endPanelX, GridSettings.endPanelY); //Line BottomSide
     }
 
     public void drawNextPieceGrid() {
@@ -479,6 +497,11 @@ public class GridDraw {
                 }
             }
         }
+    }
+
+    private static void drawNextGridSquare(Color color, int x, int y) {
+        SaxionApp.setFill(color);
+        SaxionApp.drawRectangle(x, y, nextGridCellSize, nextGridCellSize);
     }
 
 }
