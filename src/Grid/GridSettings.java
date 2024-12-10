@@ -39,31 +39,6 @@ public class GridSettings {
     }
 
 
-    /*
-    public static int getStartNextPanelX() {
-        return screenWidth / 10;
-    }
-
-    public static int getEndNextPanelX() {
-        return getStartNextPanelX() * 2;
-    }
-
-    public static int getWidthNextPanel() {
-        return getEndNextPanelX() - getStartNextPanelX();
-    }
-
-    public static int getBlockNextSize() {
-        return getWidthNextPanel() / nextPieceWidth;
-    }
-
-    public static int getStartNextPanelY() {
-        return (int) ((double) screenHeight / 3 - screenHeight * 0.20 + (getBlockSize() * 3));
-    }
-
-    public static int getHeightNextPanel() {
-        return getStartPanelY() * nextPieceHeight;
-    }
-    */
     // Update screen dimensions
     public static void updateScreenDimensions(int newWidth, int newHeight) {
         screenWidth = newWidth;

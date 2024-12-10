@@ -9,24 +9,57 @@ public class SideSettings {
     public static int nextPieceWidth = 4;
     public static int nextPieceHeight = 4;
 
-    public static int oneFiftiethOfScreenWidth = (screenWidth / 50);
-    public static int oneFiftiethOfScreenHeight = (screenHeight / 50);
 
-    public static int startNextPanelX = oneFiftiethOfScreenWidth * 30;
-    public static int endNextPanelX = oneFiftiethOfScreenWidth * 38;
-    public static int widthNextPanel = endNextPanelX - startNextPanelX;
-    public static int blockNextSize = widthNextPanel / nextPieceWidth;
-    public static int startNextPanelY = oneFiftiethOfScreenHeight;
-    public static int endNextPanelY = startNextPanelY + blockNextSize * nextPieceHeight;
-    public static int shadowNextSize = blockNextSize / 9;
 
-    public static int scoreY = oneFiftiethOfScreenHeight * 25;
-    public static int levelY = oneFiftiethOfScreenHeight * 28;
+    public static int getOneFiftiethOfScreenWidth() {
+        return screenWidth/50;
+    }
+
+    public static int getOneFiftiethOfScreenHeight() {
+        return screenHeight/50;
+    }
+
+    public static int getStartNextPanelX() {
+        return getOneFiftiethOfScreenWidth()* 30;
+    }
+
+    public static int getEndNextPanelX() {
+        return getOneFiftiethOfScreenWidth() * 38;
+    }
+
+    public static int getWidthNextPanel() {
+        return getEndNextPanelX() - getStartNextPanelX();
+    }
+
+    public static int getBlockNextSize() {
+        return getWidthNextPanel() / nextPieceWidth;
+    }
+
+    public static int getStartNextPanelY() {
+        return getOneFiftiethOfScreenHeight();
+    }
+
+    public static int getEndNextPanelY() {
+        return getStartNextPanelY() + getBlockNextSize() * nextPieceHeight;
+    }
+
+    public static int getShadowNextSize() {
+        return getBlockNextSize() / 9;
+    }
+
+    public static int getScoreY() {
+        return getOneFiftiethOfScreenHeight() * 25;
+    }
+
+    public static int getLevelY() {
+        return getOneFiftiethOfScreenHeight() * 28;
+    }
     public static int getRestartButtonY() {
-        return oneFiftiethOfScreenHeight * 15;
+        return getOneFiftiethOfScreenHeight() * 15;
     }
     public static int getQuitButtonY() {
-        return oneFiftiethOfScreenHeight * 20;
+        return getOneFiftiethOfScreenHeight() * 20;
     }
+
 
 }

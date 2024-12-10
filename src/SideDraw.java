@@ -17,12 +17,12 @@ public class SideDraw {
 
     private void initializeGridSettings() {
         nextGridWidth = SideSettings.nextPieceWidth;
-        nextGridCellSize = SideSettings.blockNextSize;
+        nextGridCellSize = SideSettings.getBlockNextSize();
         nextGridRows = SideSettings.nextPieceHeight;
     }
 
     public static void buttonInitialization(MyButton buttonName, int buttonY) {
-        buttonName.x = SideSettings.startNextPanelX;
+        buttonName.x = SideSettings.getStartNextPanelX();
         buttonName.y = buttonY;
         buttonName.width = Settings.buttonWidth / 2;
         buttonName.height = Settings.buttonHeight / 2;
@@ -38,8 +38,8 @@ public class SideDraw {
 
         for (int row = 0; row < nextGridRows; row++) {
             for (int col = 0; col < nextGridWidth; col++) {
-                int x = col * nextGridCellSize + SideSettings.startNextPanelX;
-                int y = row * nextGridCellSize + SideSettings.startNextPanelY;
+                int x = col * nextGridCellSize + SideSettings.getStartNextPanelX();
+                int y = row * nextGridCellSize + SideSettings.getStartNextPanelY();
                 SaxionApp.setBorderColor(Color.LIGHT_GRAY);
                 SaxionApp.drawRectangle(x,y,nextGridCellSize,nextGridCellSize);
             }
@@ -55,12 +55,12 @@ public class SideDraw {
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 if (shape[row][col] == 1) {
-                    int x = (gb.getNextblock().getX() + col) * nextGridCellSize + SideSettings.startNextPanelX;
-                    int y = (gb.getNextblock().getY() + row) * nextGridCellSize + SideSettings.startNextPanelY;
+                    int x = (gb.getNextblock().getX() + col) * nextGridCellSize + SideSettings.getStartNextPanelX();
+                    int y = (gb.getNextblock().getY() + row) * nextGridCellSize + SideSettings.getStartNextPanelY();
 
-                    if (utils.Utility.checkBounds(x, y, SideSettings.startNextPanelX,
-                            SideSettings.startNextPanelY, SideSettings.widthNextPanel,
-                            SideSettings.endNextPanelY, false)) {
+                    if (utils.Utility.checkBounds(x, y, SideSettings.getStartNextPanelX(),
+                            SideSettings.getStartNextPanelY(), SideSettings.getWidthNextPanel(),
+                            SideSettings.getEndNextPanelY(), false)) {
                         drawNextBlock(color, x, y);
                     }
                 }
@@ -69,10 +69,10 @@ public class SideDraw {
 
         //Draw outline grid
         SaxionApp.setBorderColor(Color.lightGray);
-        SaxionApp.drawLine(SideSettings.startNextPanelX, SideSettings.startNextPanelY, SideSettings.startNextPanelX, SideSettings.endNextPanelY); //Line LeftSide
-        SaxionApp.drawLine(SideSettings.endNextPanelX, SideSettings.startNextPanelY, SideSettings.endNextPanelX, SideSettings.endNextPanelY); //Line RightSide
-        SaxionApp.drawLine(SideSettings.startNextPanelX, SideSettings.startNextPanelY, SideSettings.endNextPanelX, SideSettings.startNextPanelY); //Line TopSide
-        SaxionApp.drawLine(SideSettings.startNextPanelX, SideSettings.endNextPanelY, SideSettings.endNextPanelX, SideSettings.endNextPanelY); //Line BottomSide
+        SaxionApp.drawLine(SideSettings.getStartNextPanelX(), SideSettings.getStartNextPanelY(), SideSettings.getStartNextPanelX(), SideSettings.getEndNextPanelY()); //Line LeftSide
+        SaxionApp.drawLine(SideSettings.getEndNextPanelX(), SideSettings.getStartNextPanelY(), SideSettings.getEndNextPanelX(), SideSettings.getEndNextPanelY()); //Line RightSide
+        SaxionApp.drawLine(SideSettings.getStartNextPanelX(), SideSettings.getStartNextPanelY(), SideSettings.getEndNextPanelX(), SideSettings.getStartNextPanelY()); //Line TopSide
+        SaxionApp.drawLine(SideSettings.getStartNextPanelX(), SideSettings.getEndNextPanelY(), SideSettings.getEndNextPanelX(), SideSettings.getEndNextPanelY()); //Line BottomSide
 
     }
 
@@ -82,21 +82,21 @@ public class SideDraw {
         SaxionApp.drawRectangle(x,y, nextGridCellSize, nextGridCellSize);
 
         SaxionApp.setBorderColor(color.darker());
-        for(int i = 0; i < SideSettings.shadowNextSize; i++) {
-            SaxionApp.drawLine(x + nextGridCellSize - SideSettings.shadowNextSize + i, y, x + nextGridCellSize - SideSettings.shadowNextSize + i, y + nextGridCellSize - 1);
-            SaxionApp.drawLine(x, y + nextGridCellSize - SideSettings.shadowNextSize + i, x + nextGridCellSize - 1, y + nextGridCellSize - SideSettings.shadowNextSize + i);
+        for(int i = 0; i < SideSettings.getShadowNextSize(); i++) {
+            SaxionApp.drawLine(x + nextGridCellSize - SideSettings.getShadowNextSize() + i, y, x + nextGridCellSize - SideSettings.getShadowNextSize() + i, y + nextGridCellSize - 1);
+            SaxionApp.drawLine(x, y + nextGridCellSize - SideSettings.getShadowNextSize() + i, x + nextGridCellSize - 1, y + nextGridCellSize - SideSettings.getShadowNextSize() + i);
         }
 
         SaxionApp.setBorderColor(color.brighter());
-        for(int i = 0; i < SideSettings.shadowNextSize; i++) {
+        for(int i = 0; i < SideSettings.getShadowNextSize(); i++) {
             SaxionApp.drawLine(x, y + i, x + nextGridCellSize - i - 1, y + i);
             SaxionApp.drawLine(x + i, y, x + i, y + nextGridCellSize - i - 1);
         }
     }
 
     public void drawScore(int scoreCount, int levelCount) {
-        SaxionApp.drawText("Score: " + scoreCount, SideSettings.startNextPanelX, SideSettings.scoreY, 20);
-        SaxionApp.drawText("Level: " + levelCount, SideSettings.startNextPanelX, SideSettings.levelY, 20);
+        SaxionApp.drawText("Score: " + scoreCount, SideSettings.getStartNextPanelX(), SideSettings.getScoreY(), 20);
+        SaxionApp.drawText("Level: " + levelCount, SideSettings.getStartNextPanelX(), SideSettings.getLevelY(), 20);
 
     }
 
