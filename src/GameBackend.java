@@ -1,4 +1,5 @@
 import Grid.Block;
+import Grid.GridSettings;
 import Shapes.*;
 import nl.saxion.app.SaxionApp;
 
@@ -149,12 +150,12 @@ public class GameBackend {
             currentblock.setX(0);
         }
 
-        if (currentblock.getRightEdge() >= gd.gridWidth) {
-            currentblock.setX(gd.gridWidth - currentblock.getWidth());
+        if (currentblock.getRightEdge() >= GridSettings.width) {
+            currentblock.setX(GridSettings.width - currentblock.getWidth());
         }
 
-        if (currentblock.getBottomEdge() >= gd.gridRows) {
-            currentblock.setY(gd.gridRows - currentblock.getHeight());
+        if (currentblock.getBottomEdge() >= GridSettings.height) {
+            currentblock.setY(GridSettings.height - currentblock.getHeight());
         }
 
         gd.repaint();
@@ -188,6 +189,13 @@ public class GameBackend {
         gd.repaint();
     }
 
+    public Block getCurrentblock() {
+        return currentblock;
+    }
+
+    public Block getNextblock() {
+        return nextblock;
+    }
     public static void main(String[] args) {
 
     }
