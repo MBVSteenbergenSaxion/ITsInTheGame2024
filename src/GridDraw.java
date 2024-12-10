@@ -6,7 +6,6 @@ import java.awt.*;
 public class GridDraw {
 
     public static int gridRows, gridWidth, gridCellSize;
-    public static int nextGridRows, nextGridWidth, nextGridCellSize;
 
     private static Color[][] background;
     private final GameBackend gb;
@@ -17,9 +16,6 @@ public class GridDraw {
         this.gb = gb;
 
         background = new Color[gridRows][gridWidth];
-
-
-
     }
 
     /**
@@ -36,9 +32,6 @@ public class GridDraw {
         gridCellSize = GridSettings.blockSize;
         gridRows = GridSettings.height;
 
-        nextGridWidth = GridSettings.nextPieceWidth;
-        nextGridCellSize = GridSettings.blockNextSize;
-        nextGridRows = GridSettings.nextPieceHeight;
     }
 
     /**
@@ -225,7 +218,6 @@ public class GridDraw {
 
     public void repaint() {
         paint();
-        drawNextBlock();
     }
 
     public void moveBlockToBackground() {
@@ -257,13 +249,13 @@ public class GridDraw {
         SaxionApp.drawRectangle(x,y, GridSettings.blockSize, GridSettings.blockSize);
 
         SaxionApp.setBorderColor(color.darker());
-        for(int i = 0; i < GridSettings.shadowSize; i++) {
-            SaxionApp.drawLine(x + GridSettings.blockSize - GridSettings.shadowSize + i, y, x + GridSettings.blockSize - GridSettings.shadowSize + i, y + GridSettings.blockSize - 1);
-            SaxionApp.drawLine(x, y + GridSettings.blockSize - GridSettings.shadowSize + i, x + GridSettings.blockSize - 1, y + GridSettings.blockSize - GridSettings.shadowSize + i);
+        for(int i = 0; i < GridSettings.shadowNextSize; i++) {
+            SaxionApp.drawLine(x + GridSettings.blockSize - GridSettings.shadowNextSize + i, y, x + GridSettings.blockSize - GridSettings.shadowNextSize + i, y + GridSettings.blockSize - 1);
+            SaxionApp.drawLine(x, y + GridSettings.blockSize - GridSettings.shadowNextSize + i, x + GridSettings.blockSize - 1, y + GridSettings.blockSize - GridSettings.shadowNextSize + i);
         }
 
         SaxionApp.setBorderColor(color.brighter());
-        for(int i = 0; i < GridSettings.shadowSize; i++) {
+        for(int i = 0; i < GridSettings.shadowNextSize; i++) {
             SaxionApp.drawLine(x, y + i, x + GridSettings.blockSize - i - 1, y + i);
             SaxionApp.drawLine(x + i, y, x + i, y + GridSettings.blockSize - i - 1);
         }
@@ -336,43 +328,7 @@ public class GridDraw {
         SaxionApp.drawLine(GridSettings.startPanelX, GridSettings.endPanelY, GridSettings.endPanelX, GridSettings.endPanelY); //Line BottomSide
     }
 
-    public void drawNextPieceGrid() {
-        for (int row = 0; row < nextGridRows; row++) {
-            for (int col = 0; col < nextGridWidth; col++) {
-                int x = col * nextGridCellSize + GridSettings.startNextPanelX;
-                int y = row * nextGridCellSize + GridSettings.startNextPanelY;
-                SaxionApp.setBorderColor(Color.LIGHT_GRAY);
-                drawNextGridSquare(SaxionApp.DEFAULT_BACKGROUND_COLOR, x, y);
-            }
-        }
-    }
 
-    public void drawNextBlock() {
-        int height = gb.getNextblock().getHeight();
-        int width = gb.getNextblock().getWidth();
-        Color color = gb.getNextblock().getColor();
-        int[][] shape = gb.getNextblock().getShape();
 
-        SaxionApp.setBorderColor(Color.LIGHT_GRAY);
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                if (shape[row][col] == 1) {
-                    int x = (gb.getNextblock().getX() + col) * nextGridCellSize + GridSettings.startNextPanelX;
-                    int y = (gb.getNextblock().getY() + row) * nextGridCellSize + GridSettings.startNextPanelY;
-
-                    if (utils.Utility.checkBounds(x, y, GridSettings.startNextPanelX,
-                            GridSettings.startNextPanelY, GridSettings.widthNextPanel,
-                            GridSettings.heightNextPanel, false)) {
-                        drawNextGridSquare(color, x, y);
-                    }
-                }
-            }
-        }
-    }
-
-    private static void drawNextGridSquare(Color color, int x, int y) {
-        SaxionApp.setFill(color);
-        SaxionApp.drawRectangle(x, y, nextGridCellSize, nextGridCellSize);
-    }
 
 }

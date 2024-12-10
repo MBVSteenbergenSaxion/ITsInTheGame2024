@@ -9,6 +9,7 @@ public class GameBackend {
 
     public static GameThread gt;
     public static GridDraw gd;
+    public static SideDraw sd;
 
     private static Block[] blocks;
     private static Color[] colors;
@@ -20,6 +21,7 @@ public class GameBackend {
     public GameBackend() {
 
         gd = new GridDraw(this);
+        sd = new SideDraw(this);
         gt = new GameThread(gd);
 
         blocks = new Block[]{
@@ -185,8 +187,9 @@ public class GameBackend {
 
     private  void paintOnCanvasFromGD() {
         gd.paint();
-        gd.drawNextPieceGrid();
+        sd.paint();
         gd.repaint();
+        sd.repaint();
     }
 
     public Block getCurrentblock() {
