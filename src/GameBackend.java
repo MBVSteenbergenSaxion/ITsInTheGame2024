@@ -20,6 +20,7 @@ public class GameBackend {
     public static void back2Main() {
         gt.interrupt();
         Canvas.stopBackgroundMusic();
+        Game.switchScreen2Main();
     }
 
     public static void restart() {
