@@ -3,6 +3,8 @@ import nl.saxion.app.SaxionApp;
 public class GameThread extends Thread {
 
     private static GridDraw gridDraw;
+    public volatile boolean running;
+    public volatile boolean paused;
     static boolean draw;
     private static int scoreCounterThread, level, scorePerLevel, gameSpeed, speedUpPerLevel;
 
@@ -10,7 +12,8 @@ public class GameThread extends Thread {
 
     public GameThread(GridDraw gridDraw) {
         GameThread.gridDraw = gridDraw;
-
+        running = true;
+        paused = false;
         draw = true;
         scorePerLevel = 2;
         level = 1;
