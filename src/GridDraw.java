@@ -310,7 +310,7 @@ public class GridDraw {
                         int y = (gb.getCurrentblock().getY() + row) * gridCellSize + GridSettings.getStartPanelY();
 
                         if (utils.Utility.checkBounds(x, y, GridSettings.getStartPanelX(),
-                                GridSettings.getStartPanelX(), GridSettings.getWidthPanel(),
+                                GridSettings.getStartPanelY(), GridSettings.getWidthPanel(),
                                 GridSettings.getEndPanelY(), false)) {
                             drawBlock(color, x, y);
                         }
