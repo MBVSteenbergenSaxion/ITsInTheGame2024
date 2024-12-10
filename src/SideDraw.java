@@ -1,5 +1,6 @@
 import SideDraw.SideSettings;
 import nl.saxion.app.SaxionApp;
+import utils.MyButton;
 
 import java.awt.*;
 
@@ -18,6 +19,13 @@ public class SideDraw {
         nextGridWidth = SideSettings.nextPieceWidth;
         nextGridCellSize = SideSettings.blockNextSize;
         nextGridRows = SideSettings.nextPieceHeight;
+    }
+
+    public static void buttonInitialization(MyButton buttonName, int buttonY) {
+        buttonName.x = SideSettings.startNextPanelX;
+        buttonName.y = buttonY;
+        buttonName.width = Settings.buttonWidth / 2;
+        buttonName.height = Settings.buttonHeight / 2;
     }
 
     public void repaint() {
@@ -84,5 +92,15 @@ public class SideDraw {
             SaxionApp.drawLine(x, y + i, x + nextGridCellSize - i - 1, y + i);
             SaxionApp.drawLine(x + i, y, x + i, y + nextGridCellSize - i - 1);
         }
+    }
+
+    public void drawScore(int scoreCount, int levelCount) {
+        SaxionApp.drawText("Score: " + scoreCount, SideSettings.startNextPanelX, SideSettings.scoreY, 20);
+        SaxionApp.drawText("Level: " + levelCount, SideSettings.startNextPanelX, SideSettings.levelY, 20);
+
+    }
+
+    public void drawText() {
+
     }
 }

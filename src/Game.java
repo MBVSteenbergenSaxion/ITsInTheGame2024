@@ -1,6 +1,7 @@
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.*;
+import SideDraw.SideSettings;
 
 public class Game extends Canvas {
 
@@ -39,8 +40,8 @@ public class Game extends Canvas {
     public void init() {
         gb.startGame();
 
-        buttonInitialization(restartButton, 3);
-        buttonInitialization(quitButton, 2);
+        SideDraw.buttonInitialization(restartButton, SideSettings.getRestartButtonY());
+        SideDraw.buttonInitialization(quitButton, SideSettings.getQuitButtonY());
     }
 
     public void loop() {
@@ -129,12 +130,7 @@ public class Game extends Canvas {
      * - buttonInitialization(MyButton, int buttonY)
      */
 
-    public static void buttonInitialization(MyButton buttonName, int buttonY) {
-        buttonName.x = Settings.width - Settings.width / 4;
-        buttonName.y = Settings.height / buttonY;
-        buttonName.width = Settings.buttonWidth / 2;
-        buttonName.height = Settings.buttonHeight / 2;
-    }
+
 
     /**
      * UPDATERS
@@ -179,10 +175,7 @@ public class Game extends Canvas {
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
 
-        SaxionApp.drawText("Score: " + scoreCount, (Settings.width / 4 - Settings.width / 12), Settings.height / 2, 20);
-        SaxionApp.drawText("Level: " + levelCount, (Settings.width / 4 - Settings.width / 12), Settings.height - Settings.height / 4, 20);
-
-        gb.checkToPaint();
+        gb.checkToPaint(scoreCount, levelCount);
 
     }
 

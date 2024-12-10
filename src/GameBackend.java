@@ -179,17 +179,17 @@ public class GameBackend {
         }
     }
 
-    public void checkToPaint() {
+    public void checkToPaint(int score, int level) {
         if (gd != null) {
-            paintOnCanvasFromGD();
+            paintOnCanvasFromGD(score, level);
         }
     }
 
-    private  void paintOnCanvasFromGD() {
+    private void paintOnCanvasFromGD(int score, int level) {
         gd.paint();
         sd.paint();
-        gd.repaint();
-        sd.repaint();
+        sd.drawScore(score, level);
+        sd.drawText();
     }
 
     public Block getCurrentblock() {
