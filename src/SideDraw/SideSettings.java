@@ -12,8 +12,8 @@ public class SideSettings {
     public static int oneFiftiethOfScreenWidth = (screenWidth / 50);
     public static int oneFiftiethOfScreenHeight = (screenHeight / 50);
 
-    public static int startNextPanelX = oneFiftiethOfScreenWidth * 41;
-    public static int endNextPanelX = oneFiftiethOfScreenWidth * 49;
+    public static int startNextPanelX = oneFiftiethOfScreenWidth * 30;
+    public static int endNextPanelX = oneFiftiethOfScreenWidth * 38;
     public static int widthNextPanel = endNextPanelX - startNextPanelX;
     public static int blockNextSize = widthNextPanel / nextPieceWidth;
     public static int startNextPanelY = oneFiftiethOfScreenHeight;
