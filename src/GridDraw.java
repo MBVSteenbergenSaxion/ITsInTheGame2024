@@ -6,41 +6,21 @@ import java.awt.*;
 
 public class GridDraw {
 
-    private static int gridRows, gridWidth, gridCellSize;
-    private static int nextGridRows, nextGridWidth, nextGridCellSize;
+    public static int gridRows, gridWidth, gridCellSize;
+    public static int nextGridRows, nextGridWidth, nextGridCellSize;
 
     private static Color[][] background;
+    private GameBackend gb;
 
-    private static Block[] blocks;
-    private static Color[] colors;
 
-    public static int randomBlock, currentBlockId, setRotation, randomColorValue;
-    private Block nextblock, currentblock;
-
-    public GridDraw() {
+    public GridDraw(GameBackend gb) {
         initializeGridSettings();
+
+        this.gb = gb;
 
         background = new Color[gridRows][gridWidth];
 
-        blocks = new Block[]{
-                new LShape(),
-                new IShape(),
-                new JShape(),
-                new OShape(),
-                new SShape(),
-                new ZShape(),
-                new TShape()
-        };
 
-        colors = new Color[]{
-                SaxionApp.createColor(4, 83, 255), //Blue
-                SaxionApp.createColor(253, 103, 1), //Orange
-                SaxionApp.createColor(254, 255, 6), //Yellow
-                SaxionApp.createColor(0, 255, 6), //Green
-                SaxionApp.createColor(254, 4, 253), //Pink
-                SaxionApp.createColor(255, 17, 4), //Red
-                SaxionApp.createColor(5, 239, 253) //Cyan
-        };
     }
 
     /**
@@ -51,28 +31,6 @@ public class GridDraw {
      * - initializeGridSettings()
      */
 
-    public void spawnBlock() {
-        setCurrentBlock();
-        currentblock.spawn(setRotation);
-        nextblock.nextSpawn();
-    }
-
-    public void setCurrentBlock() {
-        spawnRotationCheck();
-
-        currentblock = nextblock;
-        currentBlockId = randomBlock;
-
-        setNextPieceCheck();
-    }
-
-    public void setNextPiece() {
-        randomBlock = SaxionApp.getRandomValueBetween(0, blocks.length);
-        randomColorValue = SaxionApp.getRandomValueBetween(0, colors.length);
-
-        nextblock = blocks[randomBlock];
-        nextblock.color = colors[randomColorValue];
-    }
 
     private void initializeGridSettings() {
         gridWidth = GridSettings.width;
@@ -93,75 +51,6 @@ public class GridDraw {
      * - rotateBlock()
      */
 
-    public boolean moveBlockDown() {
-        if (!checkBottom()) {
-            return false;
-        }
-
-        currentblock.moveDown();
-        repaint();
-        return true;
-    }
-
-    public void moveBlockLeft() {
-        if (currentblock == null) {
-            return;
-        }
-
-        if (!checkLeft()) {
-            return;
-        }
-
-        currentblock.moveLeft();
-        repaint();
-    }
-
-    public void moveBlockRight() {
-        if (currentblock == null) {
-            return;
-        }
-
-        if (!checkRight()) {
-            return;
-        }
-
-        currentblock.moveRight();
-        repaint();
-    }
-
-    public void dropBlock() {
-        if (currentblock == null) {
-            return;
-        }
-
-        while (checkBottom()) {
-            currentblock.moveDown();
-        }
-
-        repaint();
-    }
-
-    public void rotateBlock() {
-        if (currentblock == null) {
-            return;
-        }
-
-        currentblock.rotate();
-
-        if (currentblock.getLeftEdge() < 0) {
-            currentblock.setX(0);
-        }
-
-        if (currentblock.getRightEdge() >= gridWidth) {
-            currentblock.setX(gridWidth - currentblock.getWidth());
-        }
-
-        if (currentblock.getBottomEdge() >= gridRows) {
-            currentblock.setY(gridRows - currentblock.getHeight());
-        }
-
-        repaint();
-    }
 
     /**
      * CHECK METHODS
@@ -174,20 +63,6 @@ public class GridDraw {
      * - checkRight()
      */
 
-    private void spawnRotationCheck() {
-        if (randomBlock == 1) {
-            setRotation = 1;
-        } else {
-            setRotation = SaxionApp.getRandomValueBetween(0, 4);
-        }
-    }
-
-    private void setNextPieceCheck() {
-        setNextPiece();
-        if (randomBlock == currentBlockId) {
-            setNextPiece();
-        }
-    }
 
     public int clearLineCheck() {
         boolean lineFilled;
@@ -218,21 +93,21 @@ public class GridDraw {
     }
 
     public boolean isBlockOutOfBounds() {
-        if (currentblock.getY() < 0) {
-            currentblock = null;
+        if (gb.currentblock.getY() < 0) {
+            gb.currentblock = null;
             return true;
         }
         return false;
     }
 
-    private boolean checkBottom() {
-        if (currentblock.getBottomEdge() == gridRows) {
+    public boolean checkBottom() {
+        if (gb.currentblock.getBottomEdge() == gridRows) {
             return false;
         }
 
-        int[][] shape = currentblock.getShape();
-        int width = currentblock.getWidth();
-        int height = currentblock.getHeight();
+        int[][] shape = gb.currentblock.getShape();
+        int width = gb.currentblock.getWidth();
+        int height = gb.currentblock.getHeight();
 
         for (int col = 0; col < width; col++) {
 
@@ -240,8 +115,8 @@ public class GridDraw {
             while (row <= height) {
                 if (shape[row][col] != 0) {
 
-                    int x = (currentblock.getX() + col);
-                    int y = (currentblock.getY() + row + 1);
+                    int x = (gb.currentblock.getX() + col);
+                    int y = (gb.currentblock.getY() + row + 1);
 
                     if (y < 0) {
                         break;
@@ -261,20 +136,20 @@ public class GridDraw {
         return true;
     }
 
-    private boolean checkLeft() {
-        if (currentblock.getLeftEdge() == 0) {
+    public boolean checkLeft() {
+        if (gb.currentblock.getLeftEdge() == 0) {
             return false;
         }
 
-        int[][] shape = currentblock.getShape();
-        int width = currentblock.getWidth();
-        int height = currentblock.getHeight();
+        int[][] shape = gb.currentblock.getShape();
+        int width = gb.currentblock.getWidth();
+        int height = gb.currentblock.getHeight();
 
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 if (shape[row][col] != 0) {
-                    int x = (currentblock.getX() + col - 1);
-                    int y = (currentblock.getY() + row);
+                    int x = (gb.currentblock.getX() + col - 1);
+                    int y = (gb.currentblock.getY() + row);
 
                     if (y < 0) {
                         break;
@@ -291,20 +166,20 @@ public class GridDraw {
         return true;
     }
 
-    private boolean checkRight() {
-        if (currentblock.getRightEdge() == gridWidth) {
+    public boolean checkRight() {
+        if (gb.currentblock.getRightEdge() == gridWidth) {
             return false;
         }
 
-        int[][] shape = currentblock.getShape();
-        int width = currentblock.getWidth();
-        int height = currentblock.getHeight();
+        int[][] shape = gb.currentblock.getShape();
+        int width = gb.currentblock.getWidth();
+        int height = gb.currentblock.getHeight();
 
         for (int row = 0; row < height; row++) {
             for (int col = width - 1; col >= 0; col--) {
                 if (shape[row][col] != 0) {
-                    int x = (currentblock.getX() + col + 1);
-                    int y = (currentblock.getY() + row);
+                    int x = (gb.currentblock.getX() + col + 1);
+                    int y = (gb.currentblock.getY() + row);
 
                     if (y < 0) {
                         break;
@@ -356,15 +231,15 @@ public class GridDraw {
     }
 
     public void moveBlockToBackground() {
-        if (this.currentblock != null) {
-            int[][] shape = currentblock.getShape();
-            int height = currentblock.getHeight();
-            int width = currentblock.getWidth();
+        if (gb.currentblock != null) {
+            int[][] shape = gb.currentblock.getShape();
+            int height = gb.currentblock.getHeight();
+            int width = gb.currentblock.getWidth();
 
-            int xPos = currentblock.getX();
-            int yPos = currentblock.getY();
+            int xPos = gb.currentblock.getX();
+            int yPos = gb.currentblock.getY();
 
-            Color color = currentblock.getColor();
+            Color color = gb.currentblock.getColor();
 
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
@@ -431,18 +306,18 @@ public class GridDraw {
 
 
         //Draw currentblock
-        if (this.currentblock != null) {
-            int height = currentblock.getHeight();
-            int width = currentblock.getWidth();
-            color = currentblock.getColor();
-            int[][] shape = currentblock.getShape();
+        if (gb.currentblock != null) {
+            int height = gb.currentblock.getHeight();
+            int width = gb.currentblock.getWidth();
+            color = gb.currentblock.getColor();
+            int[][] shape = gb.currentblock.getShape();
 
             SaxionApp.setBorderColor(Color.LIGHT_GRAY);
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
                     if (shape[row][col] == 1) {
-                        int x = (currentblock.getX() + col) * gridCellSize + GridSettings.startPanelX;
-                        int y = (currentblock.getY() + row) * gridCellSize + GridSettings.startPanelY;
+                        int x = (gb.currentblock.getX() + col) * gridCellSize + GridSettings.startPanelX;
+                        int y = (gb.currentblock.getY() + row) * gridCellSize + GridSettings.startPanelY;
 
                         if (utils.Utility.checkBounds(x, y, GridSettings.startPanelX,
                                 GridSettings.startPanelY, GridSettings.widthPanel,
@@ -475,17 +350,17 @@ public class GridDraw {
     }
 
     public void drawNextBlock() {
-        int height = nextblock.getHeight();
-        int width = nextblock.getWidth();
-        Color color = nextblock.getColor();
-        int[][] shape = nextblock.getShape();
+        int height = gb.nextblock.getHeight();
+        int width = gb.nextblock.getWidth();
+        Color color = gb.nextblock.getColor();
+        int[][] shape = gb.nextblock.getShape();
 
         SaxionApp.setBorderColor(Color.LIGHT_GRAY);
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 if (shape[row][col] == 1) {
-                    int x = (nextblock.getX() + col) * nextGridCellSize + GridSettings.startNextPanelX;
-                    int y = (nextblock.getY() + row) * nextGridCellSize + GridSettings.startNextPanelY;
+                    int x = (gb.nextblock.getX() + col) * nextGridCellSize + GridSettings.startNextPanelX;
+                    int y = (gb.nextblock.getY() + row) * nextGridCellSize + GridSettings.startNextPanelY;
 
                     if (utils.Utility.checkBounds(x, y, GridSettings.startNextPanelX,
                             GridSettings.startNextPanelY, GridSettings.widthNextPanel,
