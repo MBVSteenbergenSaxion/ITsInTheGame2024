@@ -102,7 +102,7 @@ public class Game extends Canvas {
 
             if (utils.Utility.checkBounds(x, y,
                     quitButton.x, quitButton.y, quitButton.width, quitButton.height, true)) {
-                back2Main();
+                GameBackend.back2Main();
             }
 
             if (utils.Utility.checkBounds(x, y,
@@ -167,11 +167,9 @@ public class Game extends Canvas {
      * - restart()
      */
 
-    private static void back2Main() {
-        GameBackend.back2Main();
+    public static void switchScreen2Main() {
         switchToScreen(new Main());
     }
-
     /**
      * DRAWING
      * - draw()
