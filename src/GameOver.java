@@ -1,4 +1,3 @@
-import nl.saxion.app.SaxionApp;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 import utils.MyButton;
@@ -19,11 +18,9 @@ public class GameOver extends Canvas{
      */
     private static ArrayList<Character> keyboardInput = new ArrayList<>();
     TextBox usernameInput = new TextBox();
-    private static int finalHighscore;
 
-    public GameOver(int highscore){
+    public GameOver(){
         super();
-        finalHighscore = highscore;
     }
 
 
@@ -35,8 +32,6 @@ public class GameOver extends Canvas{
      * */
     @Override
     public void init() {
-
-        Canvas.stopBackgroundMusic();
 
         usernameInput.x = Settings.width / 3;
         usernameInput.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);

@@ -1,12 +1,11 @@
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.SftpException;
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
-import java.io.IOException;
-import java.util.Map;
+import java.awt.*;
+
+import javax.sound.sampled.Clip;
 
 public class Main extends Canvas{
 
@@ -18,8 +17,6 @@ public class Main extends Canvas{
     public Main(){
         super();
     }
-
-    public static Map<String, String> env;
 
     utils.MyButton gameButton = new MyButton();
     utils.MyButton leaderBoardButton = new MyButton();
@@ -35,24 +32,24 @@ public class Main extends Canvas{
      * */
     @Override
     public void init() {
-
-        Canvas.stopBackgroundMusic();
-
-        loadEnv();
+        SaxionApp.drawImage("resources/Images/eagle_left.jpg", 0, 0, Settings.width / 3, Settings.height);
+        SaxionApp.drawImage("resources/Images/eagle_right.jpg", Settings.width - Settings.width / 3, 0, Settings.width / 3, Settings.height);
+        SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
+        SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
 
         gameButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
-        gameButton.y = (int) (Settings.height * 0.40);
+        gameButton.y = (int) (Settings.height * 0.50 - Settings.height * 0.15);
         gameButton.width = Settings.buttonWidth;
         gameButton.height = Settings.buttonHeight;
         Canvas.playBackgroundMusic(filePath);
 
         leaderBoardButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
-        leaderBoardButton.y = (int) (Settings.height * 0.60);
+        leaderBoardButton.y = (int) (Settings.height * 0.70 - Settings.height * 0.15);
         leaderBoardButton.width = Settings.buttonWidth;
         leaderBoardButton.height = Settings.buttonHeight;
 
         quitButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
-        quitButton.y = (int) (Settings.height * 0.8);
+        quitButton.y = (int) (Settings.height * 0.9 - Settings.height * 0.15);
         quitButton.width = Settings.buttonWidth;
         quitButton.height = Settings.buttonHeight;
 
@@ -125,22 +122,9 @@ public class Main extends Canvas{
         MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
 
-        SaxionApp.drawImage("resources/Images/eagle_left.jpg", 0, 0, Settings.width / 3, Settings.height);
-        SaxionApp.drawImage("resources/Images/eagle_right.jpg", Settings.width - Settings.width / 3, 0, Settings.width / 3, Settings.height);
-        SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
-        SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
-
     }
 
-    private void loadEnv(){
-        if(env == null){
-            try {
-                env = EnvLoader.loadEnv(".env");
-            } catch (IOException e) {
-                // Logic for if the .env file isn't found
-            }
-        }
-    }
+
 }
 
 
