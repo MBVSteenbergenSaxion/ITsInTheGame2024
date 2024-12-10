@@ -24,17 +24,17 @@ public class GameThread extends Thread {
 
     @Override
     public void run() {
-        gridDraw.setNextPiece();
+        GameBackend.setNextPiece();
 
         while(true){
 
             if(draw){
 
-                gridDraw.spawnBlock();
-                nextBlockId = GridDraw.randomBlock;
+                GameBackend.spawnBlock();
+                nextBlockId = GameBackend.randomBlock;
 
 
-                while (gridDraw.moveBlockDown()) {
+                while (GameBackend.moveBlockDown()) {
                     SaxionApp.clear();
                     try {
                         Thread.sleep(gameSpeed);
