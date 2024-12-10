@@ -109,7 +109,7 @@ public class Game extends Canvas {
             if (utils.Utility.checkBounds(x, y,
                     restartButton.x, restartButton.y, restartButton.width,
                     restartButton.height, true)) {
-                GameBackend.restart();
+                GameBackend.startGame();
             }
         }
     }

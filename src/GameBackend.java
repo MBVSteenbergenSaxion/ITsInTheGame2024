@@ -24,6 +24,7 @@ public class GameBackend {
         sd = new SideDraw(this);
         gt = new GameThread(gd);
 
+
         blocks = new Block[]{
                 new LShape(),
                 new IShape(),
@@ -45,24 +46,20 @@ public class GameBackend {
         };
     }
 
-    public void startGame() {
-        Game.startAudioGame();
-        gt.start();
-        Game.scoreCount = 0;
-    }
-
     public static void back2Main() {
         gt.interrupt();
         Canvas.stopBackgroundMusic();
         Game.switchScreen2Main();
     }
 
-    public static void restart() {
+    public static void startGame() {
         Game.scoreCount = 0;
         gt.interrupt();
         SaxionApp.clear();
         Canvas.stopBackgroundMusic();
-        gd = new GridDraw(new GameBackend());
+        GameBackend gb = new GameBackend();
+        gd = new GridDraw(gb);
+        sd = new SideDraw(gb);
         gt = new GameThread(gd);
         gt.start();
         Game.startAudioGame();
