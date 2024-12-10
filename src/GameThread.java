@@ -26,9 +26,16 @@ public class GameThread extends Thread {
     public void run() {
         GameBackend.setNextPiece();
 
-        while(true){
-
-            if(draw){
+        while (running) {
+            synchronized (this) {
+                while (paused) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                }
+            }
 
                 GameBackend.spawnBlock();
                 nextBlockId = GameBackend.randomBlock;

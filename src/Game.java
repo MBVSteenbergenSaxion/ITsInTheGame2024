@@ -1,3 +1,4 @@
+
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.*;
@@ -24,8 +25,8 @@ public class Game extends Canvas {
 
     public Game() {
         super();
+        upKeyPressed = false;
 
-        gb = new GameBackend();
     }
 
     /**
@@ -38,7 +39,14 @@ public class Game extends Canvas {
 
     @Override
     public void init() {
+
+        Canvas.stopBackgroundMusic();
+
+
         gb.startGame();
+
+        SaxionApp.clear();
+
 
         SideDraw.buttonInitialization(restartButton, SideSettings.getRestartButtonY());
         SideDraw.buttonInitialization(quitButton, SideSettings.getQuitButtonY());
@@ -47,6 +55,7 @@ public class Game extends Canvas {
     public void loop() {
         draw();
     }
+
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
@@ -178,5 +187,4 @@ public class Game extends Canvas {
         gb.checkToPaint(scoreCount, levelCount);
 
     }
-
 }

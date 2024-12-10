@@ -1,16 +1,18 @@
+import Grid.GridSettings;
 import nl.saxion.app.SaxionApp;
-import nl.saxion.app.audio.MediaPlayer;
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
 import javax.sound.sampled.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
 
 public class Canvas implements GameLoop {
-    private static Canvas activeCanvas;
+    public static Canvas activeCanvas;
     private static Clip backgroundMusic;
     private static Color backgroundColor = SaxionApp.createColor(0,0,128);
 
@@ -68,6 +70,22 @@ public class Canvas implements GameLoop {
 
         SaxionApp.startGameLoop(mainApp, Settings.width, Settings.height, Settings.ms);
 
+        Frame[] frames = Frame.getFrames();
+        frames[0].addComponentListener(new ComponentAdapter() {
+
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                Settings.width = frames[0].getWidth();
+                Settings.height = frames[0].getHeight();
+                GridSettings.updateScreenDimensions(frames[0].getWidth(), frames[0].getHeight());
+                SaxionApp.clear();
+                activeCanvas.init();
+            }
+
+        });
+
+
     }
 
 
@@ -82,6 +100,12 @@ public class Canvas implements GameLoop {
 
     @Override
     public void init() {
+        try {
+            utils.Utility.customizeScreen();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         if (activeCanvas != null) {
             activeCanvas.init();
         }
@@ -93,6 +117,7 @@ public class Canvas implements GameLoop {
         if (activeCanvas != null) {
             activeCanvas.loop();
         }
+
     }
 
     @Override
