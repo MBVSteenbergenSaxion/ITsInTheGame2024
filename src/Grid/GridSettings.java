@@ -8,7 +8,7 @@ public class GridSettings {
 
     public static int width = 10;
     public static int height = 15;
-
+    public static int whoops = 8;
 
     public static int startPanelX = screenWidth / 50;
     public static int endPanelX = screenWidth / 2;
