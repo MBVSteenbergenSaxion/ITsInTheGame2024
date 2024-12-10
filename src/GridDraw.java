@@ -249,13 +249,13 @@ public class GridDraw {
         SaxionApp.drawRectangle(x,y, GridSettings.blockSize, GridSettings.blockSize);
 
         SaxionApp.setBorderColor(color.darker());
-        for(int i = 0; i < GridSettings.shadowNextSize; i++) {
-            SaxionApp.drawLine(x + GridSettings.blockSize - GridSettings.shadowNextSize + i, y, x + GridSettings.blockSize - GridSettings.shadowNextSize + i, y + GridSettings.blockSize - 1);
-            SaxionApp.drawLine(x, y + GridSettings.blockSize - GridSettings.shadowNextSize + i, x + GridSettings.blockSize - 1, y + GridSettings.blockSize - GridSettings.shadowNextSize + i);
+        for(int i = 0; i < GridSettings.shadowSize; i++) {
+            SaxionApp.drawLine(x + GridSettings.blockSize - GridSettings.shadowSize + i, y, x + GridSettings.blockSize - GridSettings.shadowSize + i, y + GridSettings.blockSize - 1);
+            SaxionApp.drawLine(x, y + GridSettings.blockSize - GridSettings.shadowSize + i, x + GridSettings.blockSize - 1, y + GridSettings.blockSize - GridSettings.shadowSize + i);
         }
 
         SaxionApp.setBorderColor(color.brighter());
-        for(int i = 0; i < GridSettings.shadowNextSize; i++) {
+        for(int i = 0; i < GridSettings.shadowSize; i++) {
             SaxionApp.drawLine(x, y + i, x + GridSettings.blockSize - i - 1, y + i);
             SaxionApp.drawLine(x + i, y, x + i, y + GridSettings.blockSize - i - 1);
         }
