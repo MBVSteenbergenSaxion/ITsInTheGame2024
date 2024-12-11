@@ -3,7 +3,7 @@ import nl.saxion.app.SaxionApp;
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
-import SideDraw.SideSettings;
+import SideDraw.*;
 
 import javax.sound.sampled.*;
 import java.awt.*;

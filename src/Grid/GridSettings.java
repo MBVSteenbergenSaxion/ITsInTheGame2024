@@ -39,6 +39,5 @@ public class GridSettings {
     public static void updateScreenDimensions(int newWidth, int newHeight){
         screenWidth = newWidth;
         screenHeight = newHeight;
-
     }
 }

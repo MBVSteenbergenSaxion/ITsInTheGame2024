@@ -1,4 +1,4 @@
-import SideDraw.SideSettings;
+import SideDraw.*;
 import nl.saxion.app.SaxionApp;
 import utils.MyButton;
 

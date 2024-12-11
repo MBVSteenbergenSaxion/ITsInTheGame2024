@@ -3,7 +3,7 @@ import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
-import SideDraw.SideSettings;
+import SideDraw.*;
 
 
 public class Game extends Canvas{
