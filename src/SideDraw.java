@@ -95,8 +95,8 @@ public class SideDraw {
     }
 
     public void drawScore(int scoreCount, int levelCount) {
-        SaxionApp.drawText("Score: " + scoreCount, SideSettings.getStartNextPanelX(), SideSettings.getScoreY(), 20);
-        SaxionApp.drawText("Level: " + levelCount, SideSettings.getStartNextPanelX(), SideSettings.getLevelY(), 20);
+        SaxionApp.drawText("Score: " + scoreCount, SideSettings.getStartNextPanelX(), SideSettings.getScoreY(), SideSettings.getFontSize());
+        SaxionApp.drawText("Level: " + levelCount, SideSettings.getStartNextPanelX(), SideSettings.getLevelY(), SideSettings.getFontSize());
 
     }
 

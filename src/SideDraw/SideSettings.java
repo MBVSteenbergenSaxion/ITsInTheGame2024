@@ -44,25 +44,39 @@ public class SideSettings {
         return getBlockNextSize() / 9;
     }
 
-    public static int getScoreY() {
-        return getOneFiftiethOfScreenHeight() * 25;
-    }
-
-    public static int getLevelY() {
-        return getOneFiftiethOfScreenHeight() * 28;
-    }
-
-    public static int getRestartButtonY() {
-        return getOneFiftiethOfScreenHeight() * 15;
-    }
-
-    public static int getQuitButtonY() {
-        return getOneFiftiethOfScreenHeight() * 20;
-    }
-
     public static void updateScreenDimensions(int newWidth, int newHeight){
         screenWidth = newWidth;
         screenHeight = newHeight;
-
     }
+
+    public static int getSideButtonHeight(){
+        return (int) (getOneFiftiethOfScreenHeight() * 3.5);
+    }
+
+    public static int getSideButtonWidth(){
+        return getWidthNextPanel();
+    }
+
+    public static int getRestartButtonY() {
+        return getEndNextPanelY() + getOneFiftiethOfScreenHeight() * 2;
+    }
+
+    public static int getQuitButtonY() {
+        return getOneFiftiethOfScreenHeight() * 5 + getRestartButtonY();
+    }
+
+    public static int getScoreY() {
+        return getQuitButtonY() + getOneFiftiethOfScreenHeight() * 5;
+    }
+
+    public static int getLevelY() {
+        return getScoreY() + getOneFiftiethOfScreenHeight() * 3;
+    }
+
+
+
+    public static int getFontSize() {
+        return (int) (getOneFiftiethOfScreenWidth() * 0.75);
+    }
+
 }

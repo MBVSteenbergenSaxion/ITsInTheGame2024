@@ -51,8 +51,15 @@ public class Game extends Canvas{
     public void init() {
         GameBackend.startGame();
 
-        SideDraw.buttonInitialization(restartButton, SideSettings.getRestartButtonY());
-        SideDraw.buttonInitialization(quitButton, SideSettings.getQuitButtonY());
+        restartButton.x = SideSettings.getStartNextPanelX();
+        restartButton.y = SideSettings.getRestartButtonY();
+        restartButton.width = SideSettings.getSideButtonWidth();
+        restartButton.height = SideSettings.getSideButtonHeight();
+
+        quitButton.x = SideSettings.getStartNextPanelX();
+        quitButton.y = SideSettings.getQuitButtonY();
+        quitButton.width = SideSettings.getSideButtonWidth();
+        quitButton.height = SideSettings.getSideButtonHeight();
     }
 
     public static void levelChangingMusic() {
@@ -169,8 +176,8 @@ public class Game extends Canvas{
      *  - Draws the newly spawned block on the screen with the specified color.
      */
     private void draw() {
-        MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
-        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
+        MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, SideSettings.getFontSize(), "Restart Game");
+        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, SideSettings.getFontSize(), "Back to Menu");
 
         gb.checkToPaint(scoreCount, levelCount);
     }
