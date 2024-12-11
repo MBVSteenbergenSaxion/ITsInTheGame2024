@@ -3,37 +3,41 @@ import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
+import SideDraw.SideSettings;
+
 
 public class Game extends Canvas{
 
-    public static GridDraw gd;
-    public static GameThread gt;
+    public static GameBackend gb;
+
     private boolean upKeyPressed;
     private boolean rightKeyPressed;
     private boolean leftKeyPressed;
     public static int scoreCount;
     public static int levelCount;
-    private static String filePath1 = "resources/GameMusic/Theme(SelfMade)/Theme2.wav";  //Selfmade = theme2
-    private static String filePath2 = "resources/GameMusic/Theme(SelfMade)/Theme3.wav";  //Selfmade = theme3
-    private static String filePath3 = "resources/GameMusic/Theme(SelfMade)/Theme4.wav";  //Selfmade = theme4
-    private static String filePath4 = "resources/GameMusic/Theme(SelfMade)/Theme5.wav";  //Selfmade = theme5
-    private static String filePath5 = "resources/GameMusic/Theme(SelfMade)/Theme6.wav";  //Selfmade = theme6
+
+    utils.MyButton restartButton = new MyButton();
+    utils.MyButton quitButton = new MyButton();
+
+    private static final String[] tetrisLevelUpAudio = {
+            ("resources/GameMusic/Theme(SelfMade)/Theme2.wav"),
+            ("resources/GameMusic/Theme(SelfMade)/Theme3.wav"),
+            ("resources/GameMusic/Theme(SelfMade)/Theme4.wav"),
+            ("resources/GameMusic/Theme(SelfMade)/Theme5.wav"),
+            ("resources/GameMusic/Theme(SelfMade)/Theme6.wav"),
+            ("resources/GameMusic/Theme(SelfMade)/Theme7.wav")
+    };
 
     /**
      * Default constructor for the Game class.
      * This constructor calls the superclass's constructor to initialize the game canvas.
      */
+
     public Game() {
         super();
-        upKeyPressed = false;
+        gb = new GameBackend();
 
     }
-    /**
-     * Creates the two MyButton objects with the names restart and quit
-     * These buttons are used in the Initialize method called init()
-     */
-    utils.MyButton restartButton = new MyButton();
-    utils.MyButton quitButton = new MyButton();
 
     /**
      * Initializes the restart and quit buttons with their positions and dimensions.
@@ -45,61 +49,19 @@ public class Game extends Canvas{
      */
     @Override
     public void init() {
+        GameBackend.startGame();
 
-        Canvas.stopBackgroundMusic();
-
-        if(gt != null){
-            gt.interrupt();
-            gt = null;
-            gd = null;
-        }
-
-        gd = new GridDraw(GridSettings.width);
-        gt = new GameThread(gd);
-        gt.start();
-
-        Canvas.playBackgroundMusic(filePath1);
-
-        SaxionApp.clear();
-
-        scoreCount = 0;
-        levelCount = 1;
-
-        restartButton.x = Settings.width - Settings.width / 4;
-        restartButton.y = Settings.height / 3;
-        restartButton.width = Settings.buttonWidth / 2;
-        restartButton.height = Settings.buttonHeight / 2;
-
-        quitButton.x = Settings.width - Settings.width / 4;
-        quitButton.y = Settings.height / 2;
-        quitButton.width = Settings.buttonWidth / 2;
-        quitButton.height = Settings.buttonHeight / 2;
+        SideDraw.buttonInitialization(restartButton, SideSettings.getRestartButtonY());
+        SideDraw.buttonInitialization(quitButton, SideSettings.getQuitButtonY());
     }
 
     public static void levelChangingMusic() {
-        switch (levelCount) {
-            case 1:
+        for (int i = 1; i < tetrisLevelUpAudio.length; i++) {
+            if (levelCount == i) {
                 Canvas.stopBackgroundMusic();
-                Canvas.playBackgroundMusic(filePath1);
-                break;
-            case 2:
-                Canvas.stopBackgroundMusic();
-                Canvas.playBackgroundMusic(filePath2);
-                break;
-            case 3:
-                Canvas.stopBackgroundMusic();
-                Canvas.playBackgroundMusic(filePath3);
-                break;
-            case 4:
-                Canvas.stopBackgroundMusic();
-                Canvas.playBackgroundMusic(filePath4);
-                break;
-            case 5:
-                Canvas.stopBackgroundMusic();
-                Canvas.playBackgroundMusic(filePath5);
-                break;
+                Canvas.playBackgroundMusic(tetrisLevelUpAudio[i - 1]);
+            }
         }
-
     }
 
     /**
@@ -119,32 +81,45 @@ public class Game extends Canvas{
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
-        if(keyboardEvent.isKeyPressed()){
-            if (keyboardEvent.getKeyCode() == 39 || keyboardEvent.getKeyCode() == 68) {//RIGHT
-                if (!rightKeyPressed) {
-                    gd.moveBlockRight();
-                    SaxionApp.playSound("resources/gameSounds/movement.wav");
-                    rightKeyPressed = true;
-                }
-            } else if (keyboardEvent.getKeyCode() == 37 || keyboardEvent.getKeyCode() == 65) { //LEFT
-                if (!leftKeyPressed) {
-                    gd.moveBlockLeft();
-                    SaxionApp.playSound("resources/gameSounds/movement.wav");
-                    leftKeyPressed = true;
-                }
-            } else if (keyboardEvent.getKeyCode() == 40 || keyboardEvent.getKeyCode() == 83) { //DOWN
-                gd.dropBlock();
-            } else if (keyboardEvent.getKeyCode() == 38 || keyboardEvent.getKeyCode() == 87) { //UP
-                if (!upKeyPressed) {
-                    gd.rotateBlock();
-                    SaxionApp.playSound("resources/gameSounds/rotation.wav");
-                    upKeyPressed = true;
-                }
+        if (keyboardEvent.isKeyPressed()) {
+            //Handles key pressed
+            switch (keyboardEvent.getKeyCode()) {
+                case 39, 68: //ArrowRight or D
+                    if (!rightKeyPressed) {
+                        gb.rightMovement();
+                        SaxionApp.playSound("resources/gameSounds/movement.wav");
+                        rightKeyPressed = true;
+                    }
+                    break;
+                case 37, 65: //ArrowLeft or A
+                    if (!leftKeyPressed) {
+                        gb.leftMovement();
+                        SaxionApp.playSound("resources/gameSounds/movement.wav");
+                        leftKeyPressed = true;
+                    }
+                    break; //ArrowDown or S
+                case 40, 83:
+                    gb.dropBlock();
+                    break;
+                case 38, 87: //ArrowUp or W
+                    if (!upKeyPressed) {
+                        gb.rotate();
+                        SaxionApp.playSound("resources/gameSounds/rotation.wav");
+                        upKeyPressed = true;
+                    }
+                    break;
             }
-        }else {
-            if (keyboardEvent.getKeyCode() == 38 || keyboardEvent.getKeyCode() == 87) upKeyPressed = false;
-            if (keyboardEvent.getKeyCode() == 39 || keyboardEvent.getKeyCode() == 68) rightKeyPressed = false;
-            if (keyboardEvent.getKeyCode() == 37 || keyboardEvent.getKeyCode() == 65) leftKeyPressed = false;
+        } else {
+            // Handle key releases
+            switch (keyboardEvent.getKeyCode()) {
+                case 38, 87: //ArrowUp or W
+                    upKeyPressed = false;
+                case 39, 68: //ArrowRight or D
+                    rightKeyPressed = false;
+                case 37, 65: //ArrowLeft or A
+                    leftKeyPressed = false;
+
+            }
         }
     }
 
@@ -166,23 +141,13 @@ public class Game extends Canvas{
 
             if (utils.Utility.checkBounds(x, y,
                     quitButton.x, quitButton.y, quitButton.width, quitButton.height, true)) {
-
-                gt.interrupt();
-                Canvas.stopBackgroundMusic();
-                switchToScreen(new Main());
+                GameBackend.back2Main();
             }
 
             if (utils.Utility.checkBounds(x, y,
                     restartButton.x, restartButton.y, restartButton.width,
                     restartButton.height, true)) {
-                scoreCount = 0;
-                gt.interrupt();
-                SaxionApp.clear();
-                Canvas.stopBackgroundMusic();
-                gd = new GridDraw(GridSettings.width);
-                gt = new GameThread(gd);
-                gt.start();
-                Canvas.playBackgroundMusic(filePath1);
+                GameBackend.startGame();
             }
         }
     }
@@ -203,19 +168,15 @@ public class Game extends Canvas{
      *  - Calls the spawnBlock method to introduce a new block into the game.
      *  - Draws the newly spawned block on the screen with the specified color.
      */
-    private void draw(){
+    private void draw() {
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, Settings.fontSize / 2, "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize / 2, "Back to Menu");
 
-        SaxionApp.drawText("Highscore: " + scoreCount, (Settings.width / 4 - Settings.width / 12), Settings.height / 2, 20);
-        SaxionApp.drawText("Level: " + levelCount, (Settings.width / 4 - Settings.width / 12), Settings.height - Settings.height / 4, 20);
+        gb.checkToPaint(scoreCount, levelCount);
+    }
 
-        if(gd != null){
-            gd.drawGrid();
-            gd.drawNextPieceGrid();
-            gd.drawBackground();
-            gd.repaint();
-        }
 
+        public static void startAudioGame() {
+        Canvas.playBackgroundMusic(tetrisLevelUpAudio[0]);
     }
 }

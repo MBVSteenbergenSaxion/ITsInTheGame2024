@@ -3,6 +3,7 @@ import nl.saxion.app.SaxionApp;
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
+import SideDraw.SideSettings;
 
 import javax.sound.sampled.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.io.IOException;
 public class Canvas implements GameLoop {
     public static Canvas activeCanvas;
     private static Clip backgroundMusic;
-    Color backgroundColor = SaxionApp.createColor(0,0,128);
+    private static Color backgroundColor = SaxionApp.createColor(0,0,128);
 
     public Canvas() {
     }
@@ -74,6 +75,8 @@ public class Canvas implements GameLoop {
                 Settings.width = frames[0].getWidth();
                 Settings.height = frames[0].getHeight();
                 GridSettings.updateScreenDimensions(frames[0].getWidth(), frames[0].getHeight());
+                SideSettings.updateScreenDimensions(frames[0].getWidth(), frames[0].getHeight());
+
                 SaxionApp.clear();
                 activeCanvas.init();
             }
@@ -127,5 +130,10 @@ public class Canvas implements GameLoop {
         if (activeCanvas != null) {
             activeCanvas.mouseEvent(mouseEvent);
         }
+    }
+
+    public static Color getColor(){
+        return backgroundColor;
+
     }
 }
