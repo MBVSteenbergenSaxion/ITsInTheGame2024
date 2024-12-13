@@ -6,23 +6,25 @@ import nl.saxion.app.interaction.MouseEvent;
 import SideDraw.*;
 
 import javax.sound.sampled.*;
+import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
 import java.io.File;
 import java.io.IOException;
 
 public class Canvas implements GameLoop {
     public static Canvas activeCanvas;
     private static Clip backgroundMusic;
-    public static Color backgroundColor = SaxionApp.createColor(0,0,128);
+    private static long lastMouseEventTime = 0;
+
+    public static Color backgroundColor = SaxionApp.createColor(0, 0, 128);
 
     public Canvas() {
     }
 
     public static void playBackgroundMusic(String filePath) {
-
-
         try {
             File audioFile = new File(filePath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -34,7 +36,6 @@ public class Canvas implements GameLoop {
                 System.out.println("Audio Line not supported");
                 return;
             }
-
 
             backgroundMusic = (Clip) AudioSystem.getLine(info);
             backgroundMusic.open(audioStream);
@@ -50,7 +51,6 @@ public class Canvas implements GameLoop {
         } catch (LineUnavailableException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public static void stopBackgroundMusic() {
@@ -60,13 +60,14 @@ public class Canvas implements GameLoop {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Canvas mainApp = new Canvas();
         activeCanvas = new Main();
 
         SaxionApp.startGameLoop(mainApp, Settings.width, Settings.height, Settings.ms);
 
         Frame[] frames = Frame.getFrames();
+
         frames[0].addComponentListener(new ComponentAdapter() {
 
             @Override
@@ -80,12 +81,8 @@ public class Canvas implements GameLoop {
                 SaxionApp.clear();
                 activeCanvas.init();
             }
-
         });
-
-
     }
-
 
     public static void switchToScreen(Canvas newScreen) {
         SaxionApp.clear();
@@ -93,7 +90,6 @@ public class Canvas implements GameLoop {
         activeCanvas = newScreen;
         activeCanvas.init();
         activeCanvas.loop();
-
     }
 
     @Override
@@ -115,7 +111,6 @@ public class Canvas implements GameLoop {
         if (activeCanvas != null) {
             activeCanvas.loop();
         }
-
     }
 
     @Override
@@ -127,13 +122,18 @@ public class Canvas implements GameLoop {
 
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
-        if (activeCanvas != null) {
-            activeCanvas.mouseEvent(mouseEvent);
+        long currentTime = System.currentTimeMillis();
+
+        if (currentTime - lastMouseEventTime > 500) {
+            lastMouseEventTime = currentTime;
+            if (activeCanvas != null) {
+                System.out.println("test");
+                activeCanvas.mouseEvent(mouseEvent);
+            }
         }
     }
 
-    public static Color getColor(){
+    public static Color getColor() {
         return backgroundColor;
-
     }
 }
