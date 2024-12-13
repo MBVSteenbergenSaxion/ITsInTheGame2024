@@ -136,6 +136,9 @@ private void submitScores() throws IOException, JSchException, SftpException {
     for (int i = 0; i < keyboardInput.size(); i++){
         userName += keyboardInput.get(i);
     }
+
+    if(userName.isEmpty()) userName = "username";
+
     userName.toLowerCase();
     userName = userName.substring(0,1).toUpperCase() + userName.substring(1).toLowerCase();
     String[] array = new String[]{userName, String.valueOf(finalHighscore)};
