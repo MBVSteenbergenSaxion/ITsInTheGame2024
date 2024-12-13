@@ -1,3 +1,5 @@
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
 import nl.saxion.app.SaxionApp;
 import org.w3c.dom.css.RGBColor;
 import utils.*;
@@ -24,6 +26,9 @@ public class Leaderboard extends Canvas {
      *
      */
     private String filePath = "resources/GameMusic/TetrisTheme.wav";
+    private String fileName;
+    private File CsvFile;
+
     ArrayList<Score> scores = new ArrayList<>();
 
     utils.MyButton menuButton = new MyButton();
@@ -34,23 +39,29 @@ public class Leaderboard extends Canvas {
 
         Canvas.stopBackgroundMusic();
         Canvas.playBackgroundMusic(filePath);
-        String filename = "resources/Leaderboard/scores.csv";
-        File CsvFile = new File(filename);
+
+        fileName = "resources/Leaderboard/scores.csv";
+
+        if(Main.env != null){
+            try {
+                SFTP.downloadFile(Main.env.get("USER"),
+                        Main.env.get("PASS"),
+                        Main.env.get("IP"));
+                fileName = "temp/scores.csv";
+
+            } catch (JSchException | SftpException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        CsvFile = new File(fileName);
 
         if (CsvFile.exists() && !CsvFile.isDirectory()) {
             try {
-
-                scores = LeaderboardBackend.getScores(filename);
-                for (int i = 0; i < scores.size() -1; i++) {
-                    //Score currentScore = scores.get(i);
-                    //System.out.println(currentScore.name);
-                    //System.out.println(currentScore.highScore);
-                }
+                scores = LeaderboardBackend.getScores(fileName);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-
-
         }
 
 
@@ -58,7 +69,6 @@ public class Leaderboard extends Canvas {
         menuButton.y = (int) (Settings.height * 0.8 - Settings.height * 0.15);
         menuButton.width = Settings.buttonWidth;
         menuButton.height = Settings.buttonHeight;
-
 
 
     }
@@ -125,10 +135,15 @@ public class Leaderboard extends Canvas {
                     menuButton.x, menuButton.y, menuButton.width, menuButton.height, true)) {
                 Canvas.stopBackgroundMusic();
                 SaxionApp.setBackgroundColor(backgroundColor);
+                if(Main.env != null) {
+                    if(fileName.equals("temp/scores.csv")){
+                        if(CsvFile.delete()){
+                            System.out.println("Deleted");
+                        }
+                    }
+                }
                 switchToScreen(new Main());
             }
-
-
 
         }
 
@@ -146,6 +161,4 @@ public class Leaderboard extends Canvas {
     }
 
 }
-
-
-
+ 
