@@ -62,7 +62,7 @@ public class Canvas implements GameLoop {
 
     public static void main(String[] args) {
         Canvas mainApp = new Canvas();
-        activeCanvas = new Main();
+        activeCanvas = new GameOver(10000);
 
         SaxionApp.startGameLoop(mainApp, Settings.width, Settings.height, Settings.ms);
 

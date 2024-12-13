@@ -48,9 +48,12 @@ public class LeaderboardBackend {
         BufferedWriter bw = new BufferedWriter(fw);
 
         //String array for score
-        bw.write("Username,1000");
+        if (score[0].trim().isEmpty()){
+            score[0] = "Username";
+        }
+        bw.newLine();
+        bw.write(score[0]+','+score[1]);
         bw.close();
-
     }
 
     public static void writeToCSVOnline(String[] score) throws IOException, JSchException, SftpException {
@@ -69,7 +72,11 @@ public class LeaderboardBackend {
         BufferedWriter bw = new BufferedWriter(fw);
 
         //String array for score
-        bw.write("Username,1000");
+        if (score[0].trim().isEmpty()){
+            score[0] = "Username";
+        }
+        bw.newLine();
+        bw.write(score[0]+","+score[1]);
         bw.close();
 
         SFTP.deleteFile(username, password, ip);
