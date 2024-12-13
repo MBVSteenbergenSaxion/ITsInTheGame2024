@@ -26,6 +26,13 @@ public class GameBackend {
 
 
         blocks = new Block[]{
+                new LShape(), //0
+                new IShape(), //1
+                new JShape(), //2
+                new OShape(), //3
+                new SShape(), //4
+                new ZShape(), //5
+                new TShape(), //6
                 new LShape(),
                 new IShape(),
                 new JShape(),
@@ -85,14 +92,15 @@ public class GameBackend {
     public static void setCurrentBlock() {
         spawnRotationCheck();
 
-        currentblock = nextblock;
-        currentBlockId = randomBlock;
+        currentBlockId = randomBlock - 7;
+        currentblock = blocks[currentBlockId];
+        currentblock.color = colors[randomColorValue];
 
-        setNextPieceCheck();
+        setNextPiece();
     }
 
     public static void setNextPiece() {
-        randomBlock = SaxionApp.getRandomValueBetween(0, blocks.length);
+        randomBlock = SaxionApp.getRandomValueBetween(7, blocks.length);
         randomColorValue = SaxionApp.getRandomValueBetween(0, colors.length);
 
         nextblock = blocks[randomBlock];
@@ -179,12 +187,6 @@ public class GameBackend {
         }
     }
 
-    public static void setNextPieceCheck() {
-        setNextPiece();
-        if (randomBlock == currentBlockId) {
-            setNextPiece();
-        }
-    }
 
     public void checkToPaint(int score, int level) {
         if (gd != null) {
