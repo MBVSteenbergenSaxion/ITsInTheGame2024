@@ -31,6 +31,7 @@ public class Leaderboard extends Canvas {
 
     @Override
     public void init() {
+
         Canvas.stopBackgroundMusic();
         Canvas.playBackgroundMusic(filePath);
         String filename = "resources/Leaderboard/scores.csv";
@@ -53,7 +54,7 @@ public class Leaderboard extends Canvas {
         }
 
 
-        menuButton.x = Settings.width / 3;
+        menuButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         menuButton.y = (int) (Settings.height * 0.8 - Settings.height * 0.15);
         menuButton.width = Settings.buttonWidth;
         menuButton.height = Settings.buttonHeight;
@@ -61,9 +62,38 @@ public class Leaderboard extends Canvas {
 
 
     }
-
+    private int r = 0;
+    private int g = 0;
+    private int b = 0;
+    private boolean allMaxValues = false;
     @Override
+
+
     public void loop() {
+        SaxionApp.setBackgroundColor(new Color(r,g,b));
+        if (r < 255 && !allMaxValues){
+            r++;
+        } else if (g < 255 && !allMaxValues){
+            g++;
+        }else if (b < 255 && !allMaxValues) {
+            b++;
+        }
+        if (r == 255 && g == 255 && b ==255){
+            allMaxValues = true;
+        }
+        if (allMaxValues){
+            if (r > 0){
+                r--;
+            }else if (g > 0){
+                g--;
+            }else if (b > 0){
+                b--;
+            } else if (r ==0 && g ==0 && b == 0){
+                allMaxValues = false;
+            }
+        }
+
+
         draw();
 
     }
@@ -94,6 +124,7 @@ public class Leaderboard extends Canvas {
             if (utils.Utility.checkBounds(x, y,
                     menuButton.x, menuButton.y, menuButton.width, menuButton.height, true)) {
                 Canvas.stopBackgroundMusic();
+                SaxionApp.setBackgroundColor(backgroundColor);
                 switchToScreen(new Main());
             }
 
@@ -104,20 +135,11 @@ public class Leaderboard extends Canvas {
     }
 
     private void draw() {
-        SaxionApp.drawText("Leaderboard", Settings.width/3 + Settings.width/35, Settings.height/7 - Settings.height/10, 50);
+        SaxionApp.drawText("Leaderboard", Settings.width/2 - Settings.buttonWidth/2, Settings.height/7 - Settings.height/10, 50);
         for (int i = 0; i < 5; i++) {
             Score currentScore = scores.get(i);
-            if (i == 0){
-                SaxionApp.setTextDrawingColor(Color.yellow);
-            }else if (i == 1){
-                SaxionApp.setTextDrawingColor(Color.lightGray);
-            }else if (i == 2){
-                SaxionApp.setTextDrawingColor(new Color( 204, 102, 0));
-            }else {
-                SaxionApp.setTextDrawingColor(Color.gray);
-            }
             SaxionApp.drawText(currentScore.name, Settings.width/6, Settings.height/5+i*50, 50);
-            SaxionApp.drawText(String.valueOf(currentScore.highScore),(Settings.width/6)*5 - 50,Settings.height/5+i*50,50);
+            SaxionApp.drawText(String.valueOf(currentScore.highScore),(Settings.width/6)*5,Settings.height/5+i*50,50);
         }
 
         MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu");
