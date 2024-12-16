@@ -5,20 +5,32 @@ import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 import SideDraw.*;
 
+/** GAME CLASS
+ * New scene from the canvas class where every method that has to do with drawing, sounds, buttons, key pressing or mouse pushes
+ * */
+
 
 public class Game extends Canvas{
 
+    /** Calling gamebackend as gb for easiness of calling later in this file
+     * */
     public static GameBackend gb;
 
-    private boolean upKeyPressed;
-    private boolean rightKeyPressed;
-    private boolean leftKeyPressed;
-    public static int scoreCount;
-    public static int levelCount;
+    /** Private boolean values to check if a key is already pressed or not
+     * */
+    private boolean upKeyPressed, rightKeyPressed, leftKeyPressed;
 
+    /** Private integers to print the score and level, which get updated in a method further in the file
+     * */
+    public static int scoreCount, levelCount;
+
+    /** Making two new buttons (Restart and Quit), making a new MyButton() from our utils package
+     * */
     utils.MyButton restartButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
 
+    /** A String array with all the path names for the used songs while leveling up in the game itself.
+     * */
     private static final String[] tetrisLevelUpAudio = {
             ("resources/GameMusic/Theme(SelfMade)/Theme2.wav"),
             ("resources/GameMusic/Theme(SelfMade)/Theme3.wav"),
@@ -28,25 +40,17 @@ public class Game extends Canvas{
             ("resources/GameMusic/Theme(SelfMade)/Theme7.wav")
     };
 
-    /**
-     * Default constructor for the Game class.
-     * This constructor calls the superclass's constructor to initialize the game canvas.
-     */
-
+    /** Default constructor for this class
+     *  Has a super call for the class that it extends (Canvas)
+     *  Sets the called GameBackend variable to a new called GameBackend() class
+     * */
     public Game() {
         super();
         gb = new GameBackend();
-
     }
 
-    /**
-     * Initializes the restart and quit buttons with their positions and dimensions.
-     * This method sets the coordinates and sizes of the restart and quit buttons by
-     * calculating their positions relative to the canvas dimensions defined in the Settings class.
-     * The restart button is positioned at one-third of the canvas height, while the quit button is
-     * positioned at half the canvas height. Both buttons are placed at a quarter of the canvas width
-     * horizontally.
-     */
+    /** Method init
+     * */
     @Override
     public void init() {
         GameBackend.startGame();
