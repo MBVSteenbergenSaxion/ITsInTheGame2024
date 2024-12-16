@@ -8,8 +8,6 @@ import SideDraw.*;
 /** GAME CLASS
  * New scene from the canvas class where every method that has to do with drawing, sounds, buttons, key pressing or mouse pushes
  * */
-
-
 public class Game extends Canvas{
 
     /** Calling gamebackend as gb for easiness of calling later in this file
