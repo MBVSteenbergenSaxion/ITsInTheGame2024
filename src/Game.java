@@ -30,7 +30,7 @@ public class Game extends Canvas{
     /** A String array with all the path names for the used songs while leveling up in the game itself.
      * */
     private static final String[] tetrisLevelUpAudio = {
-            ("resources/GameMusic/Theme(SelfMade)/Theme2.wav"),
+            ("resources/GameMusic/Theme(SelfMade)/Theme2.wav"), //0
             ("resources/GameMusic/Theme(SelfMade)/Theme3.wav"),
             ("resources/GameMusic/Theme(SelfMade)/Theme4.wav"),
             ("resources/GameMusic/Theme(SelfMade)/Theme5.wav"),
@@ -64,6 +64,9 @@ public class Game extends Canvas{
         quitButton.height = SideSettings.getSideButtonHeight();
     }
 
+    /** LevelChangingMusic() changes the music based on the level,
+     *
+     * */
     public static void levelChangingMusic() {
         for (int i = 1; i < tetrisLevelUpAudio.length; i++) {
             if (levelCount == i) {

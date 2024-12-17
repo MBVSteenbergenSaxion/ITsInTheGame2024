@@ -248,6 +248,7 @@ public class GridDraw {
         SaxionApp.setFill(color);
         SaxionApp.drawRectangle(x,y, GridSettings.getBlockSize(), GridSettings.getBlockSize());
 
+
         SaxionApp.setBorderColor(color.darker());
         for(int i = 0; i < GridSettings.getShadowSize(); i++) {
             SaxionApp.drawLine(x + GridSettings.getBlockSize() - GridSettings.getShadowSize() + i, y, x + GridSettings.getBlockSize() - GridSettings.getShadowSize() + i, y + GridSettings.getBlockSize() - 1);
