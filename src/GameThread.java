@@ -94,4 +94,10 @@ public class GameThread extends Thread {
             Canvas.switchToScreen(new GameOver(scoreCounterThread));
         }
     }
+    public static void resetScore() {
+        scoreCounterThread = 0;
+        level = 0;
+        Game.levelCount = 0;
+        Game.scoreCount = 0;
+    }
 }
