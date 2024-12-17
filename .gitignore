@@ -146,3 +146,4 @@ replay_pid*
 out/production/Tetris/.idea/Tetris.iml
 resources/Leaderboard/scores.csv
 .env
+*.csv
