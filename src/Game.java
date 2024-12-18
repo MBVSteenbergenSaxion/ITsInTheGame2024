@@ -69,27 +69,12 @@ public class Game extends Canvas {
     }
 
     /**
-     * LevelChangingMusic() changes the music based on the level,
-     * It starts counting from 1 and checks with the level count and if the level is up then it equals to the next counter value,
-     * which updates the String array of the gameaudio to the next song.
-     */
-    public static void levelChangingMusic(int levelCount) {
-        for (int i = 1; i <= tetrisLevelUpAudio.length; i++) {
-            if (levelCount == i) {
-                Canvas.stopBackgroundMusic();
-                Canvas.playBackgroundMusic(tetrisLevelUpAudio[i - 1]);
-            }
-        }
-    }
-
-    /**
      * Loop()
      * Every gameloop the draw method is called.
      */
     public void loop() {
         draw();
     }
-
 
     /**
      * KeyBoardEvent(), combines a key of the keyboard to an action in the game
@@ -171,6 +156,28 @@ public class Game extends Canvas {
     }
 
     /**
+     * startAudioGame()
+     * Sets the start audio for the game as the first path of the possible audio's
+     */
+    public static void startAudioGame() {
+        Canvas.playBackgroundMusic(tetrisLevelUpAudio[0]);
+    }
+
+    /**
+     * LevelChangingMusic() changes the music based on the level,
+     * It starts counting from 1 and checks with the level count and if the level is up then it equals to the next counter value,
+     * which updates the String array of the gameaudio to the next song.
+     */
+    public static void levelChangingMusic(int levelCount) {
+        for (int i = 1; i <= tetrisLevelUpAudio.length; i++) {
+            if (levelCount == i) {
+                Canvas.stopBackgroundMusic();
+                Canvas.playBackgroundMusic(tetrisLevelUpAudio[i - 1]);
+            }
+        }
+    }
+
+    /**
      * draw()
      * Draws the game screen components. This method performs the following actions:
      * - Draws the restart and quit buttons with their specified properties.
@@ -181,13 +188,5 @@ public class Game extends Canvas {
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, SideSettings.getFontSize(), "Back to Menu");
 
         gb.checkToPaint();
-    }
-
-    /**
-     * startAudioGame()
-     * Sets the start audio for the game as the first path of the possible audio's
-     */
-    public static void startAudioGame() {
-        Canvas.playBackgroundMusic(tetrisLevelUpAudio[0]);
     }
 }
