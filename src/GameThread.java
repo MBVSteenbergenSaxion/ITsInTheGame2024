@@ -73,14 +73,13 @@ public class GameThread extends Thread {
     }
 
     private static void setLevel() {
-        Game.updateScore(scoreCounterThread);
         int lvl = scoreCounterThread / scorePerLevel + 1;
 
         if (level < 6) {
             if (lvl > level) {
 
                 level = lvl;
-                Game.updateLevel(level);
+                GameBackend.updateLevel(level);
                 gameSpeed -= speedUpPerLevel;
             }
         }

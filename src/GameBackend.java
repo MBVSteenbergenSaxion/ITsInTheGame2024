@@ -18,6 +18,10 @@ public class GameBackend {
     public static Block nextblock;
     public static Block currentblock;
 
+    /** Private integers to print the score and the level, which gets updated with the GridDraw class and GameThread class
+     * */
+    public static int scoreCount, levelCount;
+
     public GameBackend() {
 
         gd = new GridDraw(this);
@@ -62,7 +66,8 @@ public class GameBackend {
 
     public static void startGame() {
 
-        Game.scoreCount = 0;
+        scoreCount = 0;
+        levelCount = 1;
         gt.interrupt();
 
         SaxionApp.clear();
@@ -187,10 +192,18 @@ public class GameBackend {
         }
     }
 
+    /** updateLevel() gets updated by the GameThread class
+     * levelCount gets updated
+     * levelChangingMusic is called
+     * */
+    public static void updateLevel(int level) {
+        levelCount = level;
+        Game.levelChangingMusic(levelCount);
+    }
 
-    public void checkToPaint(int score, int level) {
+    public void checkToPaint() {
         if (gd != null) {
-            paintOnCanvasFromGD(score, level);
+            paintOnCanvasFromGD(scoreCount, levelCount);
         }
     }
 

@@ -77,7 +77,7 @@ public class GridDraw {
                 row++;
 
                 repaint();
-                Game.scoreCount++;
+                GameBackend.scoreCount++;
                 SaxionApp.playSound("resources/gameSounds/lineCompletion.wav");
             }
         }
