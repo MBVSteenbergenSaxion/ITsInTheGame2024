@@ -38,7 +38,7 @@ public class GameThread extends Thread {
             }
 
             GameBackend.spawnBlock();
-            nextBlockId = GameBackend.randomBlock;
+            nextBlockId = GameBackend.nextBlockId;
 
             while (GameBackend.moveBlockDown()) {
                 SaxionApp.clear();
