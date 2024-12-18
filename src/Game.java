@@ -114,7 +114,8 @@ public class Game extends Canvas {
                     }
                     break;
             }
-        } else {
+        }
+        else {
             // Handle key releases
             switch (keyboardEvent.getKeyCode()) {
                 case 38, 87: //ArrowUp or W
