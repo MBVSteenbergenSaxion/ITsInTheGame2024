@@ -312,7 +312,7 @@ public class GameBackend {
         gd.paint();
         sd.paint();
         sd.drawScore(scoreCount, levelCount);
-        sd.drawText();
+        sd.drawImage();
     }
 
     /** back2Main()

@@ -100,7 +100,7 @@ public class SideDraw {
 
     }
 
-    public void drawText() {
-
+    public void drawImage() {
+        SaxionApp.drawImage("resources/Images/tetris_controls.png", SideSettings.getStartNextPanelX(), SideSettings.getSideImageY(), SideSettings.getSideImageWidth(), SideSettings.getSideHeight());
     }
 }

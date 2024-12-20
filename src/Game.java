@@ -129,8 +129,7 @@ public class Game extends Canvas {
         }
     }
 
-    /**
-     * MouseEvent()
+    /** MouseEvent()
      * A integer of x and y are made, if the left-mouse-button is clicked then it sets the x and y to that current position.
      * If the x and y are in the box of the Quit or Restart button then one of these button is clicked and does something in GameBackend.
      */

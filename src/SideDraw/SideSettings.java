@@ -73,10 +73,20 @@ public class SideSettings {
         return getScoreY() + getOneFiftiethOfScreenHeight() * 3;
     }
 
-
-
     public static int getFontSize() {
         return (int) (getOneFiftiethOfScreenWidth() * 0.75);
+    }
+
+    public static int getSideImageY() {
+        return getLevelY() + getOneFiftiethOfScreenHeight() * 3;
+    }
+
+    public static int getSideImageWidth() {
+        return getWidthNextPanel();
+    }
+
+    public static int getSideHeight() {
+        return ((getSideImageWidth() * 2 ) / 3);
     }
 
 }
