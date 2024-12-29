@@ -1,32 +1,47 @@
 package Grid;
 
 import nl.saxion.app.SaxionApp;
-
 import java.awt.*;
-import java.util.ArrayList;
 
+/** Block class
+ * Defines a shape, with every shape defined as integers in the Shapes package which extends this class.
+ * The shapes gets defined in the GameBackend when the game starts.
+ * In this class the shape gets an x and y dimension, a color for the blocks that needs to be colored and the rotations
+ * */
 public class Block {
 
-    /**
-     * A predefined 2D array representing a specific block shape.
-     * The array consists of three rows and two columns, forming an L-shaped pattern.
-     * Each element in the array represents a part of the block, where 1 indicates a filled cell
-     * and 0 indicates an empty cell.
-     */
+    /** 2D-array for the rows and columns of a shape
+     * */
     private int[][] shape;
+
+    /** The color of the shape
+     * */
     public Color color;
+
+    /** The variable for the x and y of the shape
+     * */
     private int x,y;
+
+    /** The different calculated shapes per sort, gets calculated when the shapes are defined at the beginning.
+     * Every shape has 4 shapes with each a different rotation of 90 degrees
+     * */
     private int[][][] shapes;
+
+    /** The integer of 0, 1, 2, 3. Which is the current rotation of the shape.
+     * */
     private int currentRotation;
 
+    /** The constructor method from this class, which when called it has a shape with the x and y where the different rotations are calculated.
+     * */
     public Block(int[][] shape) {
         this.shape = shape;
-        this.color = color;
 
         initShapes();
     }
 
-    //Controls the shape with the rotations (4 rotations)
+    /** Calculates the four different rotations (shapes) of one shape.
+     * It iterates through the four integers and calculates how the next shape is going to be
+     * */
     private void initShapes() {
         shapes = new int[4][][];
 
@@ -46,6 +61,8 @@ public class Block {
         }
     }
 
+    /**
+     * */
     public void spawn(int rotation) {
         currentRotation = rotation;
         y = -getHeight();
