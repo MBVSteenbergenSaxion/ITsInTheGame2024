@@ -61,6 +61,16 @@ public class Block {
         }
     }
 
+    /** Sets the new rotation of the shape when called. It gets a next integer, when its more then 3 it becomes 0 again.
+     * */
+    public void rotate() {
+        currentRotation++;
+        if (currentRotation > 3) {
+            currentRotation = 0;
+        }
+        shape = shapes[currentRotation];
+    }
+
     /** Spawns the shape on GameGrid
      * It gets the current given rotation at the beginning, it spawns right above the first row of the grid and on a random column.
      * */
@@ -145,16 +155,6 @@ public class Block {
      * */
     public void moveRight() {
         x++;
-    }
-
-    /** Sets the new rotation of the shape when called. It gets a next integer, when its more then 3 it becomes 0 again.
-     * */
-    public void rotate() {
-        currentRotation++;
-        if (currentRotation > 3) {
-            currentRotation = 0;
-        }
-        shape = shapes[currentRotation];
     }
 
     /** Returns the bottom block of the shape
