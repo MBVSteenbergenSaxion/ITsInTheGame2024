@@ -36,13 +36,16 @@ public class Leaderboard extends Canvas {
 
     @Override
     public void init() {
-
+/***
+ *  game tries to load CSV file from SFTP server to display scores, if it cannot communicate it loads the local scoreboard
+ *  defines button attributes
+ */
         Canvas.stopBackgroundMusic();
         Canvas.playBackgroundMusic(filePath);
 
         fileName = "resources/Leaderboard/scores.csv";
 
-        if(Main.env != null){
+        if (Main.env != null) {
             try {
                 SFTP.downloadFile(Main.env.get("USER"),
                         Main.env.get("PASS"),
@@ -72,38 +75,50 @@ public class Leaderboard extends Canvas {
 
 
     }
+
     private int r = 0;
     private int g = 0;
     private int b = 0;
     private boolean allMaxValues = false;
+
     @Override
 
 
     public void loop() {
-        SaxionApp.setBackgroundColor(new Color(r,g,b));
-        if (r < 255 && !allMaxValues){
+        /***
+         * changes the background color from rgb: 0,0,0 to 255,0,0 until it hits 255,255,255 and then stats counting down
+         * once at 0 again this gets repeated.
+         * this is checked every frame
+         */
+        SaxionApp.setBackgroundColor(new Color(r, g, b));
+        if (r < 255 && !allMaxValues) {
             r++;
-        } else if (g < 255 && !allMaxValues){
+        } else if (g < 255 && !allMaxValues) {
             g++;
-        }else if (b < 255 && !allMaxValues) {
+        } else if (b < 255 && !allMaxValues) {
             b++;
         }
-        if (r == 255 && g == 255 && b ==255){
+        if (r == 255 && g == 255 && b == 255) {
             allMaxValues = true;
         }
-        if (allMaxValues){
-            if (r > 0){
+        if (allMaxValues) {
+            if (r > 0) {
                 r--;
-            }else if (g > 0){
+            } else if (g > 0) {
                 g--;
-            }else if (b > 0){
+            } else if (b > 0) {
                 b--;
-            } else if (r ==0 && g ==0 && b == 0){
+            } else if (r == 0 && g == 0 && b == 0) {
                 allMaxValues = false;
             }
         }
-
-
+//    int random = SaxionApp.getRandomValueBetween(0,2);
+//    if (random == 1){
+//        SaxionApp.setBackgroundColor(Color.black);
+//    }
+//    if (random == 0){
+//        SaxionApp.setBackgroundColor(Color.white);
+//    }
         draw();
 
     }
@@ -135,9 +150,9 @@ public class Leaderboard extends Canvas {
                     menuButton.x, menuButton.y, menuButton.width, menuButton.height, true)) {
                 Canvas.stopBackgroundMusic();
                 SaxionApp.setBackgroundColor(backgroundColor);
-                if(Main.env != null) {
-                    if(fileName.equals("temp/scores.csv")){
-                        if(CsvFile.delete()){
+                if (Main.env != null) {
+                    if (fileName.equals("temp/scores.csv")) {
+                        if (CsvFile.delete()) {
                             System.out.println("Deleted");
                         }
                     }
@@ -149,15 +164,19 @@ public class Leaderboard extends Canvas {
 
     }
 
+    /***
+     * draws the leaderboard with the top 5 scores from the loaded leaderboard
+     *
+     */
     private void draw() {
-        SaxionApp.drawText("Leaderboard", Settings.width/2 - Settings.buttonWidth/2, Settings.height/7 - Settings.height/10, 50);
+        SaxionApp.drawText("Leaderboard", Settings.width / 2 - Settings.buttonWidth / 2, Settings.height / 7 - Settings.height / 10, 50);
         for (int i = 0; i < 5; i++) {
             Score currentScore = scores.get(i);
-            SaxionApp.drawText(currentScore.name, Settings.width/6, Settings.height/5+i*50, 50);
-            SaxionApp.drawText(String.valueOf(currentScore.highScore),(Settings.width/6)*5,Settings.height/5+i*50,50);
+            SaxionApp.drawText(currentScore.name, Settings.width / 6, Settings.height / 5 + i * 50, 50);
+            SaxionApp.drawText(String.valueOf(currentScore.highScore), (Settings.width / 6) * 5, Settings.height / 5 + i * 50, 50);
         }
 
-        MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu");
+        MyButton.drawButton(menuButton.x, menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu");
     }
 
 }

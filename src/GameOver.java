@@ -67,6 +67,10 @@ public class GameOver extends Canvas{
 
     }
 
+    /**
+     * reads the keyboard input for writing a name down, length is capped to 8 characters
+     *
+     */
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
 
@@ -91,7 +95,9 @@ public class GameOver extends Canvas{
 
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
-
+/**
+ * listens to if there was a button pressed.
+ */
         int x, y;
 
         if (mouseEvent.isLeftMouseButton()) {
@@ -132,6 +138,10 @@ public class GameOver extends Canvas{
     }
 
 private void submitScores() throws IOException, JSchException, SftpException {
+    /**
+     * capitalizes whatever username has been entered before sending it to SFTP.
+     */
+
     String userName = new String();
     for (int i = 0; i < keyboardInput.size(); i++){
         userName += keyboardInput.get(i);
