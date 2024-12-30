@@ -269,8 +269,8 @@ public class GridDraw {
         SaxionApp.setFill(Canvas.getColor());
         for (int col = 0; col < GridSettings.width; col++) {
             for (int row = 0; row < GridSettings.height; row++) {
-                int x = col * gridCellSize + GridSettings.getStartPanelX();
-                int y = row * gridCellSize + GridSettings.getStartPanelY();
+                int x = col * GridSettings.getBlockSize() + GridSettings.getStartPanelX();
+                int y = row * GridSettings.getBlockSize() + GridSettings.getStartPanelY();
                 SaxionApp.drawRectangle(x, y, GridSettings.getBlockSize(), GridSettings.getBlockSize());
 
                 //SaxionApp.drawLine(GridSettings.startPanelX, y * GridSettings.getBlockSize() + GridSettings.startPanelY, GridSettings.width * GridSettings.getBlockSize() + GridSettings.startPanelX, y * GridSettings.getBlockSize() + GridSettings.startPanelY);
