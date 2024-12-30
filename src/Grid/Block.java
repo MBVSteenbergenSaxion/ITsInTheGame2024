@@ -61,7 +61,8 @@ public class Block {
         }
     }
 
-    /**
+    /** Spawns the shape on GameGrid
+     * It gets the current given rotation at the beginning, it spawns right above the first row of the grid and on a random column.
      * */
     public void spawn(int rotation) {
         currentRotation = rotation;
@@ -71,6 +72,8 @@ public class Block {
         shape = shapes[currentRotation];
     }
 
+    /** Let the nextpiece spawn on the SideGrid, it spawns on the 0,0 coördinates and sets it to the last rotation of the shape.
+     * */
     public void nextSpawn() {
         y = 0;
         x = 0;
@@ -78,53 +81,74 @@ public class Block {
         shape = shapes[3];
     }
 
+    /** Returns the 2D shape when method is called.
+     * */
     public int[][] getShape() {
         return shape;
     }
 
+    /** Returns the current color of the shape, when method is called
+     * */
     public Color getColor() {
         return color;
     }
 
+    /** Returns the amount of rows of the shape (The Height)
+     * */
     public int getHeight() {
         return shape.length;
     }
 
+    /** Returns the amount of columns of the shape (The Width)
+     * */
     public int getWidth() {
         return shape[0].length;
     }
 
+    /** Returns the current X-Coordinate of the shape
+     * */
     public int getX(){
         return x;
     }
 
+    /** Sets the X-Coordinate with the given new X
+     * */
     public void setX(int newX){
         x = newX;
     }
 
+    /** Returns the Y-Coordinate of the shape
+     * */
     public int getY() {
         return y;
     }
 
+    /** Sets the Y-Coordinate with the given new Y
+     * */
     public void setY(int newY){
         y = newY;
     }
 
+    /** Moves the shape a grid block down
+     * */
     public void moveDown() {
         y++;
     }
 
+    /** Moves the shape a grid block to the left
+     * */
     public void moveLeft() {
         x--;
     }
 
+    /** Moves the shape a grid block to the right
+     * */
     public void moveRight() {
         x++;
     }
 
-    //2 sorts of array, array 1 has the same amount of columns (width) as array 2 has rows
-    //AND where array 1 has the same amount of rows (height) as array 2 has columns (You rotate the block 90 degrees)
-    //ALSO the column of array 1 equals to the row of array 2
+    /** Sets the new rotation of the shape when called. It gets a next integer, when its more then 3 it becomes 0 again.
+     * */
     public void rotate() {
         currentRotation++;
         if (currentRotation > 3) {
@@ -133,6 +157,8 @@ public class Block {
         shape = shapes[currentRotation];
     }
 
+    /** Returns the
+     * */
     public int getBottomEdge() {
         return y + getHeight();
     }
