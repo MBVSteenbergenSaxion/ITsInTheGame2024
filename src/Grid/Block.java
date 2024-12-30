@@ -157,16 +157,23 @@ public class Block {
         shape = shapes[currentRotation];
     }
 
-    /** Returns the
+    /** Returns the bottom block of the shape
+     * This means the Y coordinate of the shape with the amount of rows of the shape
      * */
     public int getBottomEdge() {
         return y + getHeight();
     }
 
+    /** Returns the most right block of the shape
+     * This means the X coordinate of the shape with the amount columns of the shape
+     * */
     public int getRightEdge() {
         return x + getWidth();
     }
 
+    /** Returns the most left block of the shape
+     * This means the X coordinate of the shape
+     * */
     public int getLeftEdge() {
         return x;
     }
