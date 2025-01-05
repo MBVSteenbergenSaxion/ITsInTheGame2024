@@ -8,7 +8,7 @@ import Grid.GridSettings;
 import Shapes.*;
 
 /** GameBackend
- * Gets every variable that is needed to make game to function or calls methods from other classes or calls a new ClassObject
+ * Gets every variable needed to make game to function or calls methods from other classes or calls a new ClassObject
  * It makes the Game class function
  * */
 public class GameBackend {
