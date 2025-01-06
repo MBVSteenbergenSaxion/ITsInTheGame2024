@@ -1,44 +1,62 @@
 import nl.saxion.app.SaxionApp;
 
+/** Class GameThread extends Thread, makes a new gameloop for the game.
+ * The gameloop of the SaxionApp we use for the animation/hover.
+ * This thread we use for the game itself which gets refreshed way less than the gameloop of the SaxionApp.
+ * */
 public class GameThread extends Thread {
 
-    private static GridDraw gridDraw;
+    /** Variable for using the GridDraw
+     * */
+    private static GridDraw gd;
+
+    /** volatile?
+     * boolean running, true or false if the game is started or ended
+     * */
     public volatile boolean running;
-    public volatile boolean paused;
+
+    /** boolean draw, true or false if the game still needs to draw or not
+     * */
     static boolean draw;
-    private static int scoreCounterThread, level, scorePerLevel, gameSpeed, speedUpPerLevel;
 
-    public int nextBlockId;
+    /** integer for score counter, level counter, the score it takes to level up,
+     * the game speed and the number of milliseconds it will go faster every level up.
+     * */
+    private static int scoreCounterThread, levelCounterThread, scorePerLevel, gameSpeed, speedUpPerLevel;
 
-    public GameThread(GridDraw gridDraw) {
-        GameThread.gridDraw = gridDraw;
+
+    /** Constructor method
+     * @param gd sets the grid draw method with given class when the method is called.
+     * Sets the starting settings.
+     * */
+    public GameThread(GridDraw gd) {
+        GameThread.gd = gd;
         running = true;
-        paused = false;
         draw = true;
+        scoreCounterThread = 0;
         scorePerLevel = 2;
-        level = 1;
+        levelCounterThread = 1;
         gameSpeed = 1000;
         speedUpPerLevel = 150;
     }
 
+    /** Void run(), the run method for this Thread. This thread just does the run method over and over again until the while loop is set to false.
+     * It sets the next piece,
+     * it spawns a block which is the already created next piece, and it makes a new next piece.
+     * It moves the shape down and clears the screen every loop. It sleeps every amount of game speed so it doesn't fall down immediately at once.
+     * It checks if the player isn't game over.
+     * It moves the shape to the background of the game grid.
+     * It updates the score counter, and it sets the level.
+     * */
     @Override
     public void run() {
 
         GameBackend.setNextPiece();
 
         while (running) {
-            synchronized (this) {
-                while (paused) {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        return;
-                    }
-                }
-            }
+
 
             GameBackend.spawnBlock();
-            nextBlockId = GameBackend.nextBlockId;
 
             while (GameBackend.moveBlockDown()) {
                 SaxionApp.clear();
@@ -51,42 +69,36 @@ public class GameThread extends Thread {
 
             ifGameOver();
 
-            gridDraw.moveBlockToBackground();
-            scoreCounterThread += gridDraw.clearLineCheck();
+            gd.moveBlockToBackground();
+            scoreCounterThread += gd.clearLineCheck();
 
             setLevel();
         }
     }
 
-    public synchronized void pauseGame() {
-        paused = true;
-    }
-
-    public synchronized void resumeGame() {
-        paused = false;
-        notify();
-    }
-
-    public void stopGame() {
-        running = false;
-        interrupt();
-    }
-
+    /** Static void setLevel(), levels up the game and the counter if the player is level up.
+     * The game has a maximum of five levels.
+     * The gamespeed is updated with the current speed subtracted with the speedup speed per level.
+     * */
     private static void setLevel() {
-        int lvl = scoreCounterThread / scorePerLevel + 1;
+        int level = scoreCounterThread / scorePerLevel + 1;
 
-        if (level < 6) {
-            if (lvl > level) {
+        if (levelCounterThread < 6) {
+            if (level > levelCounterThread) {
 
-                level = lvl;
-                GameBackend.updateLevel(level);
+                levelCounterThread = level;
+                GameBackend.updateLevel(levelCounterThread);
                 gameSpeed -= speedUpPerLevel;
             }
         }
     }
 
+    /** Static void ifGameOver(), checks if the player is gameover.
+     * If the player is gameover then there can’t be drawn anymore, the called classes are set to null,
+     * and it switches the screen to the gameover screen.
+     * */
     private static void ifGameOver() {
-        if(gridDraw.isBlockOutOfBounds()) {
+        if(gd.isBlockOutOfBounds()) {
             draw = false;
             GameBackend.gd = null;
             GameBackend.gt = null;
