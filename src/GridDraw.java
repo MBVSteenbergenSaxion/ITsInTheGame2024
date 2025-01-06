@@ -258,6 +258,9 @@ public class GridDraw {
     }
 
     /** Static void drawBlock(color, x, y), draws the blocks with the color and a shadow around it.
+     * @param color, for the color given with the calling of this method. This is or the background color of the canvas or the color of the shape.
+     * @param x, for the x coordinate where a block needs to be drawn on.
+     * @param y, for the y coordinate where a block needs to be drawn on.
      * First: set the border color to the brighter color of the block.
      * Set the fill color as the give color and draw a rectangle on the x and y with the block sizes.
      * *
