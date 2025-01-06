@@ -107,8 +107,8 @@ public class GameThread extends Thread {
     }
     public static void resetScore() {
         scoreCounterThread = 0;
-        level = 0;
-        Game.levelCount = 0;
-        Game.scoreCount = 0;
+        levelCounterThread = 0;
+        GameBackend.levelCount = 0;
+        GameBackend.scoreCount = 0;
     }
 }
