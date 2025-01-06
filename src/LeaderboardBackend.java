@@ -9,7 +9,10 @@ import Leaderboard.*;
 import nl.saxion.app.CsvReader;
 
 public class LeaderboardBackend {
-
+    /**
+     * creates arraylist getScotes from the class Score from reading the local or taken from SFTP server csv file with scores
+     *
+     */
     public static ArrayList<Score> getScores(String CsvFile) throws FileNotFoundException {
         ArrayList<Score> scores = new ArrayList<>();
         CsvReader csvreader = new CsvReader(CsvFile);
@@ -25,6 +28,10 @@ public class LeaderboardBackend {
         return scores;
     }
 
+    /**
+     * Sorts the Scores from the arraylist with Scores from high to low
+     *
+     */
     private static void sortScores(ArrayList<Score> scoreSort) {
         int n = scoreSort.size();
 
@@ -40,6 +47,12 @@ public class LeaderboardBackend {
         }
     }
 
+    /**
+     * this method gets used when the game cannot communicate with the SFTP server
+     * it writes the csv to a local directory
+     * if the username is empty that was entered in the gameover screen it goes to the standard "Username"
+     *
+     */
     public static void writeToCSVOffline(String[] score) throws IOException {
 
         File CSVFile = new File("resources/Leaderboard/scores.csv");
@@ -57,7 +70,10 @@ public class LeaderboardBackend {
     }
 
     public static void writeToCSVOnline(String[] score) throws IOException, JSchException, SftpException {
-
+/**
+ * if the game does find a way to communicate with the SFTP it downloads it and then adds the current score with name to the server
+ *
+ */
         String username = Main.env.get("USER");
         String password = Main.env.get("PASS");
         String ip = Main.env.get("IP");

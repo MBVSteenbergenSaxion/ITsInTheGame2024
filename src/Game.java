@@ -1,26 +1,36 @@
-import Grid.GridSettings;
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 import SideDraw.*;
 
+/**
+ * GAME CLASS
+ * New scene from the canvas class where every method that has to do with drawing, sounds, buttons, key pressing or mouse pushes
+ */
+public class Game extends Canvas {
 
-public class Game extends Canvas{
-
+    /**
+     * Calling gamebackend as gb for easiness of calling later in this file
+     */
     public static GameBackend gb;
 
-    private boolean upKeyPressed;
-    private boolean rightKeyPressed;
-    private boolean leftKeyPressed;
-    public static int scoreCount;
-    public static int levelCount;
+    /**
+     * Private boolean values to check if a key is already pressed or not
+     */
+    private boolean upKeyPressed, rightKeyPressed, leftKeyPressed;
 
+    /**
+     * Making two new buttons (Restart and Quit), making a new MyButton() from our utils package
+     */
     utils.MyButton restartButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
 
+    /**
+     * A String array with all the path names for the used songs while leveling up in the game itself.
+     */
     private static final String[] tetrisLevelUpAudio = {
-            ("resources/GameMusic/Theme(SelfMade)/Theme2.wav"),
+            ("resources/GameMusic/Theme(SelfMade)/Theme2.wav"), //0
             ("resources/GameMusic/Theme(SelfMade)/Theme3.wav"),
             ("resources/GameMusic/Theme(SelfMade)/Theme4.wav"),
             ("resources/GameMusic/Theme(SelfMade)/Theme5.wav"),
@@ -29,23 +39,19 @@ public class Game extends Canvas{
     };
 
     /**
-     * Default constructor for the Game class.
-     * This constructor calls the superclass's constructor to initialize the game canvas.
+     * Default constructor for this class
+     * Has a super call for the class that it extends (Canvas)
+     * Sets the called GameBackend variable to a new called GameBackend() class
      */
-
     public Game() {
         super();
         gb = new GameBackend();
-
     }
 
     /**
-     * Initializes the restart and quit buttons with their positions and dimensions.
-     * This method sets the coordinates and sizes of the restart and quit buttons by
-     * calculating their positions relative to the canvas dimensions defined in the Settings class.
-     * The restart button is positioned at one-third of the canvas height, while the quit button is
-     * positioned at half the canvas height. Both buttons are placed at a quarter of the canvas width
-     * horizontally.
+     * Method init
+     * Calls te startGame() from GameBackend so that the game starts
+     * Makes the buttons for on the GameScene
      */
     @Override
     public void init() {
@@ -62,30 +68,22 @@ public class Game extends Canvas{
         quitButton.height = SideSettings.getSideButtonHeight();
     }
 
-    public static void levelChangingMusic() {
-        for (int i = 1; i < tetrisLevelUpAudio.length; i++) {
-            if (levelCount == i) {
-                Canvas.stopBackgroundMusic();
-                Canvas.playBackgroundMusic(tetrisLevelUpAudio[i - 1]);
-            }
-        }
-    }
-
     /**
-     * Executes the game loop by invoking the `draw` method.
-     * This method is a placeholder for the game's main loop which should ideally
-     * handle periodic updates, such as moving game elements and rendering the
-     * game screen. Currently, it only calls the `draw` method to render the game
-     * screen components.
-     * Note: The commented-out code suggests that the movement logic for the game
-     * elements should reside in a separate game thread. For more information,
-     * refer to the `gamethread` documentation.
+     * Loop()
+     * Every gameloop the draw method is called.
      */
     public void loop() {
         draw();
     }
 
-
+    /**
+     * KeyBoardEvent(), combines a key of the keyboard to an action in the game
+     * If the right-arrow-key or the letter 'D' is pressed then the block moves one square to the right, it sets the pressed boolean to true and sets it immediately back to false by the gameloop, this is made so you can press it only once per movement.
+     * If the left-arrow-key or the letter 'A' is pressed then the block moves one square to the left, it sets the pressed boolean to true and sets it immediately back to false by the gameloop, this is made so you can press it only once per movement.
+     * If the up-arrow-key or the letter 'W' is pressed then the block rotates once, it sets the pressed boolean to true and sets it immediately back to false by the gameloop, this is made so you can press it only once per movement.
+     * If the down-arrow-key or the letter 'S' is pressed then the block drops immediately down.
+     * For every movement left, right or a rotation the game makes a sound
+     */
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
         if (keyboardEvent.isKeyPressed()) {
@@ -116,7 +114,8 @@ public class Game extends Canvas{
                     }
                     break;
             }
-        } else {
+        }
+        else {
             // Handle key releases
             switch (keyboardEvent.getKeyCode()) {
                 case 38, 87: //ArrowUp or W
@@ -130,12 +129,9 @@ public class Game extends Canvas{
         }
     }
 
-    /**
-     * Handles mouse events, primarily focusing on the left mouse button.
-     * If the left mouse button is clicked within the bounds of the 'quitButton',
-     * it triggers a screen switch to the main menu.
-     *
-     * @param mouseEvent the MouseEvent object that contains information about the mouse event
+    /** MouseEvent()
+     * A integer of x and y are made, if the left-mouse-button is clicked then it sets the x and y to that current position.
+     * If the x and y are in the box of the Quit or Restart button then one of these button is clicked and does something in GameBackend.
      */
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
@@ -161,31 +157,38 @@ public class Game extends Canvas{
         }
     }
 
-    public static void updateScore(int score) {
-        scoreCount = score;
-    }
-
-    public static void updateLevel(int level) {
-        levelCount = level;
-        levelChangingMusic();
+    /**
+     * startAudioGame()
+     * Sets the start audio for the game as the first path of the possible audio's
+     */
+    public static void startAudioGame() {
+        Canvas.playBackgroundMusic(tetrisLevelUpAudio[0]);
     }
 
     /**
+     * LevelChangingMusic() changes the music based on the level,
+     * It starts counting from 1 and checks with the level count and if the level is up then it equals to the next counter value,
+     * which updates the String array of the gameaudio to the next song.
+     */
+    public static void levelChangingMusic(int levelCount) {
+        for (int i = 1; i <= tetrisLevelUpAudio.length; i++) {
+            if (levelCount == i) {
+                Canvas.stopBackgroundMusic();
+                Canvas.playBackgroundMusic(tetrisLevelUpAudio[i - 1]);
+            }
+        }
+    }
+
+    /**
+     * draw()
      * Draws the game screen components. This method performs the following actions:
-     *  - Draws the restart and quit buttons with their specified properties.
-     *  - Initializes a grid drawing object and draws the game grid.
-     *  - Calls the spawnBlock method to introduce a new block into the game.
-     *  - Draws the newly spawned block on the screen with the specified color.
+     * - Draws the restart and quit buttons with their specified properties.
+     * - Calls the GameBackend checks to paint method which draws everything further in that class.
      */
     private void draw() {
         MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, SideSettings.getFontSize(), "Restart Game");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, SideSettings.getFontSize(), "Back to Menu");
 
-        gb.checkToPaint(scoreCount, levelCount);
-    }
-
-
-        public static void startAudioGame() {
-        Canvas.playBackgroundMusic(tetrisLevelUpAudio[0]);
+        gb.checkToPaint();
     }
 }

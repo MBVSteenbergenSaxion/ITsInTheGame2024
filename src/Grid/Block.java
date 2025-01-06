@@ -1,32 +1,47 @@
 package Grid;
 
 import nl.saxion.app.SaxionApp;
-
 import java.awt.*;
-import java.util.ArrayList;
 
+/** Block class
+ * Defines a shape, with every shape defined as integers in the Shapes package which extends this class.
+ * The shapes gets defined in the GameBackend when the game starts.
+ * In this class the shape gets an x and y dimension, a color for the blocks that needs to be colored and the rotations
+ * */
 public class Block {
 
-    /**
-     * A predefined 2D array representing a specific block shape.
-     * The array consists of three rows and two columns, forming an L-shaped pattern.
-     * Each element in the array represents a part of the block, where 1 indicates a filled cell
-     * and 0 indicates an empty cell.
-     */
+    /** 2D-array for the rows and columns of a shape
+     * */
     private int[][] shape;
+
+    /** The color of the shape
+     * */
     public Color color;
+
+    /** The variable for the x and y of the shape
+     * */
     private int x,y;
+
+    /** The different calculated shapes per sort, gets calculated when the shapes are defined at the beginning.
+     * Every shape has 4 shapes with each a different rotation of 90 degrees
+     * */
     private int[][][] shapes;
+
+    /** The integer of 0, 1, 2, 3. Which is the current rotation of the shape.
+     * */
     private int currentRotation;
 
+    /** The constructor method from this class, which when called it has a shape with the x and y where the different rotations are calculated.
+     * */
     public Block(int[][] shape) {
         this.shape = shape;
-        this.color = color;
 
         initShapes();
     }
 
-    //Controls the shape with the rotations (4 rotations)
+    /** Calculates the four different rotations (shapes) of one shape.
+     * It iterates through the four integers and calculates how the next shape is going to be
+     * */
     private void initShapes() {
         shapes = new int[4][][];
 
@@ -46,68 +61,8 @@ public class Block {
         }
     }
 
-    public void spawn(int rotation) {
-        currentRotation = rotation;
-        y = -getHeight();
-        x = SaxionApp.getRandomValueBetween(0, GridSettings.width - getWidth() -1);
-
-        shape = shapes[currentRotation];
-    }
-
-    public void nextSpawn() {
-        y = 0;
-        x = 0;
-
-        shape = shapes[3];
-    }
-
-    public int[][] getShape() {
-        return shape;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public int getHeight() {
-        return shape.length;
-    }
-
-    public int getWidth() {
-        return shape[0].length;
-    }
-
-    public int getX(){
-        return x;
-    }
-
-    public void setX(int newX){
-        x = newX;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int newY){
-        y = newY;
-    }
-
-    public void moveDown() {
-        y++;
-    }
-
-    public void moveLeft() {
-        x--;
-    }
-
-    public void moveRight() {
-        x++;
-    }
-
-    //2 sorts of array, array 1 has the same amount of columns (width) as array 2 has rows
-    //AND where array 1 has the same amount of rows (height) as array 2 has columns (You rotate the block 90 degrees)
-    //ALSO the column of array 1 equals to the row of array 2
+    /** Sets the new rotation of the shape when called. It gets a next integer, when its more then 3 it becomes 0 again.
+     * */
     public void rotate() {
         currentRotation++;
         if (currentRotation > 3) {
@@ -116,14 +71,109 @@ public class Block {
         shape = shapes[currentRotation];
     }
 
+    /** Spawns the shape on GameGrid
+     * It gets the current given rotation at the beginning, it spawns right above the first row of the grid and on a random column.
+     * */
+    public void spawn(int rotation) {
+        currentRotation = rotation;
+        y = -getHeight();
+        x = SaxionApp.getRandomValueBetween(0, GridSettings.width - getWidth() -1);
+
+        shape = shapes[currentRotation];
+    }
+
+    /** Let the nextpiece spawn on the SideGrid, it spawns on the 0,0 coördinates and sets it to the last rotation of the shape.
+     * */
+    public void nextSpawn() {
+        y = 0;
+        x = 0;
+
+        shape = shapes[3];
+    }
+
+    /** Returns the 2D shape when method is called.
+     * */
+    public int[][] getShape() {
+        return shape;
+    }
+
+    /** Returns the current color of the shape, when method is called
+     * */
+    public Color getColor() {
+        return color;
+    }
+
+    /** Returns the amount of rows of the shape (The Height)
+     * */
+    public int getHeight() {
+        return shape.length;
+    }
+
+    /** Returns the amount of columns of the shape (The Width)
+     * */
+    public int getWidth() {
+        return shape[0].length;
+    }
+
+    /** Returns the current X-Coordinate of the shape
+     * */
+    public int getX(){
+        return x;
+    }
+
+    /** Sets the X-Coordinate with the given new X
+     * */
+    public void setX(int newX){
+        x = newX;
+    }
+
+    /** Returns the Y-Coordinate of the shape
+     * */
+    public int getY() {
+        return y;
+    }
+
+    /** Sets the Y-Coordinate with the given new Y
+     * */
+    public void setY(int newY){
+        y = newY;
+    }
+
+    /** Moves the shape a grid block down
+     * */
+    public void moveDown() {
+        y++;
+    }
+
+    /** Moves the shape a grid block to the left
+     * */
+    public void moveLeft() {
+        x--;
+    }
+
+    /** Moves the shape a grid block to the right
+     * */
+    public void moveRight() {
+        x++;
+    }
+
+    /** Returns the bottom block of the shape
+     * This means the Y coordinate of the shape with the amount of rows of the shape
+     * */
     public int getBottomEdge() {
         return y + getHeight();
     }
 
+    /** Returns the most right block of the shape
+     * This means the X coordinate of the shape with the amount columns of the shape
+     * */
     public int getRightEdge() {
         return x + getWidth();
     }
 
+    /** Returns the most left block of the shape
+     * This means the X coordinate of the shape
+     * */
     public int getLeftEdge() {
         return x;
     }

@@ -1,3 +1,7 @@
+/**
+ * Import necessary packages
+ */
+
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import nl.saxion.app.SaxionApp;
@@ -8,11 +12,14 @@ import nl.saxion.app.interaction.MouseEvent;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Subclass Main from superclass Canvas
+ */
+
 public class Main extends Canvas{
 
-    /***
-     * Initialize buttons and add their attributes (see MyButton class for the drawing methods)
-     *
+    /**
+     * super() invokes the constructor of the Canvas class
      */
 
     public Main(){
@@ -20,6 +27,10 @@ public class Main extends Canvas{
     }
 
     public static Map<String, String> env;
+
+    /**
+     * Initialize buttons and add their attributes (see MyButton class for the drawing methods)
+     */
 
     utils.MyButton gameButton = new MyButton();
     utils.MyButton leaderBoardButton = new MyButton();
@@ -55,33 +66,32 @@ public class Main extends Canvas{
         quitButton.y = (int) (Settings.height * 0.8);
         quitButton.width = Settings.buttonWidth;
         quitButton.height = Settings.buttonHeight;
-
-
     }
+
     /**
      * Calls the Draw method every frame
      * */
+
     @Override
     public void loop() {
         draw();
-
     }
+
+    /**
+     * (Unused) keyboardEvent method provided by Saxion template
+     */
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
 
     }
 
+    /**
+     * mouseEvent method containing the main menu button listeners
+     */
+
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
-
-        /***
-         * Main menu button listeners
-         *
-         * 18-11-2024, quit button is self-explanatory
-         *
-         */
-
 
         int x, y;
 
@@ -111,9 +121,7 @@ public class Main extends Canvas{
                 Canvas.stopBackgroundMusic();
                 switchToScreen(new Leaderboard());
             }
-
         }
-
     }
 
     /**
@@ -129,8 +137,11 @@ public class Main extends Canvas{
         SaxionApp.drawImage("resources/Images/eagle_right.jpg", Settings.width - Settings.width / 3, 0, Settings.width / 3, Settings.height);
         SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
         SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
-
     }
+
+    /**
+     * loadEnv method to load the .env file which contains credentials for access to the SFTP server
+     */
 
     private void loadEnv(){
         if(env == null){
@@ -142,8 +153,3 @@ public class Main extends Canvas{
         }
     }
 }
-
-
-
-
-

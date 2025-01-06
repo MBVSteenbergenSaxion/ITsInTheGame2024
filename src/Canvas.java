@@ -1,3 +1,7 @@
+/**
+ * Import necessary packages
+ */
+
 import Grid.GridSettings;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.interaction.GameLoop;
@@ -15,14 +19,22 @@ import java.io.File;
 import java.io.IOException;
 
 public class Canvas implements GameLoop {
+
+    /**
+     * Initializes activeCavas, backgroundMusic, mouse event time tracker and backgroundColor
+     */
+
     public static Canvas activeCanvas;
     private static Clip backgroundMusic;
     private static long lastMouseEventTime = 0;
-
     public static Color backgroundColor = SaxionApp.createColor(0, 0, 128);
 
     public Canvas() {
     }
+
+    /**
+     * playBackgroundMusic method to start playing music
+     */
 
     public static void playBackgroundMusic(String filePath) {
         try {
@@ -53,12 +65,25 @@ public class Canvas implements GameLoop {
         }
     }
 
+    /**
+     * stopBackgroundMusic method to stop the music
+     */
+
     public static void stopBackgroundMusic() {
         if (backgroundMusic != null && backgroundMusic.isRunning()) {
             backgroundMusic.stop();
             backgroundMusic.close();
         }
     }
+
+
+    /**
+     * - Sets up a canvas
+     * - Initializes the activeCanvas as Main()
+     * - Starts the game loop with info from the settings Class
+     * - Adds a component listener to monitor window changes
+     * - Resizes window on changes
+     */
 
     public static void main(String[] args) {
         Canvas mainApp = new Canvas();
@@ -84,6 +109,10 @@ public class Canvas implements GameLoop {
         });
     }
 
+    /**
+     * switchToScreen method to switch to a different screen / game scene
+     */
+
     public static void switchToScreen(Canvas newScreen) {
         SaxionApp.clear();
 
@@ -91,6 +120,10 @@ public class Canvas implements GameLoop {
         activeCanvas.init();
         activeCanvas.loop();
     }
+
+    /**
+     * Calls customizeScreen method, initializes errors and sets backgroundColor
+     */
 
     @Override
     public void init() {
@@ -106,6 +139,10 @@ public class Canvas implements GameLoop {
         SaxionApp.setBackgroundColor(backgroundColor);
     }
 
+    /**
+     * Loops active canvas
+     */
+
     @Override
     public void loop() {
         if (activeCanvas != null) {
@@ -113,12 +150,20 @@ public class Canvas implements GameLoop {
         }
     }
 
+    /**
+     * Tracks keyboard events and passes them to the active canvas
+     */
+
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
         if (activeCanvas != null) {
             activeCanvas.keyboardEvent(keyboardEvent);
         }
     }
+
+    /**
+     * Tracks mouse events and passes them to the active canvas
+     */
 
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
@@ -131,6 +176,10 @@ public class Canvas implements GameLoop {
             }
         }
     }
+
+    /**
+     * gets backgroundColor (for usage in other classes)
+     */
 
     public static Color getColor() {
         return backgroundColor;
