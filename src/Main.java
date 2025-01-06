@@ -133,12 +133,8 @@ public class Main extends Canvas{
         MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
         MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
 
-        //SaxionApp.drawImage("resources/Images/eagle_left.jpg", 0, 0, Settings.width / 3, Settings.height);
-        //SaxionApp.drawImage("resources/Images/eagle_right.jpg", Settings.width - Settings.width / 3, 0, Settings.width / 3, Settings.height);
         SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
         SaxionApp.drawImage("resources/Images/background.png", 0, 0, Settings.width, Settings.height);
-        //SaxionApp.drawImage("resources/Images/USA.png", Settings.width / 3 + Settings.width / 9, Settings.height / 5, Settings.width / 9, Settings.height / 9);
-
         }
 
     /**
