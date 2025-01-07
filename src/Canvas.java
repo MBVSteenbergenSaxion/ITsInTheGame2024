@@ -169,7 +169,7 @@ public class Canvas implements GameLoop {
     public void mouseEvent(MouseEvent mouseEvent) {
         long currentTime = System.currentTimeMillis();
 
-        if (currentTime - lastMouseEventTime > 500) {
+        if (currentTime - lastMouseEventTime > 270) {
             lastMouseEventTime = currentTime;
             if (activeCanvas != null) {
                 activeCanvas.mouseEvent(mouseEvent);

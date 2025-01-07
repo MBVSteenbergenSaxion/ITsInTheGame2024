@@ -17,19 +17,20 @@ import static utils.TextBox.charLimit;
 
 public class GameOver extends Canvas{
 
+    public GameOver(int highscore){
+        super();
+        finalHighscore = highscore;
+    }
     /***
      * Initialize buttons and add their attributes (see MyButton class for the drawing methods)
      *
      */
     private static ArrayList<Character> keyboardInput = new ArrayList<>();
-    TextBox usernameInput = new TextBox();
     private static int finalHighscore;
+
+    TextBox usernameInput = new TextBox();
     utils.MyButton menuButton = new MyButton();
     utils.MyButton submitButton = new MyButton();
-    public GameOver(int highscore){
-        super();
-        finalHighscore = highscore;
-    }
 
 
     /**
