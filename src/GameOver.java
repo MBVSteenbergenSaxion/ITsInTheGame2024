@@ -123,8 +123,8 @@ public class GameOver extends Canvas{
                 } catch (IOException | JSchException | SftpException e) {
                     throw new RuntimeException(e);
                 }
-                switchToScreen(new Main());
                 GameThread.resetScore();
+                switchToScreen(new Main());
             }
 
         }
