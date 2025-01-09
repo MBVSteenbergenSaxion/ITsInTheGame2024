@@ -102,12 +102,12 @@ public class SideDraw {
         int height = gb.getNextblock().getHeight();
         int width = gb.getNextblock().getWidth();
         Color color = gb.getNextblock().getColor();
-        int[][] shape = gb.getNextblock().getShape();
+        boolean[][] shape = gb.getNextblock().getShape();
 
         SaxionApp.setBorderColor(Color.LIGHT_GRAY);
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                if (shape[row][col] == 1) {
+                if (shape[row][col]) {
                     int x = (gb.getNextblock().getX() + col) * nextGridCellSize + SideSettings.getStartNextPanelX();
                     int y = (gb.getNextblock().getY() + row) * nextGridCellSize + SideSettings.getStartNextPanelY();
 

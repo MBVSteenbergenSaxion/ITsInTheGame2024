@@ -46,7 +46,7 @@ public class GridDraw {
             return false;
         }
 
-        int[][] shape = gb.getCurrentblock().getShape();
+        boolean[][] shape = gb.getCurrentblock().getShape();
         int width = gb.getCurrentblock().getWidth();
         int height = gb.getCurrentblock().getHeight();
 
@@ -54,7 +54,7 @@ public class GridDraw {
 
             int row = height - 1;
             while (row <= height) {
-                if (shape[row][col] != 0) {
+                if (shape[row][col]) {
 
                     int x = (gb.getCurrentblock().getX() + col);
                     int y = (gb.getCurrentblock().getY() + row + 1);
@@ -91,13 +91,13 @@ public class GridDraw {
             return false;
         }
 
-        int[][] shape = gb.getCurrentblock().getShape();
+        boolean[][] shape = gb.getCurrentblock().getShape();
         int width = gb.getCurrentblock().getWidth();
         int height = gb.getCurrentblock().getHeight();
 
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                if (shape[row][col] != 0) {
+                if (shape[row][col]) {
                     int x = (gb.getCurrentblock().getX() + col - 1);
                     int y = (gb.getCurrentblock().getY() + row);
 
@@ -130,13 +130,13 @@ public class GridDraw {
             return false;
         }
 
-        int[][] shape = gb.getCurrentblock().getShape();
+        boolean[][] shape = gb.getCurrentblock().getShape();
         int width = gb.getCurrentblock().getWidth();
         int height = gb.getCurrentblock().getHeight();
 
         for (int row = 0; row < height; row++) {
             for (int col = width - 1; col >= 0; col--) {
-                if (shape[row][col] != 0) {
+                if (shape[row][col]) {
                     int x = (gb.getCurrentblock().getX() + col + 1);
                     int y = (gb.getCurrentblock().getY() + row);
 
@@ -236,7 +236,7 @@ public class GridDraw {
      * */
     public void moveBlockToBackground() {
         if (gb.getCurrentblock() != null) {
-            int[][] shape = gb.getCurrentblock().getShape();
+            boolean[][] shape = gb.getCurrentblock().getShape();
             int height = gb.getCurrentblock().getHeight();
             int width = gb.getCurrentblock().getWidth();
 
@@ -247,7 +247,7 @@ public class GridDraw {
 
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
-                    if (shape[row][col] == 1) {
+                    if (shape[row][col]) {
                         int x = (xPos + col);
                         int y = (yPos + row);
                         background[y][x] = color;
@@ -333,12 +333,12 @@ public class GridDraw {
             int height = gb.getCurrentblock().getHeight();
             int width = gb.getCurrentblock().getWidth();
             color = gb.getCurrentblock().getColor();
-            int[][] shape = gb.getCurrentblock().getShape();
+            boolean[][] shape = gb.getCurrentblock().getShape();
 
             SaxionApp.setBorderColor(Color.LIGHT_GRAY);
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
-                    if (shape[row][col] == 1) {
+                    if (shape[row][col]) {
                         int x = (gb.getCurrentblock().getX() + col) * GridSettings.getBlockSize() + GridSettings.getStartPanelX();
                         int y = (gb.getCurrentblock().getY() + row) * GridSettings.getBlockSize() + GridSettings.getStartPanelY();
 

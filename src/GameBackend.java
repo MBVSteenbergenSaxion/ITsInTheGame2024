@@ -138,7 +138,7 @@ public class GameBackend {
      * */
     public static void spawnBlock() {
         setCurrentBlock();
-        currentblock.spawn(startRotation);
+        currentblock.spawn();
         nextblock.nextSpawn();
     }
 

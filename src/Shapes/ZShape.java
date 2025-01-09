@@ -14,9 +14,16 @@ public class ZShape extends Block {
 
     //With super the shape object below wil be made as: private int[][] shape in Block.java
     public ZShape() {
-        super(new int[][]{
-                {1, 1, 0},
-                {0, 1, 1}
+        super(new boolean[][][]{
+                {
+                        {true, true, false},
+                        {false, true, true}
+                },
+                {
+                        {false, true},
+                        {true, true},
+                        {true, false}
+                }
         });
     }
 }
