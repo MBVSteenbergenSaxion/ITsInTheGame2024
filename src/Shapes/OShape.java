@@ -1,9 +1,6 @@
 package Shapes;
 
-
 import Grid.Block;
-
-import java.awt.*;
 
 /**
  * - Extends Block class
