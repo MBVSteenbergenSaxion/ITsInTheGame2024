@@ -7,12 +7,12 @@ import java.awt.*;
 
 /**
  * - Extends Block class
- * - Creates the "L" shape using a 2D integer array
+ * - Creates the "L" shape using a 3D boolean array
  */
 
 public class LShape extends Block {
 
-    //With super the shape object below wil be made as: private int[][] shape in Block.java
+    // With super, the shape object below will be made as: private boolean[][][] shape in Block.java
     public LShape() {
         super(new boolean[][][]{
                 {
