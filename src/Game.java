@@ -92,19 +92,19 @@ public class Game extends Canvas {
             //Handles key pressed
             switch (keyboardEvent.getKeyCode()) {
                 case 39, 68: //ArrowRight or D
-                    if (!rightKeyPressed) {
-                        gb.rightMovement();
-                        SaxionApp.playSound("resources/gameSounds/movement.wav");
-                        rightKeyPressed = true;
-                    }
-                    break;
+                {
+                    gb.rightMovement();
+                    SaxionApp.playSound("resources/gameSounds/movement.wav");
+                    rightKeyPressed = true;
+                }
+                break;
                 case 37, 65: //ArrowLeft or A
-                    if (!leftKeyPressed) {
-                        gb.leftMovement();
-                        SaxionApp.playSound("resources/gameSounds/movement.wav");
-                        leftKeyPressed = true;
-                    }
-                    break; //ArrowDown or S
+                {
+                    gb.leftMovement();
+                    SaxionApp.playSound("resources/gameSounds/movement.wav");
+                    leftKeyPressed = true;
+                }
+                break; //ArrowDown or S
                 case 40, 83:
                     gb.dropBlock();
                     break;
@@ -116,8 +116,7 @@ public class Game extends Canvas {
                     }
                     break;
             }
-        }
-        else {
+        } else {
             // Handle key releases
             switch (keyboardEvent.getKeyCode()) {
                 case 38, 87: //ArrowUp or W
@@ -131,7 +130,8 @@ public class Game extends Canvas {
         }
     }
 
-    /** MouseEvent()
+    /**
+     * MouseEvent()
      * A integer of x and y are made, if the left-mouse-button is clicked then it sets the x and y to that current position.
      * If the x and y are in the box of the Quit or Restart button then one of these button is clicked and does something in GameBackend.
      */
