@@ -170,7 +170,7 @@ public class Leaderboard extends Canvas {
             SaxionApp.drawText(String.valueOf(currentScore.highScore), (Settings.width / 6) * 5, Settings.height / 5 + i * 50, 50);
         }
 
-        MyButton.drawButton(menuButton.x, menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu");
+        MyButton.drawButton(menuButton.x, menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu", Color.RED);
     }
 
 }

@@ -7,6 +7,7 @@ import utils.MyButton;
 import utils.TextBox;
 import utils.Utility;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -135,8 +136,8 @@ public class GameOver extends Canvas{
      * */
     private void draw(){
         TextBox.drawTextBox(usernameInput.x, usernameInput.y, usernameInput.fontSize, keyboardInput);
-        MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu");
-        MyButton.drawButton(submitButton.x, submitButton.y, submitButton.width, submitButton.height, Settings.fontSize, "Submit Score");
+        MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu", Color.RED);
+        MyButton.drawButton(submitButton.x, submitButton.y, submitButton.width, submitButton.height, Settings.fontSize, "Submit Score", Color.GREEN);
     }
 
 private void submitScores() throws IOException, JSchException, SftpException {

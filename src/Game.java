@@ -4,6 +4,8 @@ import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 import SideDraw.*;
 
+import java.awt.*;
+
 /**
  * GAME CLASS
  * New scene from the canvas class where every method that has to do with drawing, sounds, buttons, key pressing or mouse pushes
@@ -186,8 +188,8 @@ public class Game extends Canvas {
      * - Calls the GameBackend checks to paint method which draws everything further in that class.
      */
     private void draw() {
-        MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, SideSettings.getFontSize(), "Restart Game");
-        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, SideSettings.getFontSize(), "Back to Menu");
+        MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, SideSettings.getFontSize(), "Restart Game", Color.ORANGE);
+        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, SideSettings.getFontSize(), "Back to Menu", Color.RED);
 
         gb.checkToPaint();
     }
