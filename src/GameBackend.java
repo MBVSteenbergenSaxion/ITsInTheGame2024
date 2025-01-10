@@ -322,6 +322,7 @@ public class GameBackend {
      * */
     public static void back2Main() {
         gt.interrupt();
+        gt = null;
         Canvas.stopBackgroundMusic();
         Canvas.switchToScreen(new Main()
         );

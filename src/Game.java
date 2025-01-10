@@ -146,15 +146,15 @@ public class Game extends Canvas {
 
             if (utils.Utility.checkBounds(x, y,
                     quitButton.x, quitButton.y, quitButton.width, quitButton.height, true)) {
-                GameBackend.back2Main();
                 GameThread.resetScore();
+                GameBackend.back2Main();
             }
 
             if (utils.Utility.checkBounds(x, y,
                     restartButton.x, restartButton.y, restartButton.width,
                     restartButton.height, true)) {
-                GameBackend.startGame();
                 GameThread.resetScore();
+                GameBackend.startGame();
             }
         }
     }
