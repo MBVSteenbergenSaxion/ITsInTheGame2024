@@ -1,6 +1,5 @@
 package utils;
 
-import Grid.GridSettings;
 import nl.saxion.app.SaxionApp;
 
 import java.awt.*;
@@ -9,8 +8,6 @@ import static utils.Utility.checkBounds;
 
 public class MyButton {
     public int x, y, width, height;
-    static Color buttonBlue = SaxionApp.createColor(65,105,225);
-    static Color hoverBlue = SaxionApp.createColor(45,85,255);
     static Color borderColor = Color.lightGray;
 
 
