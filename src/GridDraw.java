@@ -29,10 +29,7 @@ public class GridDraw {
      * Check if the shape is above the grid
      * */
     public boolean isBlockOutOfBounds() {
-        if (gb.getCurrentblock().getY() < 0) {
-            return true;
-        }
-        return false;
+        return gb.getCurrentblock().getY() < 0;
     }
 
     /** boolean checkBottom() == if return false it can't move down any further

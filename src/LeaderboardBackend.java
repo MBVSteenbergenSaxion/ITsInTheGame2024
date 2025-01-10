@@ -10,7 +10,7 @@ import nl.saxion.app.CsvReader;
 
 public class LeaderboardBackend {
     /**
-     * creates arraylist getScotes from the class Score from reading the local or taken from SFTP server csv file with scores
+     * creates arraylist getScores from the class Score from reading the local or taken from SFTP server csv file with scores
      *
      */
     public static ArrayList<Score> getScores(String CsvFile) throws FileNotFoundException {

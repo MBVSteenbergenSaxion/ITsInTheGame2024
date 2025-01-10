@@ -112,13 +112,7 @@ public class Leaderboard extends Canvas {
                 allMaxValues = false;
             }
         }
-//    int random = SaxionApp.getRandomValueBetween(0,2);
-//    if (random == 1){
-//        SaxionApp.setBackgroundColor(Color.black);
-//    }
-//    if (random == 0){
-//        SaxionApp.setBackgroundColor(Color.white);
-//    }
+
         draw();
 
     }

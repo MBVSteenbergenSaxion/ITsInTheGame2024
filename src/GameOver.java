@@ -65,7 +65,6 @@ public class GameOver extends Canvas{
     @Override
     public void loop() {
         draw();
-
     }
 
     /**
