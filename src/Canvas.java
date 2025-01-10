@@ -27,7 +27,7 @@ public class Canvas implements GameLoop {
     public static Canvas activeCanvas;
     private static Clip backgroundMusic;
     private static long lastMouseEventTime = 0;
-    public static Color backgroundColor = SaxionApp.createColor(0, 0, 128);
+    public static Color backgroundColor = SaxionApp.DEFAULT_BACKGROUND_COLOR;
 
     public Canvas() {
     }
