@@ -69,11 +69,13 @@ public class LeaderboardBackend {
         bw.close();
     }
 
+    /**
+     * if the game does find a way to communicate with the SFTP it downloads it and then adds the current score with name to the server
+     *
+     */
+
     public static void writeToCSVOnline(String[] score) throws IOException, JSchException, SftpException {
-/**
- * if the game does find a way to communicate with the SFTP it downloads it and then adds the current score with name to the server
- *
- */
+
         String username = Main.env.get("USER");
         String password = Main.env.get("PASS");
         String ip = Main.env.get("IP");

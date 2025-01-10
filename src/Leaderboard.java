@@ -81,15 +81,18 @@ public class Leaderboard extends Canvas {
     private int b = 0;
     private boolean allMaxValues = false;
 
+
+    /***
+     * changes the background color from rgb: 0,0,0 to 255,0,0 until it hits 255,255,255 and then stats counting down
+     * once at 0 again this gets repeated.
+     * this is checked every frame
+     */
+
     @Override
 
 
     public void loop() {
-        /***
-         * changes the background color from rgb: 0,0,0 to 255,0,0 until it hits 255,255,255 and then stats counting down
-         * once at 0 again this gets repeated.
-         * this is checked every frame
-         */
+
         SaxionApp.setBackgroundColor(new Color(r, g, b));
         if (r < 255 && !allMaxValues) {
             r++;
@@ -122,15 +125,17 @@ public class Leaderboard extends Canvas {
 
     }
 
+    /***
+     * Main menu button listeners
+     *
+     * 18-11-2024, quit button is self-explanatory
+     *
+     */
+
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
 
-        /***
-         * Main menu button listeners
-         *
-         * 18-11-2024, quit button is self-explanatory
-         *
-         */
+
 
 
         int x, y;

@@ -45,8 +45,8 @@ public class GameOver extends Canvas{
 
         Canvas.stopBackgroundMusic();
 
-        usernameInput.x = Settings.width / 3;
-        usernameInput.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
+        usernameInput.x = Settings.width / 2 - Settings.fontSize*6;
+        usernameInput.y = (int) (Settings.height * 0.4);
         usernameInput.fontSize = 25;
 
         menuButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
@@ -94,11 +94,13 @@ public class GameOver extends Canvas{
 
     }
 
+    /**
+     * listens to if there was a button pressed.
+     */
+
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
-/**
- * listens to if there was a button pressed.
- */
+
         int x, y;
 
         if (mouseEvent.isLeftMouseButton()) {
@@ -135,15 +137,19 @@ public class GameOver extends Canvas{
      * Draws the game, leaderboard and quit button with dynamic width and height based on the Settings class and MyButton class
      * */
     private void draw(){
+        SaxionApp.setTextDrawingColor(Color.red);
+        SaxionApp.drawText("GAME OVER", usernameInput.x-usernameInput.x/3,usernameInput.y/2-usernameInput.y/6,100);
+        SaxionApp.drawText("YOUR SCORE: "+finalHighscore,usernameInput.x+usernameInput.x/5,usernameInput.y/2+usernameInput.y/4,25);
+        SaxionApp.setTextDrawingColor(Color.white);
         TextBox.drawTextBox(usernameInput.x, usernameInput.y, usernameInput.fontSize, keyboardInput);
         MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu", Color.RED);
         MyButton.drawButton(submitButton.x, submitButton.y, submitButton.width, submitButton.height, Settings.fontSize, "Submit Score", Color.GREEN);
     }
-
-private void submitScores() throws IOException, JSchException, SftpException {
     /**
      * capitalizes whatever username has been entered before sending it to SFTP.
      */
+private void submitScores() throws IOException, JSchException, SftpException {
+
 
     String userName = new String();
     for (int i = 0; i < keyboardInput.size(); i++){
