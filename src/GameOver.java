@@ -1,3 +1,4 @@
+import Settings.Settings;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import nl.saxion.app.SaxionApp;
@@ -5,13 +6,12 @@ import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 import utils.MyButton;
 import utils.TextBox;
-import utils.Utility;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+
+import GameOver.GameOverSettings;
 
 import static utils.TextBox.charLimit;
 
@@ -37,21 +37,21 @@ public class GameOver extends Canvas{
      * Initialize method to initialize:
      * - Game, leaderboard and quit button with dynamic positioning and dimensions
      * - It calculates the height and width
-     * - It calculates the x and y coordinates relative to the Settings class
+     * - It calculates the x and y coordinates relative to the Settings.Settings class
      * */
     @Override
     public void init() {
 
         Canvas.stopBackgroundMusic();
 
-        usernameInput.x = Settings.width / 3;
-        usernameInput.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
-        usernameInput.fontSize = 25;
+        usernameInput.x = GameOverSettings.getUsernameX();
+        usernameInput.y = GameOverSettings.getUsernameY();
+        usernameInput.fontSize = GameOverSettings.getFontSize();
 
-        menuButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
-        menuButton.y = (int) (Settings.height * 0.8 - Settings.height * 0.15);
-        menuButton.width = Settings.buttonWidth;
-        menuButton.height = Settings.buttonHeight;
+        menuButton.x = GameOverSettings.getMainButtonXPos();
+        menuButton.y = GameOverSettings.getMainButtonYpos();
+        menuButton.width = GameOverSettings.buttonWidth();
+        menuButton.height = GameOverSettings.butttonHeight();
 
         submitButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         submitButton.y = (int) (Settings.height * 0.8);
@@ -132,7 +132,7 @@ public class GameOver extends Canvas{
 
 
     /**
-     * Draws the game, leaderboard and quit button with dynamic width and height based on the Settings class and MyButton class
+     * Draws the game, leaderboard and quit button with dynamic width and height based on the Settings.Settings class and MyButton class
      * */
     private void draw(){
         TextBox.drawTextBox(usernameInput.x, usernameInput.y, usernameInput.fontSize, keyboardInput);

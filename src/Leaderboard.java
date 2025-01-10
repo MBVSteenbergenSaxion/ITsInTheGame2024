@@ -1,19 +1,16 @@
+import Settings.Settings;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import nl.saxion.app.SaxionApp;
-import org.w3c.dom.css.RGBColor;
 import utils.*;
 import Leaderboard.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
-import javax.security.sasl.SaslClient;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Leaderboard extends Canvas {
 

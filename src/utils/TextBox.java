@@ -1,7 +1,7 @@
 package utils;
 
 import nl.saxion.app.SaxionApp;
-
+import Settings.Settings;
 import java.util.ArrayList;
 
 public class TextBox {
@@ -14,7 +14,7 @@ public class TextBox {
 
     public static void drawTextBox(int x, int y, int fontSize, ArrayList<Character> input) {
         SaxionApp.setFill(SaxionApp.DEFAULT_BACKGROUND_COLOR);
-        SaxionApp.drawRectangle(x, y - 15, charLimit * (fontSize + space), SaxionApp.getHeight() / 16);
+        SaxionApp.drawRectangle(x, y - 15, Settings.buttonWidth, SaxionApp.getHeight() / 16);
         drawInput(input, x, y, fontSize);
 
     }

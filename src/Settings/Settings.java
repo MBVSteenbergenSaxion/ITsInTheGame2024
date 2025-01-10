@@ -1,4 +1,6 @@
-/** Settings Class for the whole canvas
+package Settings;
+
+/** Settings.Settings Class for the whole canvas
  * */
 public class Settings {
 

@@ -2,8 +2,7 @@
  * Import necessary packages
  */
 
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.SftpException;
+import Settings.Settings;
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
@@ -42,7 +41,7 @@ public class Main extends Canvas{
      * Initialize method to initialize:
      * - Game, leaderboard and quit button with dynamic positioning and dimensions
      * - It calculates the height and width
-     * - It calculates the x and y coordinates relative to the Settings class
+     * - It calculates the x and y coordinates relative to the Settings.Settings class
      * */
     @Override
     public void init() {
@@ -125,7 +124,7 @@ public class Main extends Canvas{
     }
 
     /**
-     * Draws the game, leaderboard and quit button with dynamic width and height based on the Settings class and MyButton class
+     * Draws the game, leaderboard and quit button with dynamic width and height based on the Settings.Settings class and MyButton class
      * */
     private void draw(){
 
