@@ -11,7 +11,7 @@ import java.awt.*;
 public class Block {
 
     /** 3D-array for the layers of a shape (rotations) */
-    private boolean[][][] shape;
+    private boolean[][][] shapes;
 
     /** The color of the shape */
     public Color color;
@@ -27,7 +27,7 @@ public class Block {
      * Each layer in the array represents a rotation of the shape.
      */
     public Block(boolean[][][] shape) {
-        this.shape = shape;
+        this.shapes = shape;
         this.currentRotation = 0; // Start with the default rotation
     }
 
@@ -36,7 +36,7 @@ public class Block {
      */
     public void rotate() {
         currentRotation++;
-        if (currentRotation >= shape.length) {
+        if (currentRotation >= shapes.length) {
             currentRotation = 0; // Wrap around to the first rotation
         }
     }
@@ -61,7 +61,7 @@ public class Block {
      * Returns the current 2D shape of the block based on its rotation.
      */
     public boolean[][] getShape() {
-        return shape[currentRotation];
+        return shapes[currentRotation];
     }
 
     /**
