@@ -115,6 +115,7 @@ public class GameThread extends Thread {
             GameBackend.gt.interrupt();
             GameBackend.gt = null;
             Canvas.switchToScreen(new GameOver(scoreCounterThread));
+            Thread.currentThread().interrupt();
 
             return true;
         }
