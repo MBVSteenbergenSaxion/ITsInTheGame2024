@@ -1,6 +1,6 @@
-package Shapes;
+package shapes;
 
-import Grid.Block;
+import grid.Block;
 
 /**
  * - Extends Block class

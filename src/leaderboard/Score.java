@@ -1,4 +1,4 @@
-package Leaderboard;
+package leaderboard;
 
 public class Score {
 

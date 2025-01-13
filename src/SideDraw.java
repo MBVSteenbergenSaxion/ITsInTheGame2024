@@ -1,4 +1,4 @@
-import SideDraw.*;
+import sidedraw.*;
 import nl.saxion.app.SaxionApp;
 import java.awt.*;
 

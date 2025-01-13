@@ -2,15 +2,14 @@
  * Import necessary packages
  */
 
-import Grid.GridSettings;
+import grid.GridSettings;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
-import SideDraw.*;
+import sidedraw.*;
 
 import javax.sound.sampled.*;
-import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

@@ -1,4 +1,4 @@
-package Grid;
+package grid;
 
 import nl.saxion.app.SaxionApp;
 import java.awt.*;

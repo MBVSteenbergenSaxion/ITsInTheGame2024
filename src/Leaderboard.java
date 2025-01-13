@@ -1,19 +1,15 @@
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import nl.saxion.app.SaxionApp;
-import org.w3c.dom.css.RGBColor;
 import utils.*;
-import Leaderboard.*;
+import leaderboard.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
-import javax.security.sasl.SaslClient;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Leaderboard extends Canvas {
 
@@ -168,7 +164,7 @@ public class Leaderboard extends Canvas {
      *
      */
     private void draw() {
-        SaxionApp.drawText("Leaderboard", Settings.width / 2 - Settings.buttonWidth / 2, Settings.height / 7 - Settings.height / 10, 50);
+        SaxionApp.drawText("leaderboard", Settings.width / 2 - Settings.buttonWidth / 2, Settings.height / 7 - Settings.height / 10, 50);
         for (int i = 0; i < 5; i++) {
             Score currentScore = scores.get(i);
             SaxionApp.drawText(currentScore.name, Settings.width / 6, Settings.height / 5 + i * 50, 50);

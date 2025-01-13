@@ -3,9 +3,9 @@
  * */
 import nl.saxion.app.SaxionApp;
 import java.awt.*;
-import Grid.Block;
-import Grid.GridSettings;
-import Shapes.*;
+import grid.Block;
+import grid.GridSettings;
+import shapes.*;
 
 /** GameBackend
  * Gets every variable needed to make game to function or calls methods from other classes or calls a new ClassObject

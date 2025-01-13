@@ -5,7 +5,7 @@ import com.jcraft.jsch.SftpException;
 import utils.SFTP;
 import java.util.ArrayList;
 
-import Leaderboard.*;
+import leaderboard.*;
 import nl.saxion.app.CsvReader;
 
 public class LeaderboardBackend {

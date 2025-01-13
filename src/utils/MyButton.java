@@ -1,6 +1,5 @@
 package utils;
 
-import Grid.GridSettings;
 import nl.saxion.app.SaxionApp;
 
 import java.awt.*;

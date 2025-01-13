@@ -2,7 +2,7 @@ import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
-import SideDraw.*;
+import sidedraw.*;
 
 import java.awt.*;
 
