@@ -75,23 +75,19 @@ public class GameOver extends Canvas{
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
 
-        if(keyboardEvent.isKeyPressed()){
+        if (keyboardEvent.isKeyPressed()) {
             String keyChar = KeyEvent.getKeyText(keyboardEvent.getKeyCode());
 
-            if(keyboardEvent.getKeyCode() == 8 && !keyboardInput.isEmpty()){
+            if (keyboardEvent.getKeyCode() == KeyEvent.VK_BACK_SPACE && !keyboardInput.isEmpty()) {
                 keyboardInput.removeLast();
                 return;
             }
 
-            if (Character.isLetter(keyChar.charAt(0))
-                    && keyboardInput.size() < charLimit
-                    && keyboardEvent.getKeyCode() != 8) {
+            if (keyChar.length() == 1 && Character.isLetter(keyChar.charAt(0))
+                    && keyboardInput.size() < charLimit) {
                 keyboardInput.add(keyChar.charAt(0));
-
             }
-
         }
-
     }
 
     /**
