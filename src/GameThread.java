@@ -21,7 +21,7 @@ public class GameThread extends Thread {
     /**
      * boolean draw, true or false if the game still needs to draw or not
      */
-    static boolean draw;
+    public static boolean draw;
 
     /**
      * integer for score counter, level counter, the score it takes to level up,
@@ -61,11 +61,9 @@ public class GameThread extends Thread {
 
         GameBackend.setNextPiece();
 
-        while (running) {
-
+        while (draw) {
 
             GameBackend.spawnBlock();
-
 
             while (GameBackend.gd != null && GameBackend.moveBlockDown()) {
                 SaxionApp.clear();

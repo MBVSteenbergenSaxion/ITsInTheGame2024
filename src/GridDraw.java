@@ -247,7 +247,7 @@ public class GridDraw {
                     if (shape[row][col]) {
                         int x = (xPos + col);
                         int y = (yPos + row);
-                        background[y][x] = color;
+                        if (x >= 0 && y >= 0) background[y][x] = color;
                     }
                 }
             }

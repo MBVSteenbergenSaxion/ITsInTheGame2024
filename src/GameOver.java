@@ -112,8 +112,9 @@ public class GameOver extends Canvas{
                     menuButton.x, menuButton.y, menuButton.width, menuButton.height, true)) {
                 Canvas.stopBackgroundMusic();
                 SaxionApp.setBackgroundColor(backgroundColor);
-                switchToScreen(new Main());
+
                 GameThread.resetScore();
+                switchToScreen(new Main());
             }
             if (utils.Utility.checkBounds(x, y,
                     submitButton.x, submitButton.y, submitButton.width, submitButton.height, true)) {
