@@ -95,22 +95,22 @@ public class Leaderboard extends Canvas {
 
         SaxionApp.setBackgroundColor(new Color(r, g, b));
         if (r < 255 && !allMaxValues) {
-            r++;
+            r+=5;
         } else if (g < 255 && !allMaxValues) {
-            g++;
+            g+=5;
         } else if (b < 255 && !allMaxValues) {
-            b++;
+            b+=5;
         }
         if (r == 255 && g == 255 && b == 255) {
             allMaxValues = true;
         }
         if (allMaxValues) {
             if (r > 0) {
-                r--;
+                r-=5;
             } else if (g > 0) {
-                g--;
+                g-=5;
             } else if (b > 0) {
-                b--;
+                b-=5;
             } else if (r == 0 && g == 0 && b == 0) {
                 allMaxValues = false;
             }
