@@ -111,7 +111,9 @@ public class GameThread extends Thread {
     private static boolean ifGameOver() {
         if (gd.isBlockOutOfBounds()) {
             draw = false;
+            Game.gb = null;
             GameBackend.gd = null;
+            GameBackend.sd = null;
             GameBackend.gt.interrupt();
             GameBackend.gt = null;
             Canvas.switchToScreen(new GameOver(scoreCounterThread));
