@@ -35,7 +35,7 @@ public class Main extends Canvas{
     utils.MyButton leaderBoardButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
 
-    private String filePath = "resources/GameMusic/America, F  Yeah - Team America OST.wav";
+    private String filePath = "resources/GameMusic/TetrisTheme.wav";
 
     /**
      * Initialize method to initialize:
@@ -46,7 +46,9 @@ public class Main extends Canvas{
     @Override
     public void init() {
 
-        Canvas.stopBackgroundMusic();
+        if(!Leaderboard.isPlaying){
+            Canvas.playBackgroundMusic(filePath);
+        }
 
         loadEnv();
 
@@ -54,7 +56,6 @@ public class Main extends Canvas{
         gameButton.y = (int) (Settings.height * 0.40);
         gameButton.width = Settings.buttonWidth;
         gameButton.height = Settings.buttonHeight;
-        Canvas.playBackgroundMusic(filePath);
 
         leaderBoardButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         leaderBoardButton.y = (int) (Settings.height * 0.60);
@@ -120,7 +121,6 @@ public class Main extends Canvas{
             if (utils.Utility.checkBounds(x, y,
                     leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width,
                     leaderBoardButton.height, true)) {
-                Canvas.stopBackgroundMusic();
                 switchToScreen(new Leaderboard());
             }
         }

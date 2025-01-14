@@ -21,9 +21,9 @@ public class Leaderboard extends Canvas {
      * Initialize buttons and add their attributes (see MyButton class for the drawing methods)
      *
      */
-    private String filePath = "resources/GameMusic/TetrisTheme.wav";
     private String fileName;
     private File CsvFile;
+    public static boolean isPlaying = false;
 
     ArrayList<Score> scores = new ArrayList<>();
 
@@ -36,8 +36,6 @@ public class Leaderboard extends Canvas {
  *  game tries to load CSV file from SFTP server to display scores, if it cannot communicate it loads the local scoreboard
  *  defines button attributes
  */
-        Canvas.stopBackgroundMusic();
-        Canvas.playBackgroundMusic(filePath);
 
         fileName = "resources/Leaderboard/scores.csv";
 
@@ -143,7 +141,7 @@ public class Leaderboard extends Canvas {
 
             if (utils.Utility.checkBounds(x, y,
                     menuButton.x, menuButton.y, menuButton.width, menuButton.height, true)) {
-                Canvas.stopBackgroundMusic();
+                isPlaying = true;
                 SaxionApp.setBackgroundColor(backgroundColor);
                 if (Main.env != null) {
                     if (fileName.equals("temp/scores.csv")) {
