@@ -122,6 +122,9 @@ public class GameThread extends Thread {
         return false;
     }
 
+    /** static void resetScore()
+     * resets the score in the Thread and the GameBackend
+     * */
     public static void resetScore() {
         scoreCounterThread = 0;
         levelCounterThread = 0;
