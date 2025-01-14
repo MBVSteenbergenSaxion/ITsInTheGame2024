@@ -10,20 +10,34 @@ public class MyButton {
     public int x, y, width, height;
     static Color buttonBlue = SaxionApp.createColor(65,105,225);
     static Color hoverBlue = SaxionApp.createColor(45,85,255);
+    static Color borderColor = Color.lightGray;
 
-    public static void drawButton(int x, int y, int width, int height, int fontSize, String buttonText) {
 
+    public static void drawButton(int x, int y, int width, int height, int fontSize, String buttonText, Color buttonColor) {
         int[] mouseLocation = Utility.getPointerOnFrame();
 
+        SaxionApp.setBorderSize(4);
+
         if(checkBounds(mouseLocation[0], mouseLocation[1], x, y, width, height, false)){
-            SaxionApp.setFill(hoverBlue);
+            SaxionApp.setBorderColor(borderColor.brighter());
         }else{
-            SaxionApp.setFill(buttonBlue);
+            SaxionApp.setBorderColor(borderColor);
         }
 
-        SaxionApp.setBorderColor(Color.lightGray);
+        SaxionApp.setFill(buttonColor);
+
         SaxionApp.drawRectangle(x, y, width, height);
+
+        SaxionApp.setBorderColor(buttonColor.darker());
+        for(int i = 4; i < width - 4; i++) {
+            SaxionApp.drawLine(x + i,y + 4,
+                    x + i, y + height/3*2+5);
+        }
+
+        SaxionApp.setBorderColor(Color.WHITE);
         SaxionApp.drawText(buttonText, x + (int)(width * 0.25), y + (int)(height * 0.4), fontSize);
 
     }
+
+
 }

@@ -5,12 +5,12 @@ import com.jcraft.jsch.SftpException;
 import utils.SFTP;
 import java.util.ArrayList;
 
-import Leaderboard.*;
+import leaderboard.*;
 import nl.saxion.app.CsvReader;
 
 public class LeaderboardBackend {
     /**
-     * creates arraylist getScotes from the class Score from reading the local or taken from SFTP server csv file with scores
+     * creates arraylist getScores from the class Score from reading the local or taken from SFTP server csv file with scores
      *
      */
     public static ArrayList<Score> getScores(String CsvFile) throws FileNotFoundException {
@@ -69,11 +69,13 @@ public class LeaderboardBackend {
         bw.close();
     }
 
+    /**
+     * if the game does find a way to communicate with the SFTP it downloads it and then adds the current score with name to the server
+     *
+     */
+
     public static void writeToCSVOnline(String[] score) throws IOException, JSchException, SftpException {
-/**
- * if the game does find a way to communicate with the SFTP it downloads it and then adds the current score with name to the server
- *
- */
+
         String username = Main.env.get("USER");
         String password = Main.env.get("PASS");
         String ip = Main.env.get("IP");

@@ -1,4 +1,4 @@
-package SideDraw;
+package sidedraw;
 
 import nl.saxion.app.SaxionApp;
 

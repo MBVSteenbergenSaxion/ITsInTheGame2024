@@ -2,7 +2,9 @@ import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
-import SideDraw.*;
+import sidedraw.*;
+
+import java.awt.*;
 
 /**
  * GAME CLASS
@@ -18,7 +20,7 @@ public class Game extends Canvas {
     /**
      * Private boolean values to check if a key is already pressed or not
      */
-    private boolean upKeyPressed, rightKeyPressed, leftKeyPressed;
+    private boolean upKeyPressed;
 
     /**
      * Making two new buttons (Restart and Quit), making a new MyButton() from our utils package
@@ -90,19 +92,17 @@ public class Game extends Canvas {
             //Handles key pressed
             switch (keyboardEvent.getKeyCode()) {
                 case 39, 68: //ArrowRight or D
-                    if (!rightKeyPressed) {
-                        gb.rightMovement();
-                        SaxionApp.playSound("resources/gameSounds/movement.wav");
-                        rightKeyPressed = true;
-                    }
-                    break;
+                {
+                    gb.rightMovement();
+                    SaxionApp.playSound("resources/gameSounds/movement.wav");
+                }
+                break;
                 case 37, 65: //ArrowLeft or A
-                    if (!leftKeyPressed) {
-                        gb.leftMovement();
-                        SaxionApp.playSound("resources/gameSounds/movement.wav");
-                        leftKeyPressed = true;
-                    }
-                    break; //ArrowDown or S
+                {
+                    gb.leftMovement();
+                    SaxionApp.playSound("resources/gameSounds/movement.wav");
+                }
+                break; //ArrowDown or S
                 case 40, 83:
                     gb.dropBlock();
                     break;
@@ -114,22 +114,18 @@ public class Game extends Canvas {
                     }
                     break;
             }
-        }
-        else {
+        } else {
             // Handle key releases
             switch (keyboardEvent.getKeyCode()) {
                 case 38, 87: //ArrowUp or W
                     upKeyPressed = false;
-                case 39, 68: //ArrowRight or D
-                    rightKeyPressed = false;
-                case 37, 65: //ArrowLeft or A
-                    leftKeyPressed = false;
 
             }
         }
     }
 
-    /** MouseEvent()
+    /**
+     * MouseEvent()
      * A integer of x and y are made, if the left-mouse-button is clicked then it sets the x and y to that current position.
      * If the x and y are in the box of the Quit or Restart button then one of these button is clicked and does something in GameBackend.
      */
@@ -144,15 +140,15 @@ public class Game extends Canvas {
 
             if (utils.Utility.checkBounds(x, y,
                     quitButton.x, quitButton.y, quitButton.width, quitButton.height, true)) {
-                GameBackend.back2Main();
                 GameThread.resetScore();
+                GameBackend.back2Main();
             }
 
             if (utils.Utility.checkBounds(x, y,
                     restartButton.x, restartButton.y, restartButton.width,
                     restartButton.height, true)) {
-                GameBackend.startGame();
                 GameThread.resetScore();
+                GameBackend.startGame();
             }
         }
     }
@@ -186,8 +182,8 @@ public class Game extends Canvas {
      * - Calls the GameBackend checks to paint method which draws everything further in that class.
      */
     private void draw() {
-        MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, SideSettings.getFontSize(), "Restart Game");
-        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, SideSettings.getFontSize(), "Back to Menu");
+        MyButton.drawButton(restartButton.x, restartButton.y, restartButton.width, restartButton.height, SideSettings.getFontSize(), "Restart Game", Color.ORANGE);
+        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, SideSettings.getFontSize(), "Back to Menu", Color.RED);
 
         gb.checkToPaint();
     }

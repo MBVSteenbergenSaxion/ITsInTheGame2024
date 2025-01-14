@@ -2,13 +2,12 @@
  * Import necessary packages
  */
 
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.SftpException;
 import nl.saxion.app.SaxionApp;
 import utils.*;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Map;
 
@@ -36,7 +35,7 @@ public class Main extends Canvas{
     utils.MyButton leaderBoardButton = new MyButton();
     utils.MyButton quitButton = new MyButton();
 
-    private String filePath = "resources/GameMusic/America, F  Yeah - Team America OST.wav";
+    private String filePath = "resources/GameMusic/TetrisTheme.wav";
 
     /**
      * Initialize method to initialize:
@@ -47,7 +46,9 @@ public class Main extends Canvas{
     @Override
     public void init() {
 
-        Canvas.stopBackgroundMusic();
+        if(!Leaderboard.isPlaying){
+            Canvas.playBackgroundMusic(filePath);
+        }
 
         loadEnv();
 
@@ -55,7 +56,6 @@ public class Main extends Canvas{
         gameButton.y = (int) (Settings.height * 0.40);
         gameButton.width = Settings.buttonWidth;
         gameButton.height = Settings.buttonHeight;
-        Canvas.playBackgroundMusic(filePath);
 
         leaderBoardButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
         leaderBoardButton.y = (int) (Settings.height * 0.60);
@@ -66,6 +66,9 @@ public class Main extends Canvas{
         quitButton.y = (int) (Settings.height * 0.8);
         quitButton.width = Settings.buttonWidth;
         quitButton.height = Settings.buttonHeight;
+
+        SaxionApp.drawImage("resources/Images/EagleMainLogo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3 + 40);
+        SaxionApp.drawImage("resources/Images/background.png", 0, 0, Settings.width, Settings.height);
     }
 
     /**
@@ -118,7 +121,6 @@ public class Main extends Canvas{
             if (utils.Utility.checkBounds(x, y,
                     leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width,
                     leaderBoardButton.height, true)) {
-                Canvas.stopBackgroundMusic();
                 switchToScreen(new Leaderboard());
             }
         }
@@ -129,12 +131,9 @@ public class Main extends Canvas{
      * */
     private void draw(){
 
-        MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Start Game");
-        MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard");
-        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game");
-
-        SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
-        SaxionApp.drawImage("resources/Images/background.png", 0, 0, Settings.width, Settings.height);
+        MyButton.drawButton(gameButton.x, gameButton.y, gameButton.width, gameButton.height, Settings.fontSize, "Start Game", Color.GREEN);
+        MyButton.drawButton(leaderBoardButton.x, leaderBoardButton.y, leaderBoardButton.width, leaderBoardButton.height, Settings.fontSize, "Leaderboard", Color.YELLOW);
+        MyButton.drawButton(quitButton.x, quitButton.y, quitButton.width, quitButton.height, Settings.fontSize, "Quit Game", Color.RED);
         }
 
     /**

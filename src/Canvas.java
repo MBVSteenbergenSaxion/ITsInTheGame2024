@@ -2,21 +2,22 @@
  * Import necessary packages
  */
 
-import Grid.GridSettings;
+import grid.GridSettings;
 import nl.saxion.app.SaxionApp;
 import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
-import SideDraw.*;
+import sidedraw.*;
 
 import javax.sound.sampled.*;
-import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Canvas implements GameLoop {
 
@@ -26,8 +27,9 @@ public class Canvas implements GameLoop {
 
     public static Canvas activeCanvas;
     private static Clip backgroundMusic;
-    private static long lastMouseEventTime = 0;
-    public static Color backgroundColor = SaxionApp.createColor(0, 0, 128);
+    public static Color backgroundColor = SaxionApp.DEFAULT_BACKGROUND_COLOR;
+
+    int pressedTimes = 0;
 
     public Canvas() {
     }
@@ -167,14 +169,23 @@ public class Canvas implements GameLoop {
 
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
-        long currentTime = System.currentTimeMillis();
 
-        if (currentTime - lastMouseEventTime > 500) {
-            lastMouseEventTime = currentTime;
-            if (activeCanvas != null) {
-                activeCanvas.mouseEvent(mouseEvent);
-            }
+        pressedTimes++;
+
+        if (activeCanvas != null && pressedTimes == 1) {
+            activeCanvas.mouseEvent(mouseEvent);
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    pressedTimes = 0;
+                }
+            }, 100);
+
         }
+
+
     }
 
     /**

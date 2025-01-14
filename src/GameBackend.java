@@ -3,9 +3,9 @@
  * */
 import nl.saxion.app.SaxionApp;
 import java.awt.*;
-import Grid.Block;
-import Grid.GridSettings;
-import Shapes.*;
+import grid.Block;
+import grid.GridSettings;
+import shapes.*;
 
 /** GameBackend
  * Gets every variable needed to make game to function or calls methods from other classes or calls a new ClassObject
@@ -138,7 +138,7 @@ public class GameBackend {
      * */
     public static void spawnBlock() {
         setCurrentBlock();
-        currentblock.spawn(startRotation);
+        currentblock.spawn();
         nextblock.nextSpawn();
     }
 
@@ -322,6 +322,7 @@ public class GameBackend {
      * */
     public static void back2Main() {
         gt.interrupt();
+        gt = null;
         Canvas.stopBackgroundMusic();
         Canvas.switchToScreen(new Main()
         );

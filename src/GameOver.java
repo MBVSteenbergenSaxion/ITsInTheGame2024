@@ -7,6 +7,7 @@ import utils.MyButton;
 import utils.TextBox;
 import utils.Utility;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -17,19 +18,20 @@ import static utils.TextBox.charLimit;
 
 public class GameOver extends Canvas{
 
+    public GameOver(int highscore){
+        super();
+        finalHighscore = highscore;
+    }
     /***
      * Initialize buttons and add their attributes (see MyButton class for the drawing methods)
      *
      */
     private static ArrayList<Character> keyboardInput = new ArrayList<>();
-    TextBox usernameInput = new TextBox();
     private static int finalHighscore;
+
+    TextBox usernameInput = new TextBox();
     utils.MyButton menuButton = new MyButton();
     utils.MyButton submitButton = new MyButton();
-    public GameOver(int highscore){
-        super();
-        finalHighscore = highscore;
-    }
 
 
     /**
@@ -43,8 +45,8 @@ public class GameOver extends Canvas{
 
         Canvas.stopBackgroundMusic();
 
-        usernameInput.x = Settings.width / 3;
-        usernameInput.y = (int) (Settings.height * 0.3 - Settings.height * 0.15);
+        usernameInput.x = Settings.width / 2 - Settings.fontSize*6;
+        usernameInput.y = (int) (Settings.height * 0.4);
         usernameInput.fontSize = 25;
 
         menuButton.x = Settings.width / 2 - Settings.buttonWidth / 2;
@@ -64,7 +66,6 @@ public class GameOver extends Canvas{
     @Override
     public void loop() {
         draw();
-
     }
 
     /**
@@ -74,30 +75,28 @@ public class GameOver extends Canvas{
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
 
-        if(keyboardEvent.isKeyPressed()){
+        if (keyboardEvent.isKeyPressed()) {
             String keyChar = KeyEvent.getKeyText(keyboardEvent.getKeyCode());
 
-            if(keyboardEvent.getKeyCode() == 8 && !keyboardInput.isEmpty()){
+            if (keyboardEvent.getKeyCode() == KeyEvent.VK_BACK_SPACE && !keyboardInput.isEmpty()) {
                 keyboardInput.removeLast();
                 return;
             }
 
-            if (Character.isLetter(keyChar.charAt(0))
-                    && keyboardInput.size() < charLimit
-                    && keyboardEvent.getKeyCode() != 8) {
+            if (keyChar.length() == 1 && Character.isLetter(keyChar.charAt(0))
+                    && keyboardInput.size() < charLimit) {
                 keyboardInput.add(keyChar.charAt(0));
-
             }
-
         }
-
     }
+
+    /**
+     * listens to if there was a button pressed.
+     */
 
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
-/**
- * listens to if there was a button pressed.
- */
+
         int x, y;
 
         if (mouseEvent.isLeftMouseButton()) {
@@ -109,8 +108,9 @@ public class GameOver extends Canvas{
                     menuButton.x, menuButton.y, menuButton.width, menuButton.height, true)) {
                 Canvas.stopBackgroundMusic();
                 SaxionApp.setBackgroundColor(backgroundColor);
-                switchToScreen(new Main());
+
                 GameThread.resetScore();
+                switchToScreen(new Main());
             }
             if (utils.Utility.checkBounds(x, y,
                     submitButton.x, submitButton.y, submitButton.width, submitButton.height, true)) {
@@ -122,8 +122,8 @@ public class GameOver extends Canvas{
                 } catch (IOException | JSchException | SftpException e) {
                     throw new RuntimeException(e);
                 }
-                switchToScreen(new Main());
                 GameThread.resetScore();
+                switchToScreen(new Main());
             }
 
         }
@@ -134,15 +134,19 @@ public class GameOver extends Canvas{
      * Draws the game, leaderboard and quit button with dynamic width and height based on the Settings class and MyButton class
      * */
     private void draw(){
+        SaxionApp.setTextDrawingColor(Color.red);
+        SaxionApp.drawText("GAME OVER", usernameInput.x-usernameInput.x/3,usernameInput.y/2-usernameInput.y/6,100);
+        SaxionApp.drawText("YOUR SCORE: "+finalHighscore,usernameInput.x+usernameInput.x/5,usernameInput.y/2+usernameInput.y/4,25);
+        SaxionApp.setTextDrawingColor(Color.white);
         TextBox.drawTextBox(usernameInput.x, usernameInput.y, usernameInput.fontSize, keyboardInput);
-        MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu");
-        MyButton.drawButton(submitButton.x, submitButton.y, submitButton.width, submitButton.height, Settings.fontSize, "Submit Score");
+        MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu", Color.RED);
+        MyButton.drawButton(submitButton.x, submitButton.y, submitButton.width, submitButton.height, Settings.fontSize, "Submit Score", Color.GREEN);
     }
-
-private void submitScores() throws IOException, JSchException, SftpException {
     /**
      * capitalizes whatever username has been entered before sending it to SFTP.
      */
+private void submitScores() throws IOException, JSchException, SftpException {
+
 
     String userName = new String();
     for (int i = 0; i < keyboardInput.size(); i++){

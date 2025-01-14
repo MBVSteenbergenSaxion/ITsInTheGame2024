@@ -78,7 +78,7 @@ public class Utility {
 
         Frame[] frames = Frame.getFrames();
         BufferedImage customImage = ImageIO.read(new File("resources/Images/Tetris_Logo.png"));
-        BufferedImage customImage2 = ImageIO.read(new File("resources/Images/NavyEagleLogo.jpg"));
+        BufferedImage customImage2 = ImageIO.read(new File("resources/Images/NavyEagleLogo.png"));
 
         frames[0].setResizable(true);
 
