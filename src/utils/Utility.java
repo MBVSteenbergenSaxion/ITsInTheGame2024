@@ -10,6 +10,11 @@ import java.io.IOException;
 
 public class Utility {
 
+    /***
+     * Getter for the pointer location. Compensates for the dynamic nature of the game window.
+     *
+     */
+
     public static int[] getPointerOnFrame() {
 
         int[] pointerData = new int[2];
@@ -29,10 +34,10 @@ public class Utility {
     }
 
     /***
+     * Getter for active frames on the screen (JFrame).
      * SaxionApp only allows one window to be made at one time, that's why there's only one iteration of the loop.
      *
      */
-
 
     private static Point getActiveFrameLocation() {
         Point location = new Point();
@@ -50,6 +55,14 @@ public class Utility {
 
     }
 
+    /***
+     * Checks if the pointer is in the given bounds at the current moment.
+     * Servers two functionalities:
+     * 1) changing the fill color of a button on hover
+     * 2) playing a sound when a given object is clicked
+     *
+     */
+
     public static boolean checkBounds(int x, int y, int objectX, int objectY, int width, int height, boolean isClicked ) {
 
         if ((x >= objectX && x <= objectX + width) && (y >= objectY && y <= objectY + height) && isClicked) {
@@ -59,6 +72,13 @@ public class Utility {
 
         return (x >= objectX && x <= objectX + width) && (y >= objectY && y <= objectY + height);
     }
+
+    /***
+     * Takes an array object and multiple integers.
+     * Iterates through the whole thing to check if the given indexes are out of bounds.
+     * Possibly deprecated, given the use of the newest checks in the GameThread.
+     *
+     */
 
     public static boolean isArrayInBounds(Object arrayObj, int... indexes) {
         for (int i = 0; i < indexes.length; i++) {
@@ -73,6 +93,12 @@ public class Utility {
         }
         return true;
     }
+
+    /***
+     * Takes the active frame and makes two custom images.
+     * These get used to style the window in the FrameThread.
+     *
+     */
 
     public static void customizeScreen() throws IOException, InterruptedException {
 

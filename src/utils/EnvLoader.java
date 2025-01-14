@@ -8,6 +8,14 @@ import java.util.Map;
 
 public class EnvLoader {
 
+    /***
+     * Searches for a file with the specified file path.
+     * If a file is found, lines in it get set in the HashMap with the following principle:
+     * Key: variable name
+     * Value: variable
+     *
+     */
+
     public static Map<String, String> loadEnv(String filePath) throws IOException {
         Map<String, String> env = new HashMap<>();
 
