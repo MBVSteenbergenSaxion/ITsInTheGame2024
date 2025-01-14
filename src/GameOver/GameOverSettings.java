@@ -44,6 +44,10 @@ public class GameOverSettings {
         return yPos;
     }
 
+    public static int gameOverTextYpos(){
+        int ypos = (int) (Settings.height * 0.8 - Settings.height * 0.1)
+    }
+
     public static int buttonWidth() {
         return Settings.buttonWidth;
     }

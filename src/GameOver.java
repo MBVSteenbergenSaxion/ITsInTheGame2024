@@ -7,6 +7,7 @@ import nl.saxion.app.interaction.MouseEvent;
 import utils.MyButton;
 import utils.TextBox;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -135,6 +136,10 @@ public class GameOver extends Canvas{
      * Draws the game, leaderboard and quit button with dynamic width and height based on the Settings.Settings class and MyButton class
      * */
     private void draw(){
+        SaxionApp.drawText("GAME OVER", usernameInput.x-usernameInput.x/2,usernameInput.y/2-usernameInput.y/6,100);
+        //SaxionApp.drawText("YOUR SCORE: "+finalHighscore,usernameInput.x+usernameInput.x/5,usernameInput.y/2+usernameInput.y/4,25);
+        SaxionApp.setTextDrawingColor(Color.white);
+        TextBox.drawTextBox(usernameInput.x, usernameInput.y, usernameInput.fontSize, keyboardInput);
         TextBox.drawTextBox(usernameInput.x, usernameInput.y, usernameInput.fontSize, keyboardInput);
         MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu");
         MyButton.drawButton(submitButton.x, submitButton.y, submitButton.width, submitButton.height, Settings.fontSize, "Submit Score");
