@@ -20,7 +20,7 @@ public class Game extends Canvas {
     /**
      * Private boolean values to check if a key is already pressed or not
      */
-    private boolean upKeyPressed, rightKeyPressed, leftKeyPressed;
+    private boolean upKeyPressed;
 
     /**
      * Making two new buttons (Restart and Quit), making a new MyButton() from our utils package
@@ -95,14 +95,12 @@ public class Game extends Canvas {
                 {
                     gb.rightMovement();
                     SaxionApp.playSound("resources/gameSounds/movement.wav");
-                    rightKeyPressed = true;
                 }
                 break;
                 case 37, 65: //ArrowLeft or A
                 {
                     gb.leftMovement();
                     SaxionApp.playSound("resources/gameSounds/movement.wav");
-                    leftKeyPressed = true;
                 }
                 break; //ArrowDown or S
                 case 40, 83:
@@ -121,10 +119,6 @@ public class Game extends Canvas {
             switch (keyboardEvent.getKeyCode()) {
                 case 38, 87: //ArrowUp or W
                     upKeyPressed = false;
-                case 39, 68: //ArrowRight or D
-                    rightKeyPressed = false;
-                case 37, 65: //ArrowLeft or A
-                    leftKeyPressed = false;
 
             }
         }

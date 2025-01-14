@@ -66,7 +66,7 @@ public class Main extends Canvas{
         quitButton.width = Settings.buttonWidth;
         quitButton.height = Settings.buttonHeight;
 
-        SaxionApp.drawImage("resources/Images/Tetris_Logo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3);
+        SaxionApp.drawImage("resources/Images/EagleMainLogo.png", Settings.width / 3, 0, Settings.width / 3, Settings.height / 3 + 40);
         SaxionApp.drawImage("resources/Images/background.png", 0, 0, Settings.width, Settings.height);
     }
 
