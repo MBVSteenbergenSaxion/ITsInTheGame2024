@@ -16,12 +16,13 @@ import java.util.Arrays;
 
 import static utils.TextBox.charLimit;
 
-public class GameOver extends Canvas{
+public class GameOver extends Canvas {
 
-    public GameOver(int highscore){
+    public GameOver(int highscore) {
         super();
         finalHighscore = highscore;
     }
+
     /***
      * Initialize buttons and add their attributes (see MyButton class for the drawing methods)
      *
@@ -39,13 +40,13 @@ public class GameOver extends Canvas{
      * - Game, leaderboard and quit button with dynamic positioning and dimensions
      * - It calculates the height and width
      * - It calculates the x and y coordinates relative to the Settings class
-     * */
+     */
     @Override
     public void init() {
 
         Canvas.stopBackgroundMusic();
 
-        usernameInput.x = Settings.width / 2 - Settings.fontSize*6;
+        usernameInput.x = Settings.width / 2 - Settings.fontSize * 6;
         usernameInput.y = (int) (Settings.height * 0.4);
         usernameInput.fontSize = 25;
 
@@ -60,17 +61,19 @@ public class GameOver extends Canvas{
         submitButton.height = Settings.buttonHeight;
 
     }
+
     /**
      * Calls the Draw method every frame
-     * */
+     */
     @Override
     public void loop() {
+        SaxionApp.clear();
+
         draw();
     }
 
     /**
      * reads the keyboard input for writing a name down, length is capped to 8 characters
-     *
      */
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
@@ -132,40 +135,41 @@ public class GameOver extends Canvas{
 
     /**
      * Draws the game, leaderboard and quit button with dynamic width and height based on the Settings class and MyButton class
-     * */
-    private void draw(){
+     */
+    private void draw() {
         SaxionApp.setTextDrawingColor(Color.red);
-        SaxionApp.drawText("GAME OVER", usernameInput.x-usernameInput.x/3,usernameInput.y/2-usernameInput.y/6,100);
-        SaxionApp.drawText("YOUR SCORE: "+finalHighscore,usernameInput.x+usernameInput.x/5,usernameInput.y/2+usernameInput.y/4,25);
+        SaxionApp.drawText("GAME OVER", usernameInput.x - usernameInput.x / 3, usernameInput.y / 2 - usernameInput.y / 6, 100);
+        SaxionApp.drawText("YOUR SCORE: " + finalHighscore, usernameInput.x + usernameInput.x / 5, usernameInput.y / 2 + usernameInput.y / 4, 25);
         SaxionApp.setTextDrawingColor(Color.white);
         TextBox.drawTextBox(usernameInput.x, usernameInput.y, usernameInput.fontSize, keyboardInput);
-        MyButton.drawButton(menuButton.x,menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu", Color.RED);
+        MyButton.drawButton(menuButton.x, menuButton.y, menuButton.width, menuButton.height, Settings.fontSize, "Main Menu", Color.RED);
         MyButton.drawButton(submitButton.x, submitButton.y, submitButton.width, submitButton.height, Settings.fontSize, "Submit Score", Color.GREEN);
     }
+
     /**
      * capitalizes whatever username has been entered before sending it to SFTP.
      */
-private void submitScores() throws IOException, JSchException, SftpException {
+    private void submitScores() throws IOException, JSchException, SftpException {
 
 
-    String userName = new String();
-    for (int i = 0; i < keyboardInput.size(); i++){
-        userName += keyboardInput.get(i);
+        String userName = new String();
+        for (int i = 0; i < keyboardInput.size(); i++) {
+            userName += keyboardInput.get(i);
+        }
+
+        if (userName.isEmpty()) userName = "username";
+
+        userName.toLowerCase();
+        userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
+        String[] array = new String[]{userName, String.valueOf(finalHighscore)};
+
+        if (Main.env == null) {
+            LeaderboardBackend.writeToCSVOffline(array);
+        } else {
+            LeaderboardBackend.writeToCSVOnline(array);
+
+        }
     }
-
-    if(userName.isEmpty()) userName = "username";
-
-    userName.toLowerCase();
-    userName = userName.substring(0,1).toUpperCase() + userName.substring(1).toLowerCase();
-    String[] array = new String[]{userName, String.valueOf(finalHighscore)};
-
-    if (Main.env == null){
-        LeaderboardBackend.writeToCSVOffline(array);
-    } else {
-        LeaderboardBackend.writeToCSVOnline(array);
-
-    }
-}
 }
 
 
