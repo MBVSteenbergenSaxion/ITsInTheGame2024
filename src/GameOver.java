@@ -171,8 +171,6 @@ public class GameOver extends Canvas {
 
         }
 
-        keyboardInput = new ArrayList<>();
-
     }
 }
 
