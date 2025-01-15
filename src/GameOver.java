@@ -113,6 +113,7 @@ public class GameOver extends Canvas {
                 SaxionApp.setBackgroundColor(backgroundColor);
 
                 GameThread.resetScore();
+                keyboardInput = new ArrayList<>();
                 switchToScreen(new Main());
             }
             if (utils.Utility.checkBounds(x, y,
@@ -126,6 +127,7 @@ public class GameOver extends Canvas {
                     throw new RuntimeException(e);
                 }
                 GameThread.resetScore();
+                keyboardInput = new ArrayList<>();
                 switchToScreen(new Main());
             }
 
@@ -151,7 +153,6 @@ public class GameOver extends Canvas {
      */
     private void submitScores() throws IOException, JSchException, SftpException {
 
-
         String userName = new String();
         for (int i = 0; i < keyboardInput.size(); i++) {
             userName += keyboardInput.get(i);
@@ -169,6 +170,9 @@ public class GameOver extends Canvas {
             LeaderboardBackend.writeToCSVOnline(array);
 
         }
+
+        keyboardInput = new ArrayList<>();
+
     }
 }
 
