@@ -94,13 +94,13 @@ public class Game extends Canvas {
                 case 39, 68: //ArrowRight or D
                 {
                     gb.rightMovement();
-                    SaxionApp.playSound("resources/gameSounds/movement.wav");
+                    SaxionApp.playSound("resources/gamesounds/movement.wav");
                 }
                 break;
                 case 37, 65: //ArrowLeft or A
                 {
                     gb.leftMovement();
-                    SaxionApp.playSound("resources/gameSounds/movement.wav");
+                    SaxionApp.playSound("resources/gamesounds/movement.wav");
                 }
                 break; //ArrowDown or S
                 case 40, 83:
@@ -109,7 +109,7 @@ public class Game extends Canvas {
                 case 38, 87: //ArrowUp or W
                     if (!upKeyPressed) {
                         gb.rotate();
-                        SaxionApp.playSound("resources/gameSounds/rotation.wav");
+                        SaxionApp.playSound("resources/gamesounds/rotation.wav");
                         upKeyPressed = true;
                     }
                     break;

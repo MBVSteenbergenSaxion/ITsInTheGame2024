@@ -66,7 +66,7 @@ public class Utility {
     public static boolean checkBounds(int x, int y, int objectX, int objectY, int width, int height, boolean isClicked ) {
 
         if ((x >= objectX && x <= objectX + width) && (y >= objectY && y <= objectY + height) && isClicked) {
-            SaxionApp.playSound("resources/gameSounds/buttons.wav");
+            SaxionApp.playSound("resources/gamesounds/buttons.wav");
             return true;
         }
 

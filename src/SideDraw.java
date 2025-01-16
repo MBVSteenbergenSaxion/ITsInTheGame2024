@@ -76,7 +76,7 @@ public class SideDraw {
     /** void drawImage(), draws the image with all the controls you can use in the game.
      * */
     public void drawImage() {
-        SaxionApp.drawImage("resources/Images/tetris_controls.png", SideSettings.getStartNextPanelX(), SideSettings.getSideImageY(), SideSettings.getSideImageWidth(), SideSettings.getSideHeight());
+        SaxionApp.drawImage("resources/images/tetris_controls.png", SideSettings.getStartNextPanelX(), SideSettings.getSideImageY(), SideSettings.getSideImageWidth(), SideSettings.getSideHeight());
     }
 
     /** Void paint(), main paint method for the SideDraw class
