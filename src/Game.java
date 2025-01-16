@@ -58,6 +58,7 @@ public class Game extends Canvas {
     @Override
     public void init() {
         GameBackend.startGame();
+        Leaderboard.isPlaying = false;
 
         restartButton.x = SideSettings.getStartNextPanelX();
         restartButton.y = SideSettings.getRestartButtonY();

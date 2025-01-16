@@ -48,6 +48,7 @@ public class Main extends Canvas{
 
         if(!Leaderboard.isPlaying){
             Canvas.playBackgroundMusic(filePath);
+            Leaderboard.isPlaying = true;
         }
 
         loadEnv();
