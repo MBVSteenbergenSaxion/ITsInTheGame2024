@@ -103,8 +103,8 @@ public class Utility {
     public static void customizeScreen() throws IOException, InterruptedException {
 
         Frame[] frames = Frame.getFrames();
-        BufferedImage customImage = ImageIO.read(new File("resources/Images/Tetris_Logo.png"));
-        BufferedImage customImage2 = ImageIO.read(new File("resources/Images/NavyEagleLogo.png"));
+        BufferedImage customImage = ImageIO.read(new File("resources/images/Tetris_Logo.png"));
+        BufferedImage customImage2 = ImageIO.read(new File("resources/images/NavyEagleLogo.png"));
 
         frames[0].setResizable(true);
 
